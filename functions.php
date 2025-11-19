@@ -453,7 +453,6 @@ function is_quartier_actuel($quartier) {
     return strtoupper(trim($quartier)) === strtoupper(trim($quartier_actuel));
 }
 
-<?php
 /**
  * Configuration WordPress Customizer pour Page Logement Sous-Menu
  * À ajouter dans functions.php
@@ -682,4 +681,3 @@ function logement_theme_support() {
 }
 add_action('after_setup_theme', 'logement_theme_support');
 
-?>
