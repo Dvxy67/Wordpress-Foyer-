@@ -83,7 +83,6 @@ get_header(); ?>
         .option-icon {
             width: 90px;
             height: 90px;
-            border: 4px solid #000000;
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -197,7 +196,6 @@ get_header(); ?>
             .option-icon {
                 width: 70px;
                 height: 70px;
-                border: 3px solid #000000;
             }
             
             .option-icon .emoji-fallback {
@@ -231,17 +229,9 @@ get_header(); ?>
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        .option-icon {
-            border: 4px solid #000000 !important;
-        }
-
         @media (max-width: 480px) {
             .logement-container {
                 border: 4px solid #000000 !important;
-            }
-            
-            .option-icon {
-                border: 3px solid #000000 !important;
             }
         }
     </style>
