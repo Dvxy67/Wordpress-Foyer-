@@ -452,3 +452,234 @@ function is_quartier_actuel($quartier) {
     $quartier_actuel = get_theme_mod('quartiers_quartier_actuel', 'PETERBOS');
     return strtoupper(trim($quartier)) === strtoupper(trim($quartier_actuel));
 }
+
+<?php
+/**
+ * Configuration WordPress Customizer pour Page Logement Sous-Menu
+ * À ajouter dans functions.php
+ */
+
+// Customizer pour la page Logement Sous-Menu
+function logement_sous_menu_customizer($wp_customize) {
+    
+    // Section principale
+    $wp_customize->add_section('logement_sous_menu_section', array(
+        'title' => 'Page Logement - Sous Menu',
+        'description' => 'Configuration des options de la page logement sous-menu',
+        'priority' => 120,
+    ));
+
+    // --- OPTION 1: CANDIDATURE ---
+    
+    // Icône Candidature
+    $wp_customize->add_setting('logement_icon_candidature', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logement_icon_candidature', array(
+        'label' => 'Icône - Candidature',
+        'section' => 'logement_sous_menu_section',
+        'settings' => 'logement_icon_candidature',
+        'description' => 'Icône pour "Entrer ma candidature" (PNG/JPG)',
+    )));
+
+    // Texte Candidature
+    $wp_customize->add_setting('logement_text_candidature', array(
+        'default' => 'ENTRER MA CANDIDATURE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_text_candidature', array(
+        'label' => 'Texte - Candidature',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'text',
+    ));
+
+    // URL Candidature
+    $wp_customize->add_setting('logement_url_candidature', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('logement_url_candidature', array(
+        'label' => 'URL - Candidature',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page de candidature',
+    ));
+
+    // --- OPTION 2: ÉLIGIBILITÉ ---
+    
+    // Icône Éligibilité
+    $wp_customize->add_setting('logement_icon_eligibilite', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logement_icon_eligibilite', array(
+        'label' => 'Icône - Éligibilité',
+        'section' => 'logement_sous_menu_section',
+        'settings' => 'logement_icon_eligibilite',
+        'description' => 'Icône pour "Est-ce que j\'y ai droit?" (PNG/JPG)',
+    )));
+
+    // Texte Éligibilité
+    $wp_customize->add_setting('logement_text_eligibilite', array(
+        'default' => 'EST-CE QUE J\'Y AI DROIT?',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_text_eligibilite', array(
+        'label' => 'Texte - Éligibilité',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'text',
+    ));
+
+    // URL Éligibilité
+    $wp_customize->add_setting('logement_url_eligibilite', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('logement_url_eligibilite', array(
+        'label' => 'URL - Éligibilité',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page d\'éligibilité',
+    ));
+
+    // --- OPTION 3: DÉLAIS ---
+    
+    // Icône Délais
+    $wp_customize->add_setting('logement_icon_delais', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logement_icon_delais', array(
+        'label' => 'Icône - Délais',
+        'section' => 'logement_sous_menu_section',
+        'settings' => 'logement_icon_delais',
+        'description' => 'Icône pour "Combien de temps je vais attendre?" (PNG/JPG)',
+    )));
+
+    // Texte Délais
+    $wp_customize->add_setting('logement_text_delais', array(
+        'default' => 'COMBIEN DE TEMPS JE VAIS ATTENDRE?',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_text_delais', array(
+        'label' => 'Texte - Délais',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'text',
+    ));
+
+    // URL Délais
+    $wp_customize->add_setting('logement_url_delais', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('logement_url_delais', array(
+        'label' => 'URL - Délais',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page des délais',
+    ));
+
+    // --- OPTION 4: AUTRE (OPTIONNELLE) ---
+    
+    // Activer Option 4
+    $wp_customize->add_setting('logement_show_option4', array(
+        'default' => false,
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_show_option4', array(
+        'label' => 'Afficher Option 4',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'checkbox',
+        'description' => 'Activer une 4ème option',
+    ));
+
+    // Icône Option 4
+    $wp_customize->add_setting('logement_icon_autre', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logement_icon_autre', array(
+        'label' => 'Icône - Option 4',
+        'section' => 'logement_sous_menu_section',
+        'settings' => 'logement_icon_autre',
+        'description' => 'Icône pour la 4ème option (PNG/JPG)',
+    )));
+
+    // Texte Option 4
+    $wp_customize->add_setting('logement_text_autre', array(
+        'default' => 'AUTRE OPTION',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_text_autre', array(
+        'label' => 'Texte - Option 4',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'text',
+    ));
+
+    // URL Option 4
+    $wp_customize->add_setting('logement_url_autre', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('logement_url_autre', array(
+        'label' => 'URL - Option 4',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'url',
+    ));
+
+    // --- BOUTON RETOUR ---
+    
+    // Texte du bouton retour
+    $wp_customize->add_setting('logement_retour_text', array(
+        'default' => 'RETOUR HOMEPAGE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('logement_retour_text', array(
+        'label' => 'Texte - Bouton Retour',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'text',
+    ));
+
+    // URL du bouton retour
+    $wp_customize->add_setting('logement_retour_url', array(
+        'default' => home_url(),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('logement_retour_url', array(
+        'label' => 'URL - Bouton Retour',
+        'section' => 'logement_sous_menu_section',
+        'type' => 'url',
+        'description' => 'URL de retour (par défaut: homepage)',
+    ));
+}
+add_action('customize_register', 'logement_sous_menu_customizer');
+
+/**
+ * Fonction helper pour récupérer les URLs des options
+ */
+function get_logement_option_url($option) {
+    switch ($option) {
+        case 'candidature':
+            return get_theme_mod('logement_url_candidature', '#');
+        case 'eligibilite':
+            return get_theme_mod('logement_url_eligibilite', '#');
+        case 'delais':
+            return get_theme_mod('logement_url_delais', '#');
+        case 'autre':
+            return get_theme_mod('logement_url_autre', '#');
+        default:
+            return '#';
+    }
+}
+
+/**
+ * Support pour les images uploadées
+ */
+function logement_theme_support() {
+    add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+}
+add_action('after_setup_theme', 'logement_theme_support');
+
+?>
