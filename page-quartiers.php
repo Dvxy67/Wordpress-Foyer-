@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Page Quartiers - Scroll + Sélection
+Template Name: Page Quartiers - Harmonisée
 */
 get_header(); ?>
 
@@ -12,7 +12,7 @@ get_header(); ?>
     <title>Les Quartiers</title>
     
     <style>
-        /* CSS FINAL - Scroll + Sélection au clic */
+        /* CSS HARMONISÉ - Page Quartiers Mobile-First */
         
         * {
             margin: 0;
@@ -35,38 +35,41 @@ get_header(); ?>
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Container de la grille */
+        /* Container de la grille - TOTAL FIT ÉCRAN */
         .quartiers-container {
             background: #F4D03F;
-            border: 6px solid #000000;
+            border: 4px solid #000000;
             border-radius: 25px;
             width: 100%;
-            max-width: 380px;
-            height: 550px;
-            padding: 12px;
-            margin-bottom: 30px;
+            max-width: 340px;
+            height: calc(100vh - 120px);
+            max-height: 480px;
+            min-height: 400px;
+            padding: 15px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
         }
 
-        /* Section titre avec immeuble */
+        /* Section titre avec immeuble - OPTIMISÉE */
         .titre-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            gap: 15px;
-            min-height: 80px;
+            margin-bottom: 15px;
+            gap: 12px;
+            min-height: 60px;
+            flex-shrink: 0;
         }
 
-        /* Image d'immeuble */
+        /* Image d'immeuble - RÉDUITE */
         .immeuble-icon {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -80,20 +83,20 @@ get_header(); ?>
         }
 
         .immeuble-icon .emoji-fallback {
-            font-size: 56px;
+            font-size: 40px;
             line-height: 1;
         }
 
-        /* Titre "J'HABITE À" */
+        /* Titre "J'HABITE À" - RÉDUIT */
         .titre-text {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Zone scrollable - MAINTENUE ! */
+        /* Zone scrollable - OPTIMISÉE */
         .quartiers-scroll {
             flex: 1;
             background: #FFFFFF;
@@ -106,7 +109,7 @@ get_header(); ?>
 
         /* Scrollbar pour Chrome/Safari */
         .quartiers-scroll::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         .quartiers-scroll::-webkit-scrollbar-track {
@@ -129,13 +132,13 @@ get_header(); ?>
             padding: 0;
         }
 
-        /* Item de quartier - TOUS BLANCS par défaut */
+        /* Item de quartier - HARMONISÉ */
         .quartier-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 20px;
-            font-size: 16px;
+            padding: 12px 15px;
+            font-size: 14px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -144,7 +147,7 @@ get_header(); ?>
             background: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.2s ease;
-            min-height: 55px;
+            min-height: 45px;
         }
 
         /* Hover normal */
@@ -167,17 +170,19 @@ get_header(); ?>
             border-bottom: none;
         }
 
-        /* Section bouton retour */
+        /* Section bouton retour - COMPACTE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 70px;
+            flex-shrink: 0;
         }
 
         .retour-button {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -187,17 +192,17 @@ get_header(); ?>
             transform: scale(1.05);
         }
 
-        /* Flèche de retour */
+        /* Flèche de retour - HARMONISÉE */
         .arrow {
-            font-size: 50px;
+            font-size: 40px;
             font-weight: bold;
             color: #000;
             line-height: 1;
         }
 
-        /* Texte retour */
+        /* Texte retour - HARMONISÉ */
         .retour-text {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -206,50 +211,50 @@ get_header(); ?>
             letter-spacing: 1px;
         }
 
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 480px) {
+        /* DESKTOP RESPONSIVE */
+        @media (min-width: 481px) {
             .quartiers-page {
-                padding: 15px;
+                padding: 20px;
             }
             
             .quartiers-container {
-                max-width: 320px;
-                height: 450px;
-                padding: 10px;
-                border: 4px solid #000000;
+                max-width: 380px;
+                height: 550px;
+                border: 6px solid #000000;
+                padding: 20px;
             }
             
             .titre-section {
-                gap: 10px;
-                margin-bottom: 15px;
-                min-height: 60px;
+                margin-bottom: 20px;
+                gap: 15px;
+                min-height: 80px;
             }
             
             .immeuble-icon {
-                width: 50px;
-                height: 50px;
+                width: 70px;
+                height: 70px;
             }
             
             .immeuble-icon .emoji-fallback {
-                font-size: 40px;
+                font-size: 56px;
             }
             
             .titre-text {
-                font-size: 16px;
+                font-size: 22px;
             }
             
             .quartier-item {
-                padding: 12px 15px;
-                font-size: 14px;
-                min-height: 45px;
+                padding: 16px 20px;
+                font-size: 16px;
+                min-height: 55px;
             }
             
             .arrow {
-                font-size: 35px;
+                font-size: 50px;
             }
             
             .retour-text {
-                font-size: 14px;
+                font-size: 18px;
             }
         }
 
@@ -262,7 +267,7 @@ get_header(); ?>
 
         /* Exceptions pour nos styles */
         .quartiers-container {
-            border: 6px solid #000000 !important;
+            border: 4px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
@@ -272,6 +277,12 @@ get_header(); ?>
 
         .quartier-item:last-child {
             border-bottom: none !important;
+        }
+
+        @media (min-width: 481px) {
+            .quartiers-container {
+                border: 6px solid #000000 !important;
+            }
         }
     </style>
     

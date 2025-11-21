@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Page Logement Sous-Menu
+Template Name: Page Logement Sous-Menu - Harmonisée
 */
 get_header(); ?>
 
@@ -12,7 +12,7 @@ get_header(); ?>
     <title>Logement - Sous Menu</title>
     
     <style>
-        /* CSS FINAL - Page Logement Sous Menu */
+        /* CSS HARMONISÉ - Page Logement Sous Menu Mobile-First */
         
         * {
             margin: 0;
@@ -35,31 +35,57 @@ get_header(); ?>
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Container principal rose */
+        /* Container principal rose - AVEC SCROLL COMME MAQUETTE */
         .logement-container {
             background: #F4A6A6;
-            border: 6px solid #000000;
+            border: 4px solid #000000;
             border-radius: 25px;
             width: 100%;
-            max-width: 380px;
-            min-height: 600px;
-            padding: 30px 25px;
-            margin-bottom: 30px;
+            max-width: 340px;
+            height: calc(100vh - 100px);
+            max-height: 520px;
+            min-height: 420px;
+            padding: 20px 15px 15px 15px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+            overflow: hidden;
         }
 
-        /* Container des options */
+        /* Container des options - AVEC SCROLL */
         .options-container {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 35px;
             flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px;
+            scrollbar-width: thin;
+            scrollbar-color: #CCCCCC #F0F0F0;
+        }
+
+        /* Scrollbar pour Chrome/Safari */
+        .options-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .options-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .options-container::-webkit-scrollbar-thumb {
+            background: #CCCCCC;
+            border-radius: 4px;
+        }
+
+        .options-container::-webkit-scrollbar-thumb:hover {
+            background: #AAAAAA;
         }
 
         /* Option individuelle */
@@ -79,15 +105,15 @@ get_header(); ?>
             color: #000;
         }
 
-        /* Icône de l'option */
+        /* Icône de l'option - HARMONISÉE */
         .option-icon {
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             overflow: hidden;
         }
 
@@ -116,13 +142,13 @@ get_header(); ?>
 
         /* Emojis fallback */
         .option-icon .emoji-fallback {
-            font-size: 60px;
+            font-size: 45px;
             line-height: 1;
         }
 
-        /* Texte de l'option */
+        /* Texte de l'option - HARMONISÉ */
         .option-text {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -131,21 +157,22 @@ get_header(); ?>
             letter-spacing: 1px;
             text-decoration: underline;
             text-decoration-thickness: 2px;
-            max-width: 280px;
+            max-width: 250px;
         }
 
-        /* Section bouton retour */
+        /* Section bouton retour - ULTRA COMPACT */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
+            height: 60px;
+            flex-shrink: 0;
         }
 
         .retour-button {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -157,17 +184,17 @@ get_header(); ?>
             color: #000;
         }
 
-        /* Flèche de retour */
+        /* Flèche de retour - HARMONISÉE */
         .arrow {
-            font-size: 60px;
+            font-size: 40px;
             font-weight: bold;
             color: #000;
             line-height: 1;
         }
 
-        /* Texte retour */
+        /* Texte retour - HARMONISÉ */
         .retour-text {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -176,43 +203,44 @@ get_header(); ?>
             letter-spacing: 1px;
         }
 
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 480px) {
+        /* DESKTOP RESPONSIVE */
+        @media (min-width: 481px) {
             .logement-page {
-                padding: 15px;
+                padding: 20px;
             }
             
             .logement-container {
-                max-width: 320px;
-                min-height: 500px;
-                padding: 25px 20px;
-                border: 4px solid #000000;
+                max-width: 380px;
+                min-height: 600px;
+                padding: 30px 25px;
+                border: 6px solid #000000;
             }
             
             .options-container {
-                gap: 30px;
+                gap: 40px;
             }
             
             .option-icon {
-                width: 70px;
-                height: 70px;
+                width: 90px;
+                height: 90px;
+                margin-bottom: 15px;
             }
             
             .option-icon .emoji-fallback {
-                font-size: 45px;
+                font-size: 60px;
             }
             
             .option-text {
-                font-size: 16px;
-                max-width: 240px;
+                font-size: 18px;
+                max-width: 280px;
             }
             
             .arrow {
-                font-size: 45px;
+                font-size: 60px;
             }
             
             .retour-text {
-                font-size: 16px;
+                font-size: 18px;
             }
         }
 
@@ -225,13 +253,13 @@ get_header(); ?>
 
         /* Exceptions pour nos styles */
         .logement-container {
-            border: 6px solid #000000 !important;
+            border: 4px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        @media (max-width: 480px) {
+        @media (min-width: 481px) {
             .logement-container {
-                border: 4px solid #000000 !important;
+                border: 6px solid #000000 !important;
             }
         }
     </style>
@@ -294,8 +322,7 @@ get_header(); ?>
                 </div>
             </a>
 
-            <!-- Option 4: Autre (optionnelle) -->
-            <?php if (get_theme_mod('logement_show_option4', false)) : ?>
+            <!-- Option 4: Par défaut visible (comme dans la maquette) -->
             <a href="<?php echo get_logement_option_url('autre'); ?>" class="logement-option">
                 <div class="option-icon autre">
                     <?php 
@@ -303,11 +330,28 @@ get_header(); ?>
                     if ($icon_autre) : ?>
                         <img src="<?php echo esc_url($icon_autre); ?>" alt="Autre">
                     <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Autre">❓</span>
+                        <span class="emoji-fallback" role="img" aria-label="Question">❓</span>
                     <?php endif; ?>
                 </div>
                 <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('logement_text_autre', 'AUTRE OPTION')); ?>
+                    <?php echo esc_html(get_theme_mod('logement_text_autre', 'AUTRE QUESTION?')); ?>
+                </div>
+            </a>
+
+            <!-- Options supplémentaires si activées -->
+            <?php if (get_theme_mod('logement_show_option4', false)) : ?>
+            <a href="<?php echo get_logement_option_url('option5'); ?>" class="logement-option">
+                <div class="option-icon autre">
+                    <?php 
+                    $icon_option5 = get_theme_mod('logement_icon_option5');
+                    if ($icon_option5) : ?>
+                        <img src="<?php echo esc_url($icon_option5); ?>" alt="Option 5">
+                    <?php else : ?>
+                        <span class="emoji-fallback" role="img" aria-label="Plus">➕</span>
+                    <?php endif; ?>
+                </div>
+                <div class="option-text">
+                    <?php echo esc_html(get_theme_mod('logement_text_option5', 'OPTION SUPPLÉMENTAIRE')); ?>
                 </div>
             </a>
             <?php endif; ?>

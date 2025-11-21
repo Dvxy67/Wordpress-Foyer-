@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Page Foyer
+Template Name: Page Foyer - Harmonisée
 */
 get_header(); ?>
 
@@ -12,7 +12,7 @@ get_header(); ?>
     <title>Le Foyer</title>
     
     <style>
-        /* CSS FINAL - Page Foyer */
+        /* CSS HARMONISÉ - Page Foyer Mobile-First */
         
         * {
             margin: 0;
@@ -35,30 +35,32 @@ get_header(); ?>
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Container principal vert turquoise */
+        /* Container principal vert turquoise - TOTAL FIT ÉCRAN */
         .foyer-container {
             background: #7FCDCD;
-            border: 6px solid #000000;
+            border: 4px solid #000000;
             border-radius: 25px;
             width: 100%;
-            max-width: 380px;
-            min-height: 650px;
-            padding: 40px 30px;
-            margin-bottom: 30px;
+            max-width: 340px;
+            height: calc(100vh - 120px);
+            max-height: 480px;
+            min-height: 400px;
+            padding: 25px 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        /* Container des options */
+        /* Container des options - OPTIMISÉ */
         .options-container {
             display: flex;
             flex-direction: column;
-            gap: 60px;
+            gap: 35px;
             flex: 1;
             justify-content: center;
         }
@@ -80,9 +82,9 @@ get_header(); ?>
             color: #000;
         }
 
-        /* Texte de l'option */
+        /* Texte de l'option - HARMONISÉ */
         .option-text {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -94,19 +96,20 @@ get_header(); ?>
             text-underline-offset: 3px;
         }
 
-        /* Section bouton retour */
+        /* Section bouton retour - COMPACTE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
+            height: 70px;
+            flex-shrink: 0;
         }
 
         .retour-button {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -118,10 +121,10 @@ get_header(); ?>
             color: #000;
         }
 
-        /* Image/Icône de la flèche */
+        /* Image/Icône de la flèche - HARMONISÉE */
         .arrow-container {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -135,15 +138,15 @@ get_header(); ?>
 
         /* Fallback flèche */
         .arrow-fallback {
-            font-size: 60px;
+            font-size: 40px;
             font-weight: bold;
             color: #000;
             line-height: 1;
         }
 
-        /* Texte retour */
+        /* Texte retour - HARMONISÉ */
         .retour-text {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -153,54 +156,54 @@ get_header(); ?>
             text-align: center;
         }
 
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 480px) {
+        /* DESKTOP RESPONSIVE */
+        @media (min-width: 481px) {
             .foyer-page {
-                padding: 15px;
+                padding: 20px;
             }
             
             .foyer-container {
-                max-width: 320px;
-                min-height: 550px;
-                padding: 30px 25px;
-                border: 4px solid #000000;
+                max-width: 380px;
+                min-height: 650px;
+                padding: 40px 30px;
+                border: 6px solid #000000;
             }
             
             .options-container {
-                gap: 45px;
+                gap: 60px;
             }
             
             .option-text {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .arrow-container {
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
             }
             
             .arrow-fallback {
-                font-size: 45px;
+                font-size: 60px;
             }
             
             .retour-text {
-                font-size: 16px;
+                font-size: 18px;
             }
         }
 
-        /* Très petit mobile */
+        /* TRÈS PETIT MOBILE - OPTIMISÉ */
         @media (max-width: 360px) {
             .foyer-container {
                 max-width: 300px;
-                padding: 25px 20px;
+                padding: 20px 15px;
             }
             
             .options-container {
-                gap: 35px;
+                gap: 25px;
             }
             
             .option-text {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
 
@@ -213,13 +216,13 @@ get_header(); ?>
 
         /* Exceptions pour nos styles */
         .foyer-container {
-            border: 6px solid #000000 !important;
+            border: 4px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        @media (max-width: 480px) {
+        @media (min-width: 481px) {
             .foyer-container {
-                border: 4px solid #000000 !important;
+                border: 6px solid #000000 !important;
             }
         }
     </style>
