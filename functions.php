@@ -681,3 +681,248 @@ function logement_theme_support() {
 }
 add_action('after_setup_theme', 'logement_theme_support');
 
+/**
+ * Configuration WordPress Customizer pour Page Foyer
+ * À ajouter dans functions.php
+ */
+
+// Customizer pour la page Foyer
+function foyer_customizer($wp_customize) {
+    
+    // Section principale
+    $wp_customize->add_section('foyer_section', array(
+        'title' => 'Page Foyer - Configuration',
+        'description' => 'Configuration des options de la page foyer',
+        'priority' => 130,
+    ));
+
+    // --- OPTION 1: LA VISION ---
+    
+    // Texte Vision
+    $wp_customize->add_setting('foyer_text_vision', array(
+        'default' => 'LA VISION',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_vision', array(
+        'label' => 'Texte - La Vision',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Vision
+    $wp_customize->add_setting('foyer_url_vision', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_vision', array(
+        'label' => 'URL - La Vision',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page Vision',
+    ));
+
+    // --- OPTION 2: LES CHIFFRES ---
+    
+    // Texte Chiffres
+    $wp_customize->add_setting('foyer_text_chiffres', array(
+        'default' => 'LES CHIFFRES',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_chiffres', array(
+        'label' => 'Texte - Les Chiffres',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Chiffres
+    $wp_customize->add_setting('foyer_url_chiffres', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_chiffres', array(
+        'label' => 'URL - Les Chiffres',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page Chiffres',
+    ));
+
+    // --- OPTION 3: LE RAPPORT ANNUEL ---
+    
+    // Texte Rapport
+    $wp_customize->add_setting('foyer_text_rapport', array(
+        'default' => 'LE RAPPORT ANNUEL',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_rapport', array(
+        'label' => 'Texte - Le Rapport Annuel',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Rapport
+    $wp_customize->add_setting('foyer_url_rapport', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_rapport', array(
+        'label' => 'URL - Le Rapport Annuel',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'Lien vers le Rapport Annuel (PDF ou page)',
+    ));
+
+    // --- OPTION 4: COMMUNIQUÉS DE PRESSE ---
+    
+    // Texte Communiqués
+    $wp_customize->add_setting('foyer_text_communiques', array(
+        'default' => 'COMMUNIQUÉS DE PRESSE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_communiques', array(
+        'label' => 'Texte - Communiqués de Presse',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Communiqués
+    $wp_customize->add_setting('foyer_url_communiques', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_communiques', array(
+        'label' => 'URL - Communiqués de Presse',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page des communiqués',
+    ));
+
+    // --- OPTION 5: LE CONSEIL D'ADMINISTRATION ---
+    
+    // Texte Conseil
+    $wp_customize->add_setting('foyer_text_conseil', array(
+        'default' => 'LE CONSEIL D\'ADMINISTRATION',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_conseil', array(
+        'label' => 'Texte - Le Conseil d\'Administration',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Conseil
+    $wp_customize->add_setting('foyer_url_conseil', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_conseil', array(
+        'label' => 'URL - Le Conseil d\'Administration',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'Lien vers la page du Conseil',
+    ));
+
+    // --- OPTION 6: OPTIONNELLE ---
+    
+    // Activer Option 6
+    $wp_customize->add_setting('foyer_show_option6', array(
+        'default' => false,
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_show_option6', array(
+        'label' => 'Afficher Option 6',
+        'section' => 'foyer_section',
+        'type' => 'checkbox',
+        'description' => 'Activer une 6ème option',
+    ));
+
+    // Texte Option 6
+    $wp_customize->add_setting('foyer_text_option6', array(
+        'default' => 'OPTION 6',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_text_option6', array(
+        'label' => 'Texte - Option 6',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL Option 6
+    $wp_customize->add_setting('foyer_url_option6', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_url_option6', array(
+        'label' => 'URL - Option 6',
+        'section' => 'foyer_section',
+        'type' => 'url',
+    ));
+
+    // --- BOUTON RETOUR ---
+    
+    // Image de la flèche
+    $wp_customize->add_setting('foyer_arrow_image', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'foyer_arrow_image', array(
+        'label' => 'Image - Flèche de Retour',
+        'section' => 'foyer_section',
+        'settings' => 'foyer_arrow_image',
+        'description' => 'Upload de votre image de flèche (PNG/JPG)',
+    )));
+
+    // Texte du bouton retour
+    $wp_customize->add_setting('foyer_retour_text', array(
+        'default' => 'RETOUR HOMEPAGE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('foyer_retour_text', array(
+        'label' => 'Texte - Bouton Retour',
+        'section' => 'foyer_section',
+        'type' => 'text',
+    ));
+
+    // URL du bouton retour
+    $wp_customize->add_setting('foyer_retour_url', array(
+        'default' => home_url(),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('foyer_retour_url', array(
+        'label' => 'URL - Bouton Retour',
+        'section' => 'foyer_section',
+        'type' => 'url',
+        'description' => 'URL de retour (par défaut: homepage)',
+    ));
+}
+add_action('customize_register', 'foyer_customizer');
+
+/**
+ * Fonction helper pour récupérer les URLs des options foyer
+ */
+function get_foyer_option_url($option) {
+    switch ($option) {
+        case 'vision':
+            return get_theme_mod('foyer_url_vision', '#');
+        case 'chiffres':
+            return get_theme_mod('foyer_url_chiffres', '#');
+        case 'rapport':
+            return get_theme_mod('foyer_url_rapport', '#');
+        case 'communiques':
+            return get_theme_mod('foyer_url_communiques', '#');
+        case 'conseil':
+            return get_theme_mod('foyer_url_conseil', '#');
+        case 'option6':
+            return get_theme_mod('foyer_url_option6', '#');
+        default:
+            return '#';
+    }
+}
+
+/**
+ * Support pour les images uploadées - foyer
+ */
+function foyer_theme_support() {
+    add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+}
+add_action('after_setup_theme', 'foyer_theme_support');
