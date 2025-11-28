@@ -283,105 +283,301 @@ function foyer_responsive_images($html, $post_id, $post_image_id, $size, $attr) 
 }
 add_filter('post_thumbnail_html', 'foyer_responsive_images', 10, 5);
 
+
 /**
- * Customizer pour les images de la page Services Habitants
+ * Customizer pour les services habitants - Configuration complète
  */
 function habitants_services_customize_register($wp_customize) {
-    
     // Section pour les services habitants
     $wp_customize->add_section('habitants_services_section', array(
-        'title'    => 'Services Habitants - Images',
+        'title'    => 'Services Habitants - Configuration',
         'priority' => 30,
-        'description' => 'Gérez les images des 8 services pour la page habitants'
+        'description' => 'Configurez les 8 services : images, noms et liens'
     ));
-
-    // LES PANNES
+    
+    // --- SERVICE 1: LES PANNES ---
+    
+    // Image
     $wp_customize->add_setting('habitants_image_pannes', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_pannes', array(
-        'label'    => 'Image - Les Pannes',
+        'label'    => '1. Image - Service 1',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_pannes'
     )));
-
-    // LE CONCIERGE
+    
+    // Nom
+    $wp_customize->add_setting('habitants_nom_pannes', array(
+        'default'   => 'LES PANNES',
+        'sanitize_callback' => 'sanitize_text_field'
+    ));
+    $wp_customize->add_control('habitants_nom_pannes', array(
+        'label'    => '1. Nom - Service 1',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne (ex: BRUXELLES<br>PROPRETÉ)'
+    ));
+    
+    // URL
+    $wp_customize->add_setting('habitants_url_pannes', array(
+        'default'   => '/pannes',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_pannes', array(
+        'label'    => '1. Lien - Service 1',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url',
+        'description' => 'URL de destination pour ce service'
+    ));
+    
+    // --- SERVICE 2: LE CONCIERGE ---
+    
     $wp_customize->add_setting('habitants_image_concierge', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_concierge', array(
-        'label'    => 'Image - Le Concierge',
+        'label'    => '2. Image - Service 2',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_concierge'
     )));
-
-    // LES POMPIERS
+    
+    $wp_customize->add_setting('habitants_nom_concierge', array(
+        'default'   => 'LE CONCIERGE',
+        'sanitize_callback' => 'sanitize_text_field'
+    ));
+    $wp_customize->add_control('habitants_nom_concierge', array(
+        'label'    => '2. Nom - Service 2',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_concierge', array(
+        'default'   => '/concierge',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_concierge', array(
+        'label'    => '2. Lien - Service 2',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- SERVICE 3: LES POMPIERS ---
+    
     $wp_customize->add_setting('habitants_image_pompiers', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_pompiers', array(
-        'label'    => 'Image - Les Pompiers',
+        'label'    => '3. Image - Service 3',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_pompiers'
     )));
-
-    // BRUXELLES PROPRETÉ
+    
+    $wp_customize->add_setting('habitants_nom_pompiers', array(
+        'default'   => 'LES POMPIERS',
+        'sanitize_callback' => 'sanitize_text_field'
+    ));
+    $wp_customize->add_control('habitants_nom_pompiers', array(
+        'label'    => '3. Nom - Service 3',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_pompiers', array(
+        'default'   => 'tel:112',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_pompiers', array(
+        'label'    => '3. Lien - Service 3',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url',
+        'description' => 'Ex: tel:112 pour appel direct'
+    ));
+    
+    // --- SERVICE 4: BRUXELLES PROPRETÉ ---
+    
     $wp_customize->add_setting('habitants_image_proprete', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_proprete', array(
-        'label'    => 'Image - Bruxelles Propreté',
+        'label'    => '4. Image - Service 4',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_proprete'
     )));
-
-    // L'ASSISTANT SOCIAL
+    
+    $wp_customize->add_setting('habitants_nom_proprete', array(
+        'default'   => 'BRUXELLES<br>PROPRETÉ',
+        'sanitize_callback' => 'wp_kses_post'
+    ));
+    $wp_customize->add_control('habitants_nom_proprete', array(
+        'label'    => '4. Nom - Service 4',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_proprete', array(
+        'default'   => 'https://www.arp-gan.be',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_proprete', array(
+        'label'    => '4. Lien - Service 4',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- SERVICE 5: L'ASSISTANT SOCIAL ---
+    
     $wp_customize->add_setting('habitants_image_assistant', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_assistant', array(
-        'label'    => 'Image - Assistant Social',
+        'label'    => '5. Image - Service 5',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_assistant'
     )));
-
-    // LE RÈGLEMENT
+    
+    $wp_customize->add_setting('habitants_nom_assistant', array(
+        'default'   => 'L\'ASSISTANT<br>SOCIAL',
+        'sanitize_callback' => 'wp_kses_post'
+    ));
+    $wp_customize->add_control('habitants_nom_assistant', array(
+        'label'    => '5. Nom - Service 5',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_assistant', array(
+        'default'   => '/assistant-social',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_assistant', array(
+        'label'    => '5. Lien - Service 5',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- SERVICE 6: LE RÈGLEMENT ---
+    
     $wp_customize->add_setting('habitants_image_reglement', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_reglement', array(
-        'label'    => 'Image - Le Règlement',
+        'label'    => '6. Image - Service 6',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_reglement'
     )));
-
-    // AIDE PSYCHOLOGIQUE
+    
+    $wp_customize->add_setting('habitants_nom_reglement', array(
+        'default'   => 'LE RÈGLEMENT',
+        'sanitize_callback' => 'sanitize_text_field'
+    ));
+    $wp_customize->add_control('habitants_nom_reglement', array(
+        'label'    => '6. Nom - Service 6',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_reglement', array(
+        'default'   => '/reglement',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_reglement', array(
+        'label'    => '6. Lien - Service 6',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- SERVICE 7: AIDE PSYCHOLOGIQUE ---
+    
     $wp_customize->add_setting('habitants_image_psychologique', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_psychologique', array(
-        'label'    => 'Image - Aide Psychologique',
+        'label'    => '7. Image - Service 7',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_psychologique'
     )));
-
-    // L'ENTRETIEN DU LOGEMENT
+    
+    $wp_customize->add_setting('habitants_nom_psychologique', array(
+        'default'   => 'AIDE<br>PSYCHOLOGIQUE',
+        'sanitize_callback' => 'wp_kses_post'
+    ));
+    $wp_customize->add_control('habitants_nom_psychologique', array(
+        'label'    => '7. Nom - Service 7',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_psychologique', array(
+        'default'   => '/aide-psychologique',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_psychologique', array(
+        'label'    => '7. Lien - Service 7',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- SERVICE 8: L'ENTRETIEN DU LOGEMENT ---
+    
     $wp_customize->add_setting('habitants_image_entretien', array(
         'default'   => '',
         'sanitize_callback' => 'esc_url_raw'
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_image_entretien', array(
-        'label'    => 'Image - Entretien du Logement',
+        'label'    => '8. Image - Service 8',
         'section'  => 'habitants_services_section',
         'settings' => 'habitants_image_entretien'
     )));
+    
+    $wp_customize->add_setting('habitants_nom_entretien', array(
+        'default'   => 'L\'ENTRETIEN<br>DU LOGEMENT',
+        'sanitize_callback' => 'wp_kses_post'
+    ));
+    $wp_customize->add_control('habitants_nom_entretien', array(
+        'label'    => '8. Nom - Service 8',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_url_entretien', array(
+        'default'   => '/entretien-logement',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_url_entretien', array(
+        'label'    => '8. Lien - Service 8',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
+    
+    // --- BOUTON RETOUR ---
+    
+    $wp_customize->add_setting('habitants_retour_text', array(
+        'default'   => 'RETOUR HOMEPAGE',
+        'sanitize_callback' => 'sanitize_text_field'
+    ));
+    $wp_customize->add_control('habitants_retour_text', array(
+        'label'    => 'Texte Bouton Retour',
+        'section'  => 'habitants_services_section',
+        'type'     => 'text'
+    ));
+    
+    $wp_customize->add_setting('habitants_retour_url', array(
+        'default'   => home_url(),
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control('habitants_retour_url', array(
+        'label'    => 'URL Bouton Retour',
+        'section'  => 'habitants_services_section',
+        'type'     => 'url'
+    ));
 }
 add_action('customize_register', 'habitants_services_customize_register');
 

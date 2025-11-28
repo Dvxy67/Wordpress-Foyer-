@@ -415,7 +415,7 @@ get_header(); ?>
     <!-- Grille des services -->
     <div class="services-grid">
         <!-- Ligne 1 -->
-        <a href="#pannes" class="service-item" role="button" aria-label="Accéder au service Les Pannes">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_pannes', '/pannes')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pannes">
             <div class="service-icon">
                 <?php 
                 $image_pannes = get_theme_mod('habitants_image_pannes');
@@ -425,10 +425,10 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Outil">🔧</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">LES PANNES</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pannes', 'LES PANNES'), array('br' => array())); ?></div>
         </a>
         
-        <a href="#concierge" class="service-item" role="button" aria-label="Accéder au service Le Concierge">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_concierge', '/concierge')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Concierge">
             <div class="service-icon">
                 <?php 
                 $image_concierge = get_theme_mod('habitants_image_concierge');
@@ -438,11 +438,11 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Concierge">👤🗝️</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">LE CONCIERGE</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_concierge', 'LE CONCIERGE'), array('br' => array())); ?></div>
         </a>
         
         <!-- Ligne 2 -->
-        <a href="#pompiers" class="service-item" role="button" aria-label="Accéder au service Les Pompiers">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_pompiers', 'tel:112')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pompiers">
             <div class="service-icon">
                 <?php 
                 $image_pompiers = get_theme_mod('habitants_image_pompiers');
@@ -452,10 +452,10 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Camion de pompiers">🚒</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">LES POMPIERS</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pompiers', 'LES POMPIERS'), array('br' => array())); ?></div>
         </a>
         
-        <a href="#proprete" class="service-item" role="button" aria-label="Accéder au service Bruxelles Propreté">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_proprete', 'https://www.arp-gan.be')); ?>" class="service-item" role="button" aria-label="Accéder au service Bruxelles Propreté">
             <div class="service-icon">
                 <?php 
                 $image_proprete = get_theme_mod('habitants_image_proprete');
@@ -465,11 +465,11 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Recyclage">🗑️♻️</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">BRUXELLES<br>PROPRETÉ</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_proprete', 'BRUXELLES<br>PROPRETÉ'), array('br' => array())); ?></div>
         </a>
         
         <!-- Ligne 3 -->
-        <a href="#assistant-social" class="service-item" role="button" aria-label="Accéder au service Assistant Social">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_assistant', '/assistant-social')); ?>" class="service-item" role="button" aria-label="Accéder au service Assistant Social">
             <div class="service-icon">
                 <?php 
                 $image_assistant = get_theme_mod('habitants_image_assistant');
@@ -479,10 +479,10 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Assistant social">👤📄</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">L'ASSISTANT<br>SOCIAL</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_assistant', 'L\'ASSISTANT<br>SOCIAL'), array('br' => array())); ?></div>
         </a>
         
-        <a href="#reglement" class="service-item" role="button" aria-label="Accéder au service Le Règlement">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_reglement', '/reglement')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Règlement">
             <div class="service-icon">
                 <?php 
                 $image_reglement = get_theme_mod('habitants_image_reglement');
@@ -492,11 +492,11 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Document validé">📄✅</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">LE RÈGLEMENT</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_reglement', 'LE RÈGLEMENT'), array('br' => array())); ?></div>
         </a>
         
         <!-- Ligne 4 -->
-        <a href="#aide-psy" class="service-item" role="button" aria-label="Accéder au service Aide Psychologique">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_psychologique', '/aide-psychologique')); ?>" class="service-item" role="button" aria-label="Accéder au service Aide Psychologique">
             <div class="service-icon">
                 <?php 
                 $image_psychologique = get_theme_mod('habitants_image_psychologique');
@@ -506,10 +506,10 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Support psychologique">💬❤️</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">AIDE<br>PSYCHOLOGIQUE</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_psychologique', 'AIDE<br>PSYCHOLOGIQUE'), array('br' => array())); ?></div>
         </a>
         
-        <a href="#entretien" class="service-item" role="button" aria-label="Accéder au service Entretien du Logement">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_url_entretien', '/entretien-logement')); ?>" class="service-item" role="button" aria-label="Accéder au service Entretien du Logement">
             <div class="service-icon">
                 <?php 
                 $image_entretien = get_theme_mod('habitants_image_entretien');
@@ -519,15 +519,15 @@ get_header(); ?>
                     <span class="emoji-fallback" role="img" aria-label="Manuel d'entretien">📖🔧</span>
                 <?php endif; ?>
             </div>
-            <div class="service-title">L'ENTRETIEN<br>DU LOGEMENT</div>
+            <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_entretien', 'L\'ENTRETIEN<br>DU LOGEMENT'), array('br' => array())); ?></div>
         </a>
     </div>
     
     <!-- Bouton retour -->
     <div class="retour-section">
-        <a href="<?php echo home_url(); ?>" class="retour-button" role="button" aria-label="Retour à la page d'accueil">
+        <a href="<?php echo esc_url(get_theme_mod('habitants_retour_url', home_url())); ?>" class="retour-button" role="button" aria-label="Retour à la page d'accueil">
             <span class="arrow" aria-hidden="true">←</span>
-            <span class="retour-text">RETOUR HOMEPAGE</span>
+            <span class="retour-text"><?php echo esc_html(get_theme_mod('habitants_retour_text', 'RETOUR HOMEPAGE')); ?></span>
         </a>
     </div>
 </div>
