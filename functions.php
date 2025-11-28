@@ -926,3 +926,517 @@ function foyer_theme_support() {
     add_theme_support('custom-logo');
 }
 add_action('after_setup_theme', 'foyer_theme_support');
+
+
+/**
+ * Configuration WordPress Customizer pour Page Pannes
+ * À ajouter dans functions.php
+ */
+
+// Customizer pour la page Pannes
+function pannes_customizer($wp_customize) {
+    
+    // Section principale
+    $wp_customize->add_section('pannes_section', array(
+        'title' => 'Page Pannes - Configuration',
+        'description' => 'Configuration de la page des pannes et interventions',
+        'priority' => 140,
+    ));
+
+    // --- HEADER PANNES ---
+    
+    // Icône outils (clé anglaise)
+    $wp_customize->add_setting('pannes_tools_icon', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_tools_icon', array(
+        'label' => 'Icône - Outils (Header)',
+        'section' => 'pannes_section',
+        'settings' => 'pannes_tools_icon',
+        'description' => 'Icône clé anglaise pour le header (PNG/JPG)',
+    )));
+
+    // Titre principal
+    $wp_customize->add_setting('pannes_title', array(
+        'default' => 'LES PANNES',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_title', array(
+        'label' => 'Titre Principal',
+        'section' => 'pannes_section',
+        'type' => 'text',
+        'description' => 'Titre affiché dans le header',
+    ));
+
+    // --- PANNE 1: PERSONNALISABLE ---
+    
+    // Icône Panne 1
+    $wp_customize->add_setting('pannes_icon_panne1', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_icon_panne1', array(
+        'label' => 'Icône - Position 1 (Haut Gauche)',
+        'section' => 'pannes_section',
+        'settings' => 'pannes_icon_panne1',
+        'description' => 'Upload votre image pour la position 1 (PNG/JPG)',
+    )));
+
+    // Texte Panne 1
+    $wp_customize->add_setting('pannes_text_panne1', array(
+        'default' => 'CHAUFFAGE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_text_panne1', array(
+        'label' => 'Texte - Position 1',
+        'section' => 'pannes_section',
+        'type' => 'text',
+        'description' => 'Nom affiché sous l\'icône position 1',
+    ));
+
+    // URL Panne 1
+    $wp_customize->add_setting('pannes_url_panne1', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_url_panne1', array(
+        'label' => 'URL - Position 1',
+        'section' => 'pannes_section',
+        'type' => 'url',
+        'description' => 'Lien de redirection position 1',
+    ));
+
+    // --- PANNE 2: PERSONNALISABLE ---
+    
+    // Icône Panne 2
+    $wp_customize->add_setting('pannes_icon_panne2', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_icon_panne2', array(
+        'label' => 'Icône - Position 2 (Haut Droite)',
+        'section' => 'pannes_section',
+        'settings' => 'pannes_icon_panne2',
+        'description' => 'Upload votre image pour la position 2 (PNG/JPG)',
+    )));
+
+    // Texte Panne 2
+    $wp_customize->add_setting('pannes_text_panne2', array(
+        'default' => 'ASCENSEUR',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_text_panne2', array(
+        'label' => 'Texte - Position 2',
+        'section' => 'pannes_section',
+        'type' => 'text',
+        'description' => 'Nom affiché sous l\'icône position 2',
+    ));
+
+    // URL Panne 2
+    $wp_customize->add_setting('pannes_url_panne2', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_url_panne2', array(
+        'label' => 'URL - Position 2',
+        'section' => 'pannes_section',
+        'type' => 'url',
+        'description' => 'Lien de redirection position 2',
+    ));
+
+    // --- PANNE 3: PERSONNALISABLE ---
+    
+    // Icône Panne 3
+    $wp_customize->add_setting('pannes_icon_panne3', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_icon_panne3', array(
+        'label' => 'Icône - Position 3 (Bas Gauche)',
+        'section' => 'pannes_section',
+        'settings' => 'pannes_icon_panne3',
+        'description' => 'Upload votre image pour la position 3 (PNG/JPG)',
+    )));
+
+    // Texte Panne 3
+    $wp_customize->add_setting('pannes_text_panne3', array(
+        'default' => 'TÉLÉVISION',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_text_panne3', array(
+        'label' => 'Texte - Position 3',
+        'section' => 'pannes_section',
+        'type' => 'text',
+        'description' => 'Nom affiché sous l\'icône position 3',
+    ));
+
+    // URL Panne 3
+    $wp_customize->add_setting('pannes_url_panne3', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_url_panne3', array(
+        'label' => 'URL - Position 3',
+        'section' => 'pannes_section',
+        'type' => 'url',
+        'description' => 'Lien de redirection position 3',
+    ));
+
+    // --- PANNE 4: PERSONNALISABLE ---
+    
+    // Icône Panne 4
+    $wp_customize->add_setting('pannes_icon_panne4', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_icon_panne4', array(
+        'label' => 'Icône - Position 4 (Bas Droite)',
+        'section' => 'pannes_section',
+        'settings' => 'pannes_icon_panne4',
+        'description' => 'Upload votre image pour la position 4 (PNG/JPG)',
+    )));
+
+    // Texte Panne 4
+    $wp_customize->add_setting('pannes_text_panne4', array(
+        'default' => 'INTERNET',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_text_panne4', array(
+        'label' => 'Texte - Position 4',
+        'section' => 'pannes_section',
+        'type' => 'text',
+        'description' => 'Nom affiché sous l\'icône position 4',
+    ));
+
+    // URL Panne 4
+    $wp_customize->add_setting('pannes_url_panne4', array(
+        'default' => '#',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_url_panne4', array(
+        'label' => 'URL - Position 4',
+        'section' => 'pannes_section',
+        'type' => 'url',
+        'description' => 'Lien de redirection position 4',
+    ));
+
+    // --- BOUTON RETOUR ---
+    
+    // Texte du bouton retour
+    $wp_customize->add_setting('pannes_retour_text', array(
+        'default' => 'RETOUR AUX QUARTIERS',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pannes_retour_text', array(
+        'label' => 'Texte - Bouton Retour',
+        'section' => 'pannes_section',
+        'type' => 'text',
+    ));
+
+    // URL du bouton retour
+    $wp_customize->add_setting('pannes_retour_url', array(
+        'default' => home_url(),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_retour_url', array(
+        'label' => 'URL - Bouton Retour',
+        'section' => 'pannes_section',
+        'type' => 'url',
+        'description' => 'URL de retour (par défaut: homepage)',
+    ));
+}
+add_action('customize_register', 'pannes_customizer');
+
+/**
+ * Fonction helper pour récupérer les URLs des pannes
+ */
+function get_panne_option_url($panne) {
+    switch ($panne) {
+        case 'panne1':
+            return get_theme_mod('pannes_url_panne1', '#');
+        case 'panne2':
+            return get_theme_mod('pannes_url_panne2', '#');
+        case 'panne3':
+            return get_theme_mod('pannes_url_panne3', '#');
+        case 'panne4':
+            return get_theme_mod('pannes_url_panne4', '#');
+        default:
+            return '#';
+    }
+}
+
+/**
+ * Support pour les images uploadées - pannes
+ */
+function pannes_theme_support() {
+    add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+}
+add_action('after_setup_theme', 'pannes_theme_support');
+
+
+/**
+ * Système Pannes par Quartier - Configuration WordPress
+ * À ajouter dans functions.php
+ */
+
+// Liste des quartiers disponibles
+function get_quartiers_pannes_list() {
+    // Récupère la liste depuis la page quartiers ou définit une liste par défaut
+    $quartiers = get_quartiers_list(); // Réutilise la fonction existante
+    
+    if (empty($quartiers)) {
+        // Liste par défaut si pas de quartiers configurés
+        $quartiers = array('prins', 'peterbos', 'rauter', 'la-roue', 'square-albert', 'lennik', 'bon-air', 'goujons', 'dauphinelles');
+    } else {
+        // Convertit en slugs (minuscules, espaces en tirets)
+        $quartiers = array_map(function($quartier) {
+            return strtolower(str_replace(' ', '-', $quartier));
+        }, $quartiers);
+    }
+    
+    return $quartiers;
+}
+
+// Customizer pour les pannes par quartier
+function pannes_quartiers_customizer($wp_customize) {
+    
+    // Section globale (paramètres par défaut)
+    $wp_customize->add_section('pannes_global_section', array(
+        'title' => 'Pannes - Paramètres Globaux',
+        'description' => 'Paramètres par défaut pour toutes les pages pannes',
+        'priority' => 140,
+    ));
+
+    // --- PARAMÈTRES GLOBAUX ---
+    
+    // Icône outils globale
+    $wp_customize->add_setting('pannes_tools_icon', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_tools_icon', array(
+        'label' => 'Icône Outils (Par défaut)',
+        'section' => 'pannes_global_section',
+        'settings' => 'pannes_tools_icon',
+        'description' => 'Icône utilisée si pas d\'icône spécifique au quartier',
+    )));
+
+    // Paramètres globaux pour les 4 positions
+    for ($i = 1; $i <= 4; $i++) {
+        $wp_customize->add_setting("pannes_icon_panne{$i}", array(
+            'default' => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "pannes_icon_panne{$i}", array(
+            'label' => "Image Position {$i} (Par défaut)",
+            'section' => 'pannes_global_section',
+            'settings' => "pannes_icon_panne{$i}",
+        )));
+
+        $wp_customize->add_setting("pannes_text_panne{$i}", array(
+            'default' => $i == 1 ? 'CHAUFFAGE' : ($i == 2 ? 'ASCENSEUR' : ($i == 3 ? 'TÉLÉVISION' : 'INTERNET')),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        $wp_customize->add_control("pannes_text_panne{$i}", array(
+            'label' => "Nom Position {$i} (Par défaut)",
+            'section' => 'pannes_global_section',
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("pannes_telephone_panne{$i}", array(
+            'default' => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        $wp_customize->add_control("pannes_telephone_panne{$i}", array(
+            'label' => "Téléphone Position {$i} (Par défaut)",
+            'section' => 'pannes_global_section',
+            'type' => 'tel',
+            'description' => 'Ex: +32123456789 ou 123456789',
+        ));
+    }
+
+    // --- SECTIONS PAR QUARTIER ---
+    
+    $quartiers = get_quartiers_pannes_list();
+    
+    foreach ($quartiers as $quartier) {
+        $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
+        
+        // Section pour ce quartier
+        $wp_customize->add_section("pannes_{$quartier}_section", array(
+            'title' => "Pannes - {$quartier_display}",
+            'description' => "Configuration spécifique pour {$quartier_display}",
+            'priority' => 150,
+        ));
+
+        // Titre du quartier
+        $wp_customize->add_setting("pannes_{$quartier}_title", array(
+            'default' => "PANNES<br>{$quartier_display}",
+            'sanitize_callback' => 'wp_kses_post',
+        ));
+        $wp_customize->add_control("pannes_{$quartier}_title", array(
+            'label' => 'Titre Page',
+            'section' => "pannes_{$quartier}_section",
+            'type' => 'text',
+            'description' => 'Utilisez <br> pour une nouvelle ligne',
+        ));
+
+        // Icône outils spécifique
+        $wp_customize->add_setting("pannes_{$quartier}_tools_icon", array(
+            'default' => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "pannes_{$quartier}_tools_icon", array(
+            'label' => 'Icône Outils (Spécifique)',
+            'section' => "pannes_{$quartier}_section",
+            'settings' => "pannes_{$quartier}_tools_icon",
+            'description' => 'Laissez vide pour utiliser l\'icône globale',
+        )));
+
+        // 4 pannes spécifiques au quartier
+        for ($i = 1; $i <= 4; $i++) {
+            // Image
+            $wp_customize->add_setting("pannes_{$quartier}_icon_panne{$i}", array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+            $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "pannes_{$quartier}_icon_panne{$i}", array(
+                'label' => "Image Position {$i}",
+                'section' => "pannes_{$quartier}_section",
+                'settings' => "pannes_{$quartier}_icon_panne{$i}",
+                'description' => 'Laissez vide pour utiliser l\'image globale',
+            )));
+
+            // Texte
+            $wp_customize->add_setting("pannes_{$quartier}_text_panne{$i}", array(
+                'default' => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ));
+            $wp_customize->add_control("pannes_{$quartier}_text_panne{$i}", array(
+                'label' => "Nom Position {$i}",
+                'section' => "pannes_{$quartier}_section",
+                'type' => 'text',
+                'description' => 'Laissez vide pour utiliser le nom global',
+            ));
+
+            // URL
+            $wp_customize->add_setting("pannes_{$quartier}_url_panne{$i}", array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+            $wp_customize->add_control("pannes_{$quartier}_url_panne{$i}", array(
+                'label' => "URL Position {$i}",
+                'section' => "pannes_{$quartier}_section",
+                'type' => 'url',
+                'description' => "Lien pour cette panne dans {$quartier_display}",
+            ));
+
+            // Téléphone
+            $wp_customize->add_setting("pannes_{$quartier}_telephone_panne{$i}", array(
+                'default' => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ));
+            $wp_customize->add_control("pannes_{$quartier}_telephone_panne{$i}", array(
+                'label' => "Téléphone Position {$i}",
+                'section' => "pannes_{$quartier}_section",
+                'type' => 'tel',
+                'description' => "Numéro à appeler (Ex: +32123456789). Laissez vide pour utiliser l'URL.",
+            ));
+        }
+
+        // Bouton retour
+        $wp_customize->add_setting("pannes_{$quartier}_retour_text", array(
+            'default' => 'RETOUR AUX QUARTIERS',
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        $wp_customize->add_control("pannes_{$quartier}_retour_text", array(
+            'label' => 'Texte Bouton Retour',
+            'section' => "pannes_{$quartier}_section",
+            'type' => 'text',
+        ));
+
+        $wp_customize->add_setting("pannes_{$quartier}_retour_url", array(
+            'default' => '/quartiers',
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+        $wp_customize->add_control("pannes_{$quartier}_retour_url", array(
+            'label' => 'URL Bouton Retour',
+            'section' => "pannes_{$quartier}_section",
+            'type' => 'url',
+        ));
+    }
+}
+add_action('customize_register', 'pannes_quartiers_customizer');
+
+/**
+ * Fonction helper pour récupérer les URLs des pannes par quartier
+ */
+function get_quartier_panne_url($quartier, $panne) {
+    $url = get_theme_mod("pannes_{$quartier}_url_{$panne}", '');
+    
+    // Si pas d'URL spécifique, utiliser un pattern par défaut
+    if (empty($url)) {
+        $url = "/formulaire-panne?quartier={$quartier}&type={$panne}";
+    }
+    
+    return $url;
+}
+
+/**
+ * Fonction helper pour récupérer les numéros de téléphone par quartier et panne
+ */
+function get_quartier_panne_telephone($quartier, $panne) {
+    $telephone = get_theme_mod("pannes_{$quartier}_telephone_{$panne}", '');
+    
+    // Si pas de téléphone spécifique, utiliser le téléphone global
+    if (empty($telephone)) {
+        $telephone = get_theme_mod("pannes_telephone_{$panne}", '');
+    }
+    
+    return $telephone;
+}
+
+/**
+ * Fonction pour créer automatiquement les pages pannes quartiers
+ */
+function create_pannes_quartier_pages() {
+    // À utiliser une seule fois pour créer toutes les pages automatiquement
+    $quartiers = get_quartiers_pannes_list();
+    
+    foreach ($quartiers as $quartier) {
+        $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
+        $page_title = "Pannes {$quartier_display}";
+        $page_slug = "pannes-{$quartier}";
+        
+        // Vérifier si la page existe déjà
+        $existing_page = get_page_by_path($page_slug);
+        
+        if (!$existing_page) {
+            // Créer la page
+            $page_data = array(
+                'post_title' => $page_title,
+                'post_name' => $page_slug,
+                'post_content' => '',
+                'post_status' => 'publish',
+                'post_type' => 'page',
+                'page_template' => 'page-pannes-quartier.php'
+            );
+            
+            wp_insert_post($page_data);
+        }
+    }
+}
+
+// Décommente cette ligne une seule fois pour créer toutes les pages automatiquement
+// add_action('init', 'create_pannes_quartier_pages');
+
+/**
+ * Support thème
+ */
+function pannes_quartiers_theme_support() {
+    add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+}
+add_action('after_setup_theme', 'pannes_quartiers_theme_support');
