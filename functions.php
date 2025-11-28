@@ -690,7 +690,7 @@ function is_quartier_actuel( $quartier ) {
     return strtoupper( trim( $quartier ) ) === strtoupper( trim( $quartier_actuel ) );
 }
 
-
+ 
 /**
  * Configuration WordPress Customizer pour Page Logement Sous-Menu
  * À ajouter dans functions.php
