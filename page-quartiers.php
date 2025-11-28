@@ -311,33 +311,46 @@ get_header(); ?>
         <div class="quartiers-scroll">
             <ul class="quartiers-list">
                 <?php
-                // Récupérer la liste des quartiers
-                $quartiers = get_quartiers_list();
-                
-                if (!empty($quartiers)) :
-                    foreach ($quartiers as $quartier) :
+                // Récupérer la liste des quartiers et des liens
+                $quartiers       = get_quartiers_list();
+                $quartiers_liens = function_exists('get_quartiers_links') ? get_quartiers_links() : array();
+
+                if ( ! empty( $quartiers ) ) :
+                    foreach ( $quartiers as $index => $quartier ) :
+                        // Lien correspondant (même index que dans la liste des quartiers)
+                        $url = ( isset( $quartiers_liens[ $index ] ) && $quartiers_liens[ $index ] !== '' )
+                            ? $quartiers_liens[ $index ]
+                            : '#';
                 ?>
                     <li>
-                        <a href="#" 
-                           class="quartier-item" 
-                           data-quartier="<?php echo esc_attr(strtolower($quartier)); ?>"
-                           onclick="selectQuartier(this); return false;">
-                            <?php echo esc_html(strtoupper($quartier)); ?>
+                        <a href="<?php echo esc_url( $url ); ?>"
+                           class="quartier-item"
+                           data-quartier="<?php echo esc_attr( strtolower( $quartier ) ); ?>">
+                            <?php echo esc_html( strtoupper( $quartier ) ); ?>
                         </a>
                     </li>
                 <?php
                     endforeach;
                 else :
-                    // Quartiers par défaut
-                    $default_quartiers = ['PRINS', 'PETERBOS', 'RAUTER', 'LA ROUE', 'SQUARE ALBERT', 'LENNIK', 'BON AIR', 'GOUJONS', 'DAUPHINELLES'];
-                    foreach ($default_quartiers as $quartier) :
+                    // Quartiers par défaut (si rien n'a été configuré)
+                    $default_quartiers = array(
+                        'PRINS',
+                        'PETERBOS',
+                        'RAUTER',
+                        'LA ROUE',
+                        'SQUARE ALBERT',
+                        'LENNIK',
+                        'BON AIR',
+                        'GOUJONS',
+                        'DAUPHINELLES',
+                    );
+                    foreach ( $default_quartiers as $quartier ) :
                 ?>
                     <li>
-                        <a href="#" 
-                           class="quartier-item" 
-                           data-quartier="<?php echo esc_attr(strtolower($quartier)); ?>"
-                           onclick="selectQuartier(this); return false;">
-                            <?php echo esc_html($quartier); ?>
+                        <a href="#"
+                           class="quartier-item"
+                           data-quartier="<?php echo esc_attr( strtolower( $quartier ) ); ?>">
+                            <?php echo esc_html( $quartier ); ?>
                         </a>
                     </li>
                 <?php

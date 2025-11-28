@@ -584,70 +584,112 @@ add_action('customize_register', 'habitants_services_customize_register');
 /**
  * Customizer pour la page Quartiers
  */
-function quartiers_customize_register($wp_customize) {
-    
+function quartiers_customize_register( $wp_customize ) {
+
     // Section quartiers
-    $wp_customize->add_section('quartiers_section', array(
-        'title'    => 'Page Quartiers - Configuration',
-        'priority' => 32,
-        'description' => 'Configurez l\'image d\'immeuble et les quartiers'
-    ));
+    $wp_customize->add_section( 'quartiers_section', array(
+        'title'       => 'Page Quartiers - Configuration',
+        'priority'    => 32,
+        'description' => 'Configurez l\'image d\'immeuble et les quartiers',
+    ) );
 
     // Image d'immeuble
-    $wp_customize->add_setting('quartiers_image_immeuble', array(
-        'default'   => '',
-        'sanitize_callback' => 'esc_url_raw'
-    ));
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'quartiers_image_immeuble', array(
-        'label'    => 'Image - Immeuble',
-        'section'  => 'quartiers_section',
-        'settings' => 'quartiers_image_immeuble'
-    )));
+    $wp_customize->add_setting( 'quartiers_image_immeuble', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Image_Control(
+        $wp_customize,
+        'quartiers_image_immeuble',
+        array(
+            'label'    => 'Image - Immeuble',
+            'section'  => 'quartiers_section',
+            'settings' => 'quartiers_image_immeuble',
+        )
+    ) );
 
     // Quartier en évidence
-    $wp_customize->add_setting('quartiers_quartier_actuel', array(
-        'default'   => 'PETERBOS',
-        'sanitize_callback' => 'sanitize_text_field'
-    ));
-    $wp_customize->add_control('quartiers_quartier_actuel', array(
+    $wp_customize->add_setting( 'quartiers_quartier_actuel', array(
+        'default'           => 'PETERBOS',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    $wp_customize->add_control( 'quartiers_quartier_actuel', array(
         'label'    => 'Quartier en évidence (fond bleu)',
         'section'  => 'quartiers_section',
         'settings' => 'quartiers_quartier_actuel',
-        'type'     => 'text'
-    ));
+        'type'     => 'text',
+    ) );
 
-    // Liste des quartiers
-    $wp_customize->add_setting('quartiers_liste_quartiers', array(
-        'default'   => "PRINS\nPETERBOS\nRAUTER\nLA ROUE\nSQUARE ALBERT\nLENNIK\nBON AIR\nGOUJONS\nDAUPHINELLES",
-        'sanitize_callback' => 'wp_kses_post'
-    ));
-    $wp_customize->add_control('quartiers_liste_quartiers', array(
+    // Liste des quartiers (un par ligne)
+    $wp_customize->add_setting( 'quartiers_liste_quartiers', array(
+        'default'           => "PRINS\nPETERBOS\nRAUTER\nLA ROUE\nSQUARE ALBERT\nLENNIK\nBON AIR\nGOUJONS\nDAUPHINELLES",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+
+    $wp_customize->add_control( 'quartiers_liste_quartiers', array(
         'label'    => 'Liste des quartiers (un par ligne)',
         'section'  => 'quartiers_section',
         'settings' => 'quartiers_liste_quartiers',
-        'type'     => 'textarea'
-    ));
+        'type'     => 'textarea',
+    ) );
+
+    // ✅ Liste des liens (un par ligne, dans le même ordre que les quartiers)
+    $wp_customize->add_setting( 'quartiers_liste_liens', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+
+    $wp_customize->add_control( 'quartiers_liste_liens', array(
+        'label'       => 'Liens des quartiers (un par ligne, dans le même ordre)',
+        'section'     => 'quartiers_section',
+        'settings'    => 'quartiers_liste_liens',
+        'type'        => 'textarea',
+        'description' => "Mettez un lien par ligne, dans le même ordre que les quartiers. Laissez vide pour un quartier sans lien.",
+    ) );
+
 }
-add_action('customize_register', 'quartiers_customize_register');
+add_action( 'customize_register', 'quartiers_customize_register' );
 
 /**
- * Fonction helper pour récupérer la liste des quartiers
+ * Helper : récupérer la liste des quartiers sous forme de tableau
  */
 function get_quartiers_list() {
-    $quartiers_text = get_theme_mod('quartiers_liste_quartiers', "PRINS\nPETERBOS\nRAUTER\nLA ROUE\nSQUARE ALBERT\nLENNIK\nBON AIR\nGOUJONS\nDAUPHINELLES");
-    $quartiers = explode("\n", $quartiers_text);
-    $quartiers = array_map('trim', $quartiers);
-    $quartiers = array_filter($quartiers);
+    $quartiers_text = get_theme_mod(
+        'quartiers_liste_quartiers',
+        "PRINS\nPETERBOS\nRAUTER\nLA ROUE\nSQUARE ALBERT\nLENNIK\nBON AIR\nGOUJONS\nDAUPHINELLES"
+    );
+
+    $quartiers = preg_split( '/\r\n|\r|\n/', $quartiers_text );
+    $quartiers = array_map( 'trim', $quartiers );
+    $quartiers = array_filter( $quartiers ); // enlève les lignes vides
+
     return $quartiers;
 }
 
 /**
- * Fonction helper pour vérifier le quartier en évidence
+ * ✅ Helper : récupérer la liste des liens (indexés dans le même ordre que les quartiers)
  */
-function is_quartier_actuel($quartier) {
-    $quartier_actuel = get_theme_mod('quartiers_quartier_actuel', 'PETERBOS');
-    return strtoupper(trim($quartier)) === strtoupper(trim($quartier_actuel));
+function get_quartiers_links() {
+    $liens_text = get_theme_mod( 'quartiers_liste_liens', '' );
+
+    // On garde même les lignes vides pour ne pas décaler les index
+    $liens = preg_split( '/\r\n|\r|\n/', $liens_text );
+    $liens = array_map( 'trim', $liens );
+
+    return $liens;
 }
+
+/**
+ * Helper : vérifier si un quartier est celui "en évidence"
+ */
+function is_quartier_actuel( $quartier ) {
+    $quartier_actuel = get_theme_mod( 'quartiers_quartier_actuel', 'PETERBOS' );
+
+    return strtoupper( trim( $quartier ) ) === strtoupper( trim( $quartier_actuel ) );
+}
+
 
 /**
  * Configuration WordPress Customizer pour Page Logement Sous-Menu
