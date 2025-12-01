@@ -83,6 +83,51 @@ function foyer_widgets_init() {
 add_action('widgets_init', 'foyer_widgets_init');
 
 /**
+ * ===============================
+ * FONCTIONS HELPER
+ * ===============================
+ */
+
+/**
+ * Fonction pour récupérer les images avec fallback
+ */
+function get_foyer_image($type, $fallback = '') {
+    // Pour le footer_logo, utiliser directement la clé
+    if ($type === 'footer_logo') {
+        $image = get_theme_mod('footer_logo', '');
+    } else {
+        $image = get_theme_mod($type . '_image', '');
+    }
+    
+    // Si une image est définie, la retourner
+    if (!empty($image)) {
+        return $image;
+    }
+    
+    // Sinon, utiliser le fallback
+    if (!empty($fallback)) {
+        return get_template_directory_uri() . '/assets/images/' . $fallback;
+    }
+    
+    return false;
+}
+
+/**
+ * Récupère le lien d'une carte configuré dans le customizer
+ */
+function get_foyer_link($link_key) {
+    // Récupérer la valeur du customizer
+    $link_url = get_theme_mod($link_key . '_link', '#');
+    
+    // Si le lien est vide ou juste #, retourner #
+    if (empty($link_url) || $link_url === '#') {
+        return '#';
+    }
+    
+    return esc_url($link_url);
+}
+
+/**
  * Options de personnalisation du thème
  */
 function foyer_customize_register($wp_customize) {
@@ -230,22 +275,86 @@ function foyer_customize_register($wp_customize) {
 add_action('customize_register', 'foyer_customize_register');
 
 /**
- * Fonction pour récupérer les images avec fallback
+ * Ajouter du CSS personnalisé pour le logo footer
  */
-function get_foyer_image($type, $fallback = '') {
-    $image = get_theme_mod($type . '_image', $fallback);
-    if (empty($image) && !empty($fallback)) {
-        return get_template_directory_uri() . '/assets/images/' . $fallback;
-    }
-    return $image;
+function foyer_custom_styles() {
+    ?>
+    <style>
+        /* Styles pour le logo en bas de page */
+        .bottom-logo {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            text-align: center;
+            max-width: 150px;
+        }
+        
+        .bottom-logo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .bottom-logo-placeholder {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-icon {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B5CF6;
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-text {
+            font-size: 10px;
+            line-height: 1.1;
+            color: #333;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .bottom-logo {
+                bottom: 15px;
+                max-width: 120px;
+            }
+            
+            .bottom-logo-placeholder {
+                padding: 8px 12px;
+            }
+            
+            .logo-icon {
+                font-size: 20px;
+            }
+            
+            .logo-text {
+                font-size: 9px;
+            }
+        }
+    </style>
+    <?php
 }
+add_action('wp_head', 'foyer_custom_styles');
 
 /**
- * Fonction pour récupérer les liens
+ * NOTE: Les fonctions get_foyer_image() et get_foyer_link() sont définies plus haut dans le fichier
+ * Versions supprimées pour éviter les doublons
  */
-function get_foyer_link($type, $fallback = '#') {
-    return get_theme_mod($type . '_link', $fallback);
-}
 
 /**
  * Nettoyage et optimisation
