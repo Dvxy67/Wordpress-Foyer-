@@ -1,7 +1,7 @@
 /*
 Theme Name: Foyer Ander Lechtois
-Description: Thème mobile-first pour le Foyer Ander Lechtois avec slider tactile
-Version: 1.0
+Description: Slider full-width - GRANDES CARTES - Sans hover, sans transparence
+Version: 3.0
 Author: Custom Theme
 */
 
@@ -42,88 +42,106 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 0;
     height: 65vh;
+    width: 100%;
 }
 
-/* NOUVEAU SYSTÈME ULTRA-SIMPLE - Basé sur debug.html qui marche */
+/* SLIDER FULL WIDTH */
 .slider-container {
     position: relative;
-    width: 280px;
-    height: 320px;
-    overflow: hidden;
-    margin: 0 auto;
-    /* Border temporaire pour debug */
-    border: 2px solid rgba(255,255,255,0.2);
+    width: 100vw;
+    max-width: 100%;
+    height: 400px; /* Augmenté pour les grandes cartes */
+    overflow: visible;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slider-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    cursor: -webkit-grab;
 }
 
-/* Slides avec positions absolues - EXACTEMENT comme debug.html */
+.slider-wrapper.dragging {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+/* Slides - Positionnement centré */
 .slide {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 200px;
+    width: 220px; /* Augmenté de 180 à 220 */
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
 }
 
-/* POSITIONS INITIALES - Exactement comme debug.html */
+/* POSITIONS INITIALES - Mobile */
 .slide:nth-child(1) {
-    transform: translateX(40px); /* Active au centre */
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
 }
 
 .slide:nth-child(2) {
-    transform: translateX(-160px); /* Peek gauche */
+    left: 50%;
+    transform: translateX(calc(-50% - 240px)); /* Ajusté pour les grandes cartes */
     z-index: 5;
 }
 
 .slide:nth-child(3) {
-    transform: translateX(240px); /* Peek droite */
+    left: 50%;
+    transform: translateX(calc(-50% + 240px)); /* Ajusté pour les grandes cartes */
     z-index: 5;
 }
 
-/* Cartes - Adaptées à la structure WordPress */
+/* CARTES - GRANDES TAILLES */
 .card {
-    width: 180px;
-    height: 280px;
+    width: 220px;  /* Augmenté de 180px à 220px */
+    height: 340px; /* Augmenté de 280px à 340px */
     border-radius: 20px;
     border: 4px solid #000;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease;
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    /* PAS de transition - pas d'effet hover */
 }
 
-.card:hover {
-    transform: scale(1.02);
+/* AUCUN EFFET - Toutes les cartes identiques */
+.slide .card {
+    opacity: 1 !important; /* Toujours 100% visible */
+    transform: none !important; /* Pas de scale */
 }
 
-/* Effet peek pour les cardes non-actives */
 .slide:nth-child(2) .card,
 .slide:nth-child(3) .card {
-    opacity: 0.7;
-    transform: scale(0.95);
+    opacity: 1 !important; /* PAS de transparence */
 }
 
-.slide:nth-child(2) .card:hover,
-.slide:nth-child(3) .card:hover {
-    opacity: 0.9;
-    transform: scale(0.97);
+/* PAS D'EFFET HOVER - Même sur desktop */
+.card:hover {
+    /* Rien - pas d'effet */
+}
+
+/* PAS D'EFFET ACTIF - Sur mobile */
+.card:active {
+    /* Rien - pas d'effet */
 }
 
 /* Zone illustration */
@@ -166,23 +184,23 @@ body {
     z-index: 1;
 }
 
-/* Zone titre */
+/* Zone titre - Plus grande */
 .card-title {
     background: #FF0000;
-    padding: 15px 10px;
+    padding: 18px 12px; /* Augmenté */
     text-align: center;
-    min-height: 60px;
+    min-height: 70px; /* Augmenté */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .card-title h2 {
-    font-size: 14px;
+    font-size: 16px; /* Augmenté de 14px à 16px */
     font-weight: bold;
     color: #000;
     text-transform: uppercase;
-    line-height: 1.1;
+    line-height: 1.2;
     text-decoration: underline;
     margin: 0;
 }
@@ -195,6 +213,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
+    z-index: 20;
 }
 
 .dot {
@@ -204,11 +223,12 @@ body {
     background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     transition: all 0.3s ease;
+    border: none;
 }
 
 .dot.active {
     background: rgba(255, 255, 255, 0.9);
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 /* Logo au bas */
@@ -259,88 +279,6 @@ body {
     user-select: none;
 }
 
-/* Responsive - Tablettes */
-@media (min-width: 768px) {
-    .slider-container {
-        width: 400px;
-        height: 650px;
-    }
-    
-    .slide {
-        width: 320px;
-    }
-    
-    /* Positions ajustées pour tablettes */
-    .slide:nth-child(1) {
-        transform: translateX(40px);
-    }
-    
-    .slide:nth-child(2) {
-        transform: translateX(-280px);
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(360px);
-    }
-    
-    .card {
-        width: 300px;
-        height: 580px;
-    }
-    
-    .card-title h2 {
-        font-size: 20px;
-    }
-}
-
-/* Responsive - Desktop */
-@media (min-width: 1024px) {
-    .homepage-container {
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    .slider-section {
-        min-height: auto;
-        padding: 40px;
-    }
-    
-    .slider-container {
-        width: 450px;
-        height: 700px;
-    }
-    
-    .slide {
-        width: 370px;
-    }
-    
-    /* Positions ajustées pour desktop */
-    .slide:nth-child(1) {
-        transform: translateX(40px);
-    }
-    
-    .slide:nth-child(2) {
-        transform: translateX(-330px);
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(410px);
-    }
-    
-    .card {
-        width: 350px;
-        height: 620px;
-    }
-    
-    .card-title {
-        padding: 30px 25px;
-    }
-    
-    .card-title h2 {
-        font-size: 22px;
-    }
-}
-
 /* États de chargement */
 .illustration-image {
     background: rgba(255, 255, 255, 0.1);
@@ -353,8 +291,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: 80%;
+    max-width: 200px;
     height: 150px;
+    padding: 20px;
 }
 
 .illustration-placeholder span {
@@ -371,58 +311,166 @@ body {
 
 /* Classes d'état pour JavaScript */
 .slide.slide-active {
-    transform: translateX(40px) !important;
+    left: 50%;
+    transform: translateX(-50%) !important;
     z-index: 10 !important;
 }
 
 .slide.slide-previous {
-    transform: translateX(-160px) !important;
+    left: 50%;
+    transform: translateX(calc(-50% - 240px)) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-next {
-    transform: translateX(240px) !important;
+    left: 50%;
+    transform: translateX(calc(-50% + 240px)) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-hidden {
-    transform: translateX(-300px) !important;
+    left: 50%;
+    transform: translateX(-300vw) !important;
     z-index: 1 !important;
+    opacity: 0;
 }
 
-/* Responsive pour les classes d'état */
+/* Responsive - Tablettes */
 @media (min-width: 768px) {
-    .slide.slide-active {
-        transform: translateX(40px) !important;
+    .slider-container {
+        height: 550px; /* Augmenté */
+    }
+    
+    .slide {
+        width: 340px; /* Augmenté de 280 à 340 */
+    }
+    
+    .slide:nth-child(2) {
+        transform: translateX(calc(-50% - 380px)); /* Ajusté */
+    }
+    
+    .slide:nth-child(3) {
+        transform: translateX(calc(-50% + 380px)); /* Ajusté */
+    }
+    
+    .card {
+        width: 340px;  /* Augmenté de 280px à 340px */
+        height: 520px; /* Augmenté de 420px à 520px */
+    }
+    
+    .card-title {
+        padding: 24px 18px; /* Augmenté */
+        min-height: 85px; /* Augmenté */
+    }
+    
+    .card-title h2 {
+        font-size: 20px; /* Augmenté de 18px à 20px */
     }
     
     .slide.slide-previous {
-        transform: translateX(-280px) !important;
+        transform: translateX(calc(-50% - 380px)) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(360px) !important;
-    }
-    
-    .slide.slide-hidden {
-        transform: translateX(-400px) !important;
+        transform: translateX(calc(-50% + 380px)) !important;
     }
 }
 
+/* Responsive - Desktop */
 @media (min-width: 1024px) {
-    .slide.slide-active {
-        transform: translateX(40px) !important;
+    .homepage-container {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .slider-section {
+        min-height: auto;
+        padding: 40px 0;
+    }
+    
+    .slider-container {
+        height: 680px; /* Augmenté */
+    }
+    
+    .slide {
+        width: 420px; /* Augmenté de 350 à 420 */
+    }
+    
+    .slide:nth-child(2) {
+        transform: translateX(calc(-50% - 470px)); /* Ajusté */
+    }
+    
+    .slide:nth-child(3) {
+        transform: translateX(calc(-50% + 470px)); /* Ajusté */
+    }
+    
+    .card {
+        width: 420px;  /* Augmenté de 350px à 420px */
+        height: 640px; /* Augmenté de 520px à 640px */
+    }
+    
+    .card-title {
+        padding: 35px 28px; /* Augmenté */
+        min-height: 95px; /* Augmenté */
+    }
+    
+    .card-title h2 {
+        font-size: 24px; /* Augmenté de 22px à 24px */
     }
     
     .slide.slide-previous {
-        transform: translateX(-330px) !important;
+        transform: translateX(calc(-50% - 470px)) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(410px) !important;
+        transform: translateX(calc(-50% + 470px)) !important;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+    .slide:nth-child(2) {
+        transform: translateX(calc(-50% - 570px));
     }
     
-    .slide.slide-hidden {
-        transform: translateX(-450px) !important;
+    .slide:nth-child(3) {
+        transform: translateX(calc(-50% + 570px));
+    }
+    
+    .slide.slide-previous {
+        transform: translateX(calc(-50% - 570px)) !important;
+    }
+    
+    .slide.slide-next {
+        transform: translateX(calc(-50% + 570px)) !important;
+    }
+}
+
+/* Classe pour masquer visuellement mais garder accessible */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Animation d'entrée */
+.animate-in {
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

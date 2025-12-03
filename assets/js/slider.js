@@ -1,6 +1,6 @@
 /**
- * Foyer Slider - Gestion du slider tactile mobile-first
- * Version 1.1 - Amélioration du swipe
+ * Foyer Slider - Grandes Cartes - Sans hover, sans transparence
+ * Version 3.0
  */
 
 class FoyerSlider {
@@ -12,18 +12,21 @@ class FoyerSlider {
         
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
-        this.slideWidth = 100 / this.totalSlides;
         
         // Variables pour le touch
         this.startX = 0;
         this.currentX = 0;
         this.isDragging = false;
         this.startTime = 0;
+        this.initialTransform = null;
         
-        // Seuils pour la détection de swipe - AMÉLIORÉS
-        this.minSwipeDistance = 30; // Réduit de 50 à 30 pour plus de sensibilité
-        this.maxSwipeTime = 500; // Augmenté de 300 à 500 pour plus de tolérance
-        this.velocityThreshold = 0.3; // Nouveau : seuil de vélocité
+        // Seuils pour la détection de swipe
+        this.minSwipeDistance = 40;
+        this.maxSwipeTime = 500;
+        this.velocityThreshold = 0.3;
+        
+        // Distance entre les slides (ajusté pour les grandes cartes)
+        this.slideOffset = this.calculateSlideOffset();
         
         this.init();
     }
@@ -31,6 +34,21 @@ class FoyerSlider {
     init() {
         this.setupEventListeners();
         this.updateSlider();
+    }
+    
+    // Calcul dynamique de l'offset - AJUSTÉ POUR GRANDES CARTES
+    calculateSlideOffset() {
+        const screenWidth = window.innerWidth;
+        
+        if (screenWidth < 768) {
+            return 240; // Mobile - augmenté de 200 à 240
+        } else if (screenWidth < 1024) {
+            return 380; // Tablette - augmenté de 320 à 380
+        } else if (screenWidth < 1440) {
+            return 470; // Desktop - augmenté de 400 à 470
+        } else {
+            return 570; // Large desktop - augmenté de 500 à 570
+        }
     }
     
     setupEventListeners() {
@@ -57,7 +75,10 @@ class FoyerSlider {
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
         
         // Resize handler
-        window.addEventListener('resize', this.debounce(this.handleResize.bind(this), 250));
+        window.addEventListener('resize', this.debounce(() => {
+            this.slideOffset = this.calculateSlideOffset();
+            this.updateSlider();
+        }, 250));
     }
     
     // Touch Events
@@ -98,8 +119,10 @@ class FoyerSlider {
         this.isDragging = true;
         this.startTime = Date.now();
         
-        // Retirer la transition pendant le drag
-        this.wrapper.style.transition = 'none';
+        // Récupérer la position actuelle
+        this.slides.forEach(slide => {
+            slide.style.transition = 'none';
+        });
         
         // Ajouter une classe pour le feedback visuel
         this.wrapper.classList.add('dragging');
@@ -110,19 +133,31 @@ class FoyerSlider {
         
         this.currentX = clientX;
         const diffX = this.currentX - this.startX;
-        const currentTranslate = -(this.currentSlide * this.slideWidth);
         
-        // Amélioration : limiter le déplacement aux bornes avec un effet de resistance
-        let newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100);
-        
-        // Effet de resistance aux bords
-        if (this.currentSlide === 0 && diffX > 0) {
-            newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100 * 0.3);
-        } else if (this.currentSlide === this.totalSlides - 1 && diffX < 0) {
-            newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100 * 0.3);
-        }
-        
-        this.wrapper.style.transform = `translateX(${newTranslate}%)`;
+        // Appliquer le déplacement à toutes les slides
+        this.slides.forEach((slide, index) => {
+            const relativeIndex = index - this.currentSlide;
+            let baseOffset;
+            
+            if (relativeIndex === 0) {
+                baseOffset = 0; // Active au centre
+            } else if (relativeIndex < 0) {
+                baseOffset = -this.slideOffset; // À gauche
+            } else {
+                baseOffset = this.slideOffset; // À droite
+            }
+            
+            // Ajouter l'effet de résistance aux bords
+            let adjustedDiffX = diffX;
+            if (this.currentSlide === 0 && diffX > 0) {
+                adjustedDiffX = diffX * 0.3; // Résistance au début
+            } else if (this.currentSlide === this.totalSlides - 1 && diffX < 0) {
+                adjustedDiffX = diffX * 0.3; // Résistance à la fin
+            }
+            
+            const newOffset = baseOffset + adjustedDiffX;
+            slide.style.transform = `translateX(calc(-50% + ${newOffset}px))`;
+        });
     }
     
     endTouch() {
@@ -138,10 +173,12 @@ class FoyerSlider {
         // Retirer la classe de dragging
         this.wrapper.classList.remove('dragging');
         
-        // Remettre la transition avec un easing plus naturel
-        this.wrapper.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        // Remettre la transition
+        this.slides.forEach(slide => {
+            slide.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
         
-        // Déterminer s'il faut changer de slide - LOGIQUE AMÉLIORÉE
+        // Déterminer s'il faut changer de slide
         const shouldSwipeByDistance = Math.abs(diffX) > this.minSwipeDistance;
         const shouldSwipeByVelocity = velocity > this.velocityThreshold;
         const shouldSwipeByTime = diffTime < this.maxSwipeTime;
@@ -192,8 +229,35 @@ class FoyerSlider {
     
     // Mise à jour du slider
     updateSlider() {
-        const translateX = -(this.currentSlide * this.slideWidth);
-        this.wrapper.style.transform = `translateX(${translateX}%)`;
+        this.slides.forEach((slide, index) => {
+            const relativeIndex = index - this.currentSlide;
+            
+            // Supprimer toutes les classes d'état
+            slide.classList.remove('slide-active', 'slide-previous', 'slide-next', 'slide-hidden');
+            
+            if (relativeIndex === 0) {
+                // Slide active au centre
+                slide.classList.add('slide-active');
+                slide.style.transform = 'translateX(-50%)';
+                slide.style.opacity = '1';
+            } else if (relativeIndex === -1) {
+                // Slide précédente (peek à gauche)
+                slide.classList.add('slide-previous');
+                slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
+                slide.style.opacity = '1'; // PAS de transparence
+            } else if (relativeIndex === 1) {
+                // Slide suivante (peek à droite)
+                slide.classList.add('slide-next');
+                slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
+                slide.style.opacity = '1'; // PAS de transparence
+            } else {
+                // Slides cachées
+                slide.classList.add('slide-hidden');
+                const direction = relativeIndex < 0 ? -1 : 1;
+                slide.style.transform = `translateX(${direction * 300}vw)`;
+                slide.style.opacity = '0';
+            }
+        });
         
         // Mettre à jour les dots
         this.dots.forEach((dot, index) => {
@@ -251,20 +315,15 @@ class FoyerSlider {
         }
     }
     
-    // Resize handler
-    handleResize() {
-        this.updateSlider();
-    }
-    
     // Auto-play (optionnel)
     startAutoPlay(interval = 5000) {
-        this.stopAutoPlay(); // Arrêter l'auto-play existant
+        this.stopAutoPlay();
         
         this.autoPlayInterval = setInterval(() => {
             if (this.currentSlide < this.totalSlides - 1) {
                 this.nextSlide();
             } else {
-                this.goToSlide(0); // Retour au début
+                this.goToSlide(0);
             }
         }, interval);
     }
@@ -313,6 +372,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+        
+        // Exposer l'instance globalement pour debugging
+        window.foyerSlider = slider;
     }
     
     // Gestion du focus pour l'accessibilité
@@ -343,48 +405,3 @@ document.addEventListener('DOMContentLoaded', function() {
         cards.forEach(card => observer.observe(card));
     }
 });
-
-// Styles additionnels pour les améliorations
-const style = document.createElement('style');
-style.textContent = `
-    .animate-in {
-        animation: slideIn 0.6s ease-out;
-    }
-    
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Style pour le dragging */
-    .slider-wrapper.dragging {
-        cursor: grabbing;
-        cursor: -webkit-grabbing;
-    }
-    
-    /* Classe pour masquer visuellement mais garder accessible */
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-    
-    /* Amélioration du curseur */
-    .slider-wrapper {
-        cursor: grab;
-        cursor: -webkit-grab;
-    }
-`;
-document.head.appendChild(style);
