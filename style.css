@@ -1,7 +1,7 @@
 /*
 Theme Name: Foyer Ander Lechtois
-Description: Slider full-width - GRANDES CARTES - Sans hover, sans transparence
-Version: 3.0
+Description: Slider full-width - EXTRA GRANDES CARTES 270×420
+Version: 3.1 - Sans hover, sans transparence
 Author: Custom Theme
 */
 
@@ -52,7 +52,7 @@ body {
     position: relative;
     width: 100vw;
     max-width: 100%;
-    height: 400px; /* Augmenté pour les grandes cartes */
+    height: 480px; /* Augmenté pour les extra grandes cartes */
     overflow: visible;
     margin: 0;
     display: flex;
@@ -79,7 +79,7 @@ body {
 /* Slides - Positionnement centré */
 .slide {
     position: absolute;
-    width: 220px; /* Augmenté de 180 à 220 */
+    width: 270px; /* MOBILE : 270px (au lieu de 220px) */
     height: 100%;
     display: flex;
     justify-content: center;
@@ -97,20 +97,20 @@ body {
 
 .slide:nth-child(2) {
     left: 50%;
-    transform: translateX(calc(-50% - 240px)); /* Ajusté pour les grandes cartes */
+    transform: translateX(calc(-50% - 290px)); /* 270px + 20px d'espace */
     z-index: 5;
 }
 
 .slide:nth-child(3) {
     left: 50%;
-    transform: translateX(calc(-50% + 240px)); /* Ajusté pour les grandes cartes */
+    transform: translateX(calc(-50% + 290px)); /* 270px + 20px d'espace */
     z-index: 5;
 }
 
-/* CARTES - GRANDES TAILLES */
+/* CARTES - EXTRA GRANDES TAILLES */
 .card {
-    width: 220px;  /* Augmenté de 180px à 220px */
-    height: 340px; /* Augmenté de 280px à 340px */
+    width: 270px;  /* MOBILE : 270px × 420px */
+    height: 420px;
     border-radius: 20px;
     border: 4px solid #000;
     overflow: hidden;
@@ -125,8 +125,8 @@ body {
 
 /* AUCUN EFFET - Toutes les cartes identiques */
 .slide .card {
-    opacity: 1 !important; /* Toujours 100% visible */
-    transform: none !important; /* Pas de scale */
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .slide:nth-child(2) .card,
@@ -134,12 +134,11 @@ body {
     opacity: 1 !important; /* PAS de transparence */
 }
 
-/* PAS D'EFFET HOVER - Même sur desktop */
+/* PAS D'EFFET HOVER */
 .card:hover {
     /* Rien - pas d'effet */
 }
 
-/* PAS D'EFFET ACTIF - Sur mobile */
 .card:active {
     /* Rien - pas d'effet */
 }
@@ -187,16 +186,16 @@ body {
 /* Zone titre - Plus grande */
 .card-title {
     background: #FF0000;
-    padding: 18px 12px; /* Augmenté */
+    padding: 20px 14px; /* Augmenté */
     text-align: center;
-    min-height: 70px; /* Augmenté */
+    min-height: 75px; /* Augmenté */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .card-title h2 {
-    font-size: 16px; /* Augmenté de 14px à 16px */
+    font-size: 17px; /* Augmenté */
     font-weight: bold;
     color: #000;
     text-transform: uppercase;
@@ -318,13 +317,13 @@ body {
 
 .slide.slide-previous {
     left: 50%;
-    transform: translateX(calc(-50% - 240px)) !important;
+    transform: translateX(calc(-50% - 290px)) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-next {
     left: 50%;
-    transform: translateX(calc(-50% + 240px)) !important;
+    transform: translateX(calc(-50% + 290px)) !important;
     z-index: 5 !important;
 }
 
@@ -338,41 +337,41 @@ body {
 /* Responsive - Tablettes */
 @media (min-width: 768px) {
     .slider-container {
-        height: 550px; /* Augmenté */
+        height: 650px; /* Augmenté */
     }
     
     .slide {
-        width: 340px; /* Augmenté de 280 à 340 */
+        width: 400px; /* TABLETTE : 400px (au lieu de 340px) */
     }
     
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 380px)); /* Ajusté */
+        transform: translateX(calc(-50% - 430px)); /* 400px + 30px */
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 380px)); /* Ajusté */
+        transform: translateX(calc(-50% + 430px)); /* 400px + 30px */
     }
     
     .card {
-        width: 340px;  /* Augmenté de 280px à 340px */
-        height: 520px; /* Augmenté de 420px à 520px */
+        width: 400px;  /* TABLETTE : 400px × 620px */
+        height: 620px;
     }
     
     .card-title {
-        padding: 24px 18px; /* Augmenté */
-        min-height: 85px; /* Augmenté */
+        padding: 26px 20px; /* Augmenté */
+        min-height: 90px; /* Augmenté */
     }
     
     .card-title h2 {
-        font-size: 20px; /* Augmenté de 18px à 20px */
+        font-size: 21px; /* Augmenté */
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 380px)) !important;
+        transform: translateX(calc(-50% - 430px)) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 380px)) !important;
+        transform: translateX(calc(-50% + 430px)) !important;
     }
 }
 
@@ -389,60 +388,60 @@ body {
     }
     
     .slider-container {
-        height: 680px; /* Augmenté */
+        height: 800px; /* Augmenté */
     }
     
     .slide {
-        width: 420px; /* Augmenté de 350 à 420 */
+        width: 490px; /* DESKTOP : 490px (au lieu de 420px) */
     }
     
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 470px)); /* Ajusté */
+        transform: translateX(calc(-50% - 530px)); /* 490px + 40px */
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 470px)); /* Ajusté */
+        transform: translateX(calc(-50% + 530px)); /* 490px + 40px */
     }
     
     .card {
-        width: 420px;  /* Augmenté de 350px à 420px */
-        height: 640px; /* Augmenté de 520px à 640px */
+        width: 490px;  /* DESKTOP : 490px × 760px */
+        height: 760px;
     }
     
     .card-title {
-        padding: 35px 28px; /* Augmenté */
-        min-height: 95px; /* Augmenté */
+        padding: 38px 30px; /* Augmenté */
+        min-height: 105px; /* Augmenté */
     }
     
     .card-title h2 {
-        font-size: 24px; /* Augmenté de 22px à 24px */
+        font-size: 26px; /* Augmenté */
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 470px)) !important;
+        transform: translateX(calc(-50% - 530px)) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 470px)) !important;
+        transform: translateX(calc(-50% + 530px)) !important;
     }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 570px));
+        transform: translateX(calc(-50% - 630px));
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 570px));
+        transform: translateX(calc(-50% + 630px));
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 570px)) !important;
+        transform: translateX(calc(-50% - 630px)) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 570px)) !important;
+        transform: translateX(calc(-50% + 630px)) !important;
     }
 }
 

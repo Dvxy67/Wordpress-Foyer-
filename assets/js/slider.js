@@ -1,6 +1,6 @@
 /**
- * Foyer Slider - Grandes Cartes - Sans hover, sans transparence
- * Version 3.0
+ * Foyer Slider - Extra Grandes Cartes 270×420
+ * Version 3.1 - Sans hover, sans transparence
  */
 
 class FoyerSlider {
@@ -25,7 +25,7 @@ class FoyerSlider {
         this.maxSwipeTime = 500;
         this.velocityThreshold = 0.3;
         
-        // Distance entre les slides (ajusté pour les grandes cartes)
+        // Distance entre les slides (ajusté pour cartes 270×420)
         this.slideOffset = this.calculateSlideOffset();
         
         this.init();
@@ -36,18 +36,18 @@ class FoyerSlider {
         this.updateSlider();
     }
     
-    // Calcul dynamique de l'offset - AJUSTÉ POUR GRANDES CARTES
+    // Calcul dynamique de l'offset - AJUSTÉ POUR CARTES 270×420
     calculateSlideOffset() {
         const screenWidth = window.innerWidth;
         
         if (screenWidth < 768) {
-            return 240; // Mobile - augmenté de 200 à 240
+            return 290; // Mobile : 270px carte + 20px espace
         } else if (screenWidth < 1024) {
-            return 380; // Tablette - augmenté de 320 à 380
+            return 430; // Tablette : 400px carte + 30px espace
         } else if (screenWidth < 1440) {
-            return 470; // Desktop - augmenté de 400 à 470
+            return 530; // Desktop : 490px carte + 40px espace
         } else {
-            return 570; // Large desktop - augmenté de 500 à 570
+            return 630; // Large desktop : 490px carte + 140px espace
         }
     }
     
