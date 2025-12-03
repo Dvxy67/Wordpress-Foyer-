@@ -1,5 +1,6 @@
 /**
  * Foyer Slider - Gestion du slider tactile mobile-first
+ * Version 1.1 - Amélioration du swipe
  */
 
 class FoyerSlider {
@@ -19,9 +20,10 @@ class FoyerSlider {
         this.isDragging = false;
         this.startTime = 0;
         
-        // Seuils pour la détection de swipe
-        this.minSwipeDistance = 50;
-        this.maxSwipeTime = 300;
+        // Seuils pour la détection de swipe - AMÉLIORÉS
+        this.minSwipeDistance = 30; // Réduit de 50 à 30 pour plus de sensibilité
+        this.maxSwipeTime = 500; // Augmenté de 300 à 500 pour plus de tolérance
+        this.velocityThreshold = 0.3; // Nouveau : seuil de vélocité
         
         this.init();
     }
@@ -98,6 +100,9 @@ class FoyerSlider {
         
         // Retirer la transition pendant le drag
         this.wrapper.style.transition = 'none';
+        
+        // Ajouter une classe pour le feedback visuel
+        this.wrapper.classList.add('dragging');
     }
     
     moveTouch(clientX) {
@@ -106,7 +111,16 @@ class FoyerSlider {
         this.currentX = clientX;
         const diffX = this.currentX - this.startX;
         const currentTranslate = -(this.currentSlide * this.slideWidth);
-        const newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100);
+        
+        // Amélioration : limiter le déplacement aux bornes avec un effet de resistance
+        let newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100);
+        
+        // Effet de resistance aux bords
+        if (this.currentSlide === 0 && diffX > 0) {
+            newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100 * 0.3);
+        } else if (this.currentSlide === this.totalSlides - 1 && diffX < 0) {
+            newTranslate = currentTranslate + (diffX / this.container.offsetWidth * 100 * 0.3);
+        }
         
         this.wrapper.style.transform = `translateX(${newTranslate}%)`;
     }
@@ -118,11 +132,21 @@ class FoyerSlider {
         const diffX = this.currentX - this.startX;
         const diffTime = Date.now() - this.startTime;
         
-        // Remettre la transition
-        this.wrapper.style.transition = 'transform 0.3s ease-out';
+        // Calculer la vélocité
+        const velocity = Math.abs(diffX) / diffTime;
         
-        // Déterminer s'il faut changer de slide
-        const shouldSwipe = Math.abs(diffX) > this.minSwipeDistance && diffTime < this.maxSwipeTime;
+        // Retirer la classe de dragging
+        this.wrapper.classList.remove('dragging');
+        
+        // Remettre la transition avec un easing plus naturel
+        this.wrapper.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        
+        // Déterminer s'il faut changer de slide - LOGIQUE AMÉLIORÉE
+        const shouldSwipeByDistance = Math.abs(diffX) > this.minSwipeDistance;
+        const shouldSwipeByVelocity = velocity > this.velocityThreshold;
+        const shouldSwipeByTime = diffTime < this.maxSwipeTime;
+        
+        const shouldSwipe = (shouldSwipeByDistance && shouldSwipeByTime) || shouldSwipeByVelocity;
         
         if (shouldSwipe) {
             if (diffX > 0 && this.currentSlide > 0) {
@@ -146,6 +170,7 @@ class FoyerSlider {
         if (this.currentSlide < this.totalSlides - 1) {
             this.currentSlide++;
             this.updateSlider();
+            this.announceSlideChange();
         }
     }
     
@@ -153,13 +178,15 @@ class FoyerSlider {
         if (this.currentSlide > 0) {
             this.currentSlide--;
             this.updateSlider();
+            this.announceSlideChange();
         }
     }
     
     goToSlide(index) {
-        if (index >= 0 && index < this.totalSlides) {
+        if (index >= 0 && index < this.totalSlides && index !== this.currentSlide) {
             this.currentSlide = index;
             this.updateSlider();
+            this.announceSlideChange();
         }
     }
     
@@ -171,20 +198,39 @@ class FoyerSlider {
         // Mettre à jour les dots
         this.dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === this.currentSlide);
+            dot.setAttribute('aria-label', `Aller au slide ${index + 1}${index === this.currentSlide ? ' (actuel)' : ''}`);
         });
         
         // Accessibilité
         this.slides.forEach((slide, index) => {
             const isActive = index === this.currentSlide;
             slide.setAttribute('aria-hidden', !isActive);
-            if (isActive) {
-                slide.querySelector('.card').focus();
+            const card = slide.querySelector('.card');
+            if (card) {
+                card.setAttribute('tabindex', isActive ? '0' : '-1');
             }
         });
     }
     
+    // Annonce vocale du changement de slide pour l'accessibilité
+    announceSlideChange() {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Slide ${this.currentSlide + 1} sur ${this.totalSlides}`;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
+    
     // Keyboard navigation
     handleKeyDown(e) {
+        // Vérifier si le focus est sur le slider
+        if (!this.container.contains(document.activeElement)) return;
+        
         switch(e.key) {
             case 'ArrowLeft':
                 e.preventDefault();
@@ -210,6 +256,26 @@ class FoyerSlider {
         this.updateSlider();
     }
     
+    // Auto-play (optionnel)
+    startAutoPlay(interval = 5000) {
+        this.stopAutoPlay(); // Arrêter l'auto-play existant
+        
+        this.autoPlayInterval = setInterval(() => {
+            if (this.currentSlide < this.totalSlides - 1) {
+                this.nextSlide();
+            } else {
+                this.goToSlide(0); // Retour au début
+            }
+        }, interval);
+    }
+    
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+    
     // Utility: Debounce
     debounce(func, wait) {
         let timeout;
@@ -229,7 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const sliderContainer = document.getElementById('cardSlider');
     
     if (sliderContainer) {
-        new FoyerSlider(sliderContainer);
+        const slider = new FoyerSlider(sliderContainer);
+        
+        // Optionnel : démarrer l'auto-play après 3 secondes d'inactivité
+        // setTimeout(() => slider.startAutoPlay(4000), 3000);
+        
+        // Arrêter l'auto-play sur interaction
+        sliderContainer.addEventListener('touchstart', () => slider.stopAutoPlay());
+        sliderContainer.addEventListener('mousedown', () => slider.stopAutoPlay());
         
         // Préchargement des images
         const images = sliderContainer.querySelectorAll('img[src]');
@@ -271,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Style pour l'animation d'entrée
+// Styles additionnels pour les améliorations
 const style = document.createElement('style');
 style.textContent = `
     .animate-in {
@@ -287,6 +360,31 @@ style.textContent = `
             opacity: 1;
             transform: translateY(0);
         }
+    }
+    
+    /* Style pour le dragging */
+    .slider-wrapper.dragging {
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+    }
+    
+    /* Classe pour masquer visuellement mais garder accessible */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    
+    /* Amélioration du curseur */
+    .slider-wrapper {
+        cursor: grab;
+        cursor: -webkit-grab;
     }
 `;
 document.head.appendChild(style);

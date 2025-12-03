@@ -32,7 +32,6 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    /* Logo positionné directement sur le fond */
     padding-top: 8vh;
     box-sizing: border-box;
 }
@@ -44,38 +43,57 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    /* Prend moins de place pour le logo sur le fond */
     height: 65vh;
 }
 
-/* Container du slider */
+/* NOUVEAU SYSTÈME ULTRA-SIMPLE - Basé sur debug.html qui marche */
 .slider-container {
     position: relative;
-    width: 100%;
-    max-width: 240px;
+    width: 280px;
     height: 320px;
     overflow: hidden;
+    margin: 0 auto;
+    /* Border temporaire pour debug */
+    border: 2px solid rgba(255,255,255,0.2);
 }
 
-/* Wrapper des slides */
 .slider-wrapper {
-    display: flex;
-    transition: transform 0.3s ease-out;
+    position: relative;
+    width: 100%;
     height: 100%;
-    width: 300%; /* 3 slides */
 }
 
-/* Slide individuel */
+/* Slides avec positions absolues - EXACTEMENT comme debug.html */
 .slide {
-    width: 33.333%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    z-index: 1;
 }
 
-/* Carte */
+/* POSITIONS INITIALES - Exactement comme debug.html */
+.slide:nth-child(1) {
+    transform: translateX(40px); /* Active au centre */
+    z-index: 10;
+}
+
+.slide:nth-child(2) {
+    transform: translateX(-160px); /* Peek gauche */
+    z-index: 5;
+}
+
+.slide:nth-child(3) {
+    transform: translateX(240px); /* Peek droite */
+    z-index: 5;
+}
+
+/* Cartes - Adaptées à la structure WordPress */
 .card {
     width: 180px;
     height: 280px;
@@ -88,14 +106,24 @@ body {
     flex-direction: column;
     text-decoration: none;
     color: inherit;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .card:hover {
     transform: scale(1.02);
 }
 
-.card:active {
-    transform: scale(0.98);
+/* Effet peek pour les cardes non-actives */
+.slide:nth-child(2) .card,
+.slide:nth-child(3) .card {
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+.slide:nth-child(2) .card:hover,
+.slide:nth-child(3) .card:hover {
+    opacity: 0.9;
+    transform: scale(0.97);
 }
 
 /* Zone illustration */
@@ -117,7 +145,7 @@ body {
     background: linear-gradient(135deg, #7DCEA0 0%, #73C6B6 100%);
 }
 
-/* Image d'illustration - couvre toute la zone */
+/* Image d'illustration */
 .illustration-image {
     width: 100%;
     height: 100%;
@@ -128,7 +156,7 @@ body {
     left: 0;
 }
 
-/* Placeholder quand pas d'image */
+/* Placeholder d'illustration */
 .illustration-placeholder {
     position: absolute;
     top: 50%;
@@ -183,7 +211,7 @@ body {
     transform: scale(1.2);
 }
 
-/* Logo directement sur le fond violet */
+/* Logo au bas */
 .bottom-logo {
     position: absolute;
     bottom: 5vh;
@@ -200,7 +228,6 @@ body {
     width: auto;
 }
 
-/* Fallback si pas d'image */
 .bottom-logo-placeholder {
     text-align: center;
     color: #fff;
@@ -235,25 +262,34 @@ body {
 /* Responsive - Tablettes */
 @media (min-width: 768px) {
     .slider-container {
-        max-width: 400px;
+        width: 400px;
         height: 650px;
     }
     
-    .card {
+    .slide {
         width: 320px;
+    }
+    
+    /* Positions ajustées pour tablettes */
+    .slide:nth-child(1) {
+        transform: translateX(40px);
+    }
+    
+    .slide:nth-child(2) {
+        transform: translateX(-280px);
+    }
+    
+    .slide:nth-child(3) {
+        transform: translateX(360px);
+    }
+    
+    .card {
+        width: 300px;
         height: 580px;
     }
     
     .card-title h2 {
         font-size: 20px;
-    }
-    
-    .footer-logo img {
-        width: 50px;
-    }
-    
-    .footer-text {
-        font-size: 16px;
     }
 }
 
@@ -270,8 +306,25 @@ body {
     }
     
     .slider-container {
-        max-width: 450px;
+        width: 450px;
         height: 700px;
+    }
+    
+    .slide {
+        width: 370px;
+    }
+    
+    /* Positions ajustées pour desktop */
+    .slide:nth-child(1) {
+        transform: translateX(40px);
+    }
+    
+    .slide:nth-child(2) {
+        transform: translateX(-330px);
+    }
+    
+    .slide:nth-child(3) {
+        transform: translateX(410px);
     }
     
     .card {
@@ -286,43 +339,6 @@ body {
     .card-title h2 {
         font-size: 22px;
     }
-    
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.2);
-    }
-    
-    .footer-logo img {
-        width: 60px;
-    }
-}
-
-/* Animations et transitions */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
-    animation: slideIn 0.6s ease-out;
-}
-
-/* Préventions des sélections accidentelles */
-.slider-wrapper * {
-    pointer-events: none;
-}
-
-.card {
-    pointer-events: all;
 }
 
 /* États de chargement */
@@ -351,4 +367,62 @@ body {
     font-size: 14px;
     color: rgba(0,0,0,0.7);
     margin: 0;
+}
+
+/* Classes d'état pour JavaScript */
+.slide.slide-active {
+    transform: translateX(40px) !important;
+    z-index: 10 !important;
+}
+
+.slide.slide-previous {
+    transform: translateX(-160px) !important;
+    z-index: 5 !important;
+}
+
+.slide.slide-next {
+    transform: translateX(240px) !important;
+    z-index: 5 !important;
+}
+
+.slide.slide-hidden {
+    transform: translateX(-300px) !important;
+    z-index: 1 !important;
+}
+
+/* Responsive pour les classes d'état */
+@media (min-width: 768px) {
+    .slide.slide-active {
+        transform: translateX(40px) !important;
+    }
+    
+    .slide.slide-previous {
+        transform: translateX(-280px) !important;
+    }
+    
+    .slide.slide-next {
+        transform: translateX(360px) !important;
+    }
+    
+    .slide.slide-hidden {
+        transform: translateX(-400px) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .slide.slide-active {
+        transform: translateX(40px) !important;
+    }
+    
+    .slide.slide-previous {
+        transform: translateX(-330px) !important;
+    }
+    
+    .slide.slide-next {
+        transform: translateX(410px) !important;
+    }
+    
+    .slide.slide-hidden {
+        transform: translateX(-450px) !important;
+    }
 }

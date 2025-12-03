@@ -280,7 +280,7 @@ add_action('customize_register', 'foyer_customize_register');
 function foyer_custom_styles() {
     ?>
     <style>
-        /* Styles pour le logo en bas de page */
+        /* Styles pour le logo en bas de page - Version GRANDE et IMPOSANTE */
         .bottom-logo {
             position: fixed;
             bottom: 20px;
@@ -288,63 +288,80 @@ function foyer_custom_styles() {
             transform: translateX(-50%);
             z-index: 1000;
             text-align: center;
-            max-width: 150px;
+            max-width: 200px; /* Plus grand que l'original */
+            opacity: 1; /* Bien visible */
         }
         
         .bottom-logo img {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
         
         .bottom-logo-placeholder {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.95);
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
+            gap: 15px; /* Plus d'espace */
+            background: rgba(255,255,255,0.98);
+            padding: 15px 25px; /* Beaucoup plus de padding */
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255,255,255,0.3);
         }
         
         .logo-icon {
-            font-size: 24px;
+            font-size: 32px; /* Plus grand qu'avant */
             font-weight: bold;
             color: #8B5CF6;
             background: linear-gradient(45deg, #8B5CF6, #EC4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .logo-text {
-            font-size: 10px;
-            line-height: 1.1;
-            color: #333;
-            font-weight: 600;
+            font-size: 12px; /* Plus grand que l'original */
+            line-height: 1.2;
+            color: #1F2937;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        /* Responsive */
+        /* Responsive - Version GRANDE */
         @media (max-width: 480px) {
             .bottom-logo {
-                bottom: 15px;
-                max-width: 120px;
+                bottom: 18px;
+                max-width: 160px; /* Toujours imposant sur mobile */
             }
             
             .bottom-logo-placeholder {
-                padding: 8px 12px;
+                padding: 12px 20px;
+                gap: 12px;
             }
             
             .logo-icon {
-                font-size: 20px;
+                font-size: 28px; /* Reste grand */
             }
             
             .logo-text {
-                font-size: 9px;
+                font-size: 10px;
+                line-height: 1.1;
             }
+        }
+        
+        /* Animation au survol pour plus de présence */
+        .bottom-logo:hover {
+            transform: translateX(-50%) scale(1.08);
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-logo-placeholder:hover {
+            background: rgba(255,255,255,1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         }
     </style>
     <?php
