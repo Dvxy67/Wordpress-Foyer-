@@ -36,18 +36,18 @@ class FoyerSlider {
         this.updateSlider();
     }
     
-    // Calcul dynamique de l'offset - AJUSTÉ POUR CARTES 270×420
+    // Calcul dynamique de l'offset - AJUSTÉ POUR CARTES 300×460
     calculateSlideOffset() {
         const screenWidth = window.innerWidth;
         
         if (screenWidth < 768) {
-            return 290; // Mobile : 270px carte + 20px espace
+            return 320; // Mobile : 300px carte + 20px espace
         } else if (screenWidth < 1024) {
-            return 430; // Tablette : 400px carte + 30px espace
+            return 470; // Tablette : 440px carte + 30px espace
         } else if (screenWidth < 1440) {
-            return 530; // Desktop : 490px carte + 40px espace
+            return 580; // Desktop : 540px carte + 40px espace
         } else {
-            return 630; // Large desktop : 490px carte + 140px espace
+            return 680; // Large desktop : 540px carte + 140px espace
         }
     }
     
