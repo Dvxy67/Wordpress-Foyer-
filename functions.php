@@ -704,6 +704,18 @@ function habitants_services_customize_register($wp_customize) {
         'section'  => 'habitants_services_section',
         'type'     => 'url'
     ));
+    
+    // Image de la flèche retour
+    $wp_customize->add_setting('habitants_retour_image', array(
+        'default'   => '',
+        'sanitize_callback' => 'esc_url_raw'
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'habitants_retour_image', array(
+        'label'    => 'Image Flèche Retour (optionnel)',
+        'section'  => 'habitants_services_section',
+        'settings' => 'habitants_retour_image',
+        'description' => 'Si vide, affiche la flèche par défaut ←'
+    )));
 }
 add_action('customize_register', 'habitants_services_customize_register');
 

@@ -6,17 +6,18 @@ get_header(); ?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
+
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services pour les habitants</title>
-    
+
     <style>
         /* Import Google Fonts - Rubik */
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
-        
+
         /* MOBILE FIRST CSS - Utilisation maximale de l'espace écran */
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -66,11 +67,12 @@ get_header(); ?>
             max-width: 370px;
             /* Hauteur augmentée de 10px */
             height: calc(100vh - 120px);
-            min-height: 430px;
-            max-height: 510px;
+            min-height: 505px;
+            max-height: 585px;
             padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-bottom: 12px;
+            margin-top: 20px;
         }
 
         /* Item de service - DIMENSIONS HARMONISÉES */
@@ -122,7 +124,7 @@ get_header(); ?>
 
         /* Titre de service - TAILLE HARMONISÉE */
         .service-title {
-            font-size: 14px !important; 
+            font-size: 14px !important;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -146,8 +148,11 @@ get_header(); ?>
 
         .retour-button {
             display: flex;
+            flex-direction: column;
+            /* ← AJOUTE CETTE LIGNE */
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            /* ← Réduis le gap pour rapprocher flèche et texte */
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -174,6 +179,13 @@ get_header(); ?>
             line-height: 1;
         }
 
+        /* Image de la flèche retour (si uploadée) */
+        .arrow-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
         /* Texte retour homepage - TAILLE HARMONISÉE */
         .retour-text {
             font-size: 16px;
@@ -192,6 +204,7 @@ get_header(); ?>
                 opacity: 0;
                 transform: translateY(20px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -213,18 +226,18 @@ get_header(); ?>
                 min-height: 350px;
                 padding: 10px;
             }
-            
+
             .service-item {
                 min-height: calc((100dvh - 140px) / 4 - 5px);
                 padding: 6px 4px;
             }
-            
+
             .service-icon {
                 height: calc((100dvh - 180px) / 8);
                 min-height: 28px;
                 margin-bottom: 4px;
             }
-            
+
             .service-icon img {
                 width: calc((100dvh - 180px) / 8);
                 height: calc((100dvh - 180px) / 8);
@@ -233,18 +246,18 @@ get_header(); ?>
                 max-width: 40px;
                 max-height: 40px;
             }
-            
+
             .service-title {
                 font-size: calc((100dvh - 180px) / 45);
                 min-font-size: 8px;
                 max-font-size: 12px;
                 line-height: 1;
             }
-            
+
             .retour-section {
                 height: 50px;
             }
-            
+
             .retour-button {
                 padding: 8px 12px;
                 gap: 8px;
@@ -258,20 +271,20 @@ get_header(); ?>
                 max-height: 700px;
                 max-width: 380px;
             }
-            
+
             .service-icon {
                 max-height: 60px;
             }
-            
+
             .service-icon img {
                 max-width: 55px;
                 max-height: 55px;
             }
-            
+
             .service-title {
                 max-font-size: 16px;
             }
-            
+
             .retour-section {
                 height: 80px;
             }
@@ -282,7 +295,7 @@ get_header(); ?>
             .habitants-page {
                 padding: 20px;
             }
-            
+
             .main-container {
                 height: calc(100vh - 40px);
             }
@@ -299,38 +312,43 @@ get_header(); ?>
                 margin-bottom: 20px;
                 gap: 10px;
             }
-            
+
             .service-item {
                 padding: 12px 10px;
             }
-            
+
             .service-icon {
                 width: 90px;
                 height: 90px;
                 margin-bottom: 10px;
             }
-            
+
             .service-icon img {
                 width: 85px;
                 height: 85px;
             }
-            
+
             .service-icon .emoji-fallback {
                 font-size: 75px;
             }
-            
+
             .service-title {
                 font-size: 16px;
             }
-            
+
             .retour-section {
                 height: 75px;
             }
-            
+
             .arrow {
                 font-size: 55px;
             }
-            
+
+            .arrow-image {
+                width: 55px;
+                height: 55px;
+            }
+
             .retour-text {
                 font-size: 18px;
             }
@@ -342,19 +360,19 @@ get_header(); ?>
                 max-width: 450px;
             }
         }
-            
-            .arrow {
-                font-size: 55px;
-            }
-            
-            .retour-text {
-                font-size: 20px;
-            }
-            
-            .retour-section {
-                height: auto;
-                margin-top: 20px;
-            }
+
+        .arrow {
+            font-size: 55px;
+        }
+
+        .retour-text {
+            font-size: 20px;
+        }
+
+        .retour-section {
+            height: auto;
+            margin-top: 20px;
+        }
         }
 
         /* === MODE PAYSAGE SUR MOBILE === */
@@ -363,31 +381,31 @@ get_header(); ?>
                 padding: 5px;
                 justify-content: flex-start;
             }
-            
+
             .main-container {
                 height: calc(100dvh - 10px);
                 justify-content: space-between;
             }
-            
+
             .services-grid {
                 height: calc(100dvh - 70px);
                 width: calc(100% - 10px);
                 padding: 8px;
                 margin-bottom: 5px;
             }
-            
+
             .service-item {
                 min-height: calc((100dvh - 110px) / 4 - 2px);
                 padding: 4px 3px;
             }
-            
+
             .service-icon {
                 height: calc((100dvh - 140px) / 8);
                 min-height: 20px;
                 max-height: 30px;
                 margin-bottom: 3px;
             }
-            
+
             .service-icon img {
                 width: calc((100dvh - 140px) / 8);
                 height: calc((100dvh - 140px) / 8);
@@ -396,29 +414,29 @@ get_header(); ?>
                 max-width: 28px;
                 max-height: 28px;
             }
-            
+
             .service-title {
                 font-size: calc((100dvh - 140px) / 50);
                 min-font-size: 7px;
                 max-font-size: 10px;
                 line-height: 1;
             }
-            
+
             .retour-section {
                 height: 40px;
             }
-            
+
             .retour-button {
                 padding: 5px 10px;
                 gap: 5px;
             }
-            
+
             .arrow {
                 font-size: calc((100dvh - 140px) / 20);
                 min-font-size: 18px;
                 max-font-size: 25px;
             }
-            
+
             .retour-text {
                 font-size: calc((100dvh - 140px) / 45);
                 min-font-size: 8px;
@@ -427,7 +445,7 @@ get_header(); ?>
         }
 
         /* === OPTIMISATIONS TACTILES ET ACCESSIBILITÉ === */
-        
+
         /* Focus accessible au clavier */
         .service-item:focus,
         .retour-button:focus {
@@ -440,12 +458,12 @@ get_header(); ?>
             .services-grid {
                 border-width: 6px;
             }
-            
+
             .service-title {
                 text-decoration-thickness: 2px;
                 font-weight: 900;
             }
-            
+
             .retour-text {
                 text-decoration-thickness: 2px;
                 font-weight: 900;
@@ -454,11 +472,12 @@ get_header(); ?>
 
         /* Réduction des animations si demandée */
         @media (prefers-reduced-motion: reduce) {
+
             .services-grid,
             .retour-section {
                 animation: none;
             }
-            
+
             .service-item,
             .retour-button {
                 transition: none;
@@ -470,140 +489,148 @@ get_header(); ?>
             .service-title {
                 font-size: clamp(9px, 3vw, 16px);
             }
-            
+
             .retour-text {
                 font-size: clamp(12px, 4vw, 20px);
             }
         }
     </style>
-    
+
     <?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?>>
 
-<div class="habitants-page">
-    <div class="main-container">
-        <!-- Grille des services -->
-        <div class="services-grid">
-            <!-- Ligne 1 -->
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_pannes', '/pannes')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pannes">
-                <div class="service-icon">
-                    <?php 
-                    $image_pannes = get_theme_mod('habitants_image_pannes');
-                    if ($image_pannes) : ?>
-                        <img src="<?php echo esc_url($image_pannes); ?>" alt="Les Pannes">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Outil">🔧</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pannes', 'LES PANNES'), array('br' => array())); ?></div>
-            </a>
-            
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_concierge', '/concierge')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Concierge">
-                <div class="service-icon">
-                    <?php 
-                    $image_concierge = get_theme_mod('habitants_image_concierge');
-                    if ($image_concierge) : ?>
-                        <img src="<?php echo esc_url($image_concierge); ?>" alt="Le Concierge">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Concierge">👤🗝️</span>
-                    <?php endif; ?>
+    <div class="habitants-page">
+        <div class="main-container">
+            <!-- Grille des services -->
+            <div class="services-grid">
+                <!-- Ligne 1 -->
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_pannes', '/pannes')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pannes">
+                    <div class="service-icon">
+                        <?php
+                        $image_pannes = get_theme_mod('habitants_image_pannes');
+                        if ($image_pannes) : ?>
+                            <img src="<?php echo esc_url($image_pannes); ?>" alt="Les Pannes">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Outil">🔧</span>
+                        <?php endif; ?>
                     </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_concierge', 'LE CONCIERGE'), array('br' => array())); ?></div>
-            </a>
-            
-            <!-- Ligne 2 -->
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_pompiers', 'tel:112')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pompiers">
-                <div class="service-icon">
-                    <?php 
-                    $image_pompiers = get_theme_mod('habitants_image_pompiers');
-                    if ($image_pompiers) : ?>
-                        <img src="<?php echo esc_url($image_pompiers); ?>" alt="Les Pompiers">
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pannes', 'LES PANNES'), array('br' => array())); ?></div>
+                </a>
+
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_concierge', '/concierge')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Concierge">
+                    <div class="service-icon">
+                        <?php
+                        $image_concierge = get_theme_mod('habitants_image_concierge');
+                        if ($image_concierge) : ?>
+                            <img src="<?php echo esc_url($image_concierge); ?>" alt="Le Concierge">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Concierge">👤🗝️</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_concierge', 'LE CONCIERGE'), array('br' => array())); ?></div>
+                </a>
+
+                <!-- Ligne 2 -->
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_pompiers', 'tel:112')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pompiers">
+                    <div class="service-icon">
+                        <?php
+                        $image_pompiers = get_theme_mod('habitants_image_pompiers');
+                        if ($image_pompiers) : ?>
+                            <img src="<?php echo esc_url($image_pompiers); ?>" alt="Les Pompiers">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Camion de pompiers">🚒</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pompiers', 'LES POMPIERS'), array('br' => array())); ?></div>
+                </a>
+
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_proprete', 'https://www.arp-gan.be')); ?>" class="service-item" role="button" aria-label="Accéder au service Bruxelles Propreté">
+                    <div class="service-icon">
+                        <?php
+                        $image_proprete = get_theme_mod('habitants_image_proprete');
+                        if ($image_proprete) : ?>
+                            <img src="<?php echo esc_url($image_proprete); ?>" alt="Bruxelles Propreté">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Recyclage">🗑️♻️</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_proprete', 'BRUXELLES<br>PROPRETÉ'), array('br' => array())); ?></div>
+                </a>
+
+                <!-- Ligne 3 -->
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_assistant', '/assistant-social')); ?>" class="service-item" role="button" aria-label="Accéder au service Assistant Social">
+                    <div class="service-icon">
+                        <?php
+                        $image_assistant = get_theme_mod('habitants_image_assistant');
+                        if ($image_assistant) : ?>
+                            <img src="<?php echo esc_url($image_assistant); ?>" alt="Assistant Social">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Assistant social">👤📄</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_assistant', 'L\'ASSISTANT<br>SOCIAL'), array('br' => array())); ?></div>
+                </a>
+
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_reglement', '/reglement')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Règlement">
+                    <div class="service-icon">
+                        <?php
+                        $image_reglement = get_theme_mod('habitants_image_reglement');
+                        if ($image_reglement) : ?>
+                            <img src="<?php echo esc_url($image_reglement); ?>" alt="Le Règlement">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Document validé">📄✅</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_reglement', 'LE RÈGLEMENT'), array('br' => array())); ?></div>
+                </a>
+
+                <!-- Ligne 4 -->
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_psychologique', '/aide-psychologique')); ?>" class="service-item" role="button" aria-label="Accéder au service Aide Psychologique">
+                    <div class="service-icon">
+                        <?php
+                        $image_psychologique = get_theme_mod('habitants_image_psychologique');
+                        if ($image_psychologique) : ?>
+                            <img src="<?php echo esc_url($image_psychologique); ?>" alt="Aide Psychologique">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Support psychologique">💬❤️</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_psychologique', 'AIDE<br>PSYCHOLOGIQUE'), array('br' => array())); ?></div>
+                </a>
+
+                <a href="<?php echo esc_url(get_theme_mod('habitants_url_entretien', '/entretien-logement')); ?>" class="service-item" role="button" aria-label="Accéder au service Entretien du Logement">
+                    <div class="service-icon">
+                        <?php
+                        $image_entretien = get_theme_mod('habitants_image_entretien');
+                        if ($image_entretien) : ?>
+                            <img src="<?php echo esc_url($image_entretien); ?>" alt="Entretien du Logement">
+                        <?php else : ?>
+                            <span class="emoji-fallback" role="img" aria-label="Manuel d'entretien">📖🔧</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_entretien', 'L\'ENTRETIEN<br>DU LOGEMENT'), array('br' => array())); ?></div>
+                </a>
+            </div>
+
+            <!-- Bouton retour -->
+            <div class="retour-section">
+                <a href="<?php echo esc_url(get_theme_mod('habitants_retour_url', home_url())); ?>" class="retour-button" role="button" aria-label="Retour à la page d'accueil">
+                    <?php
+                    $arrow_image = get_theme_mod('habitants_retour_image');
+                    if ($arrow_image) : ?>
+                        <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
                     <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Camion de pompiers">🚒</span>
+                        <span class="arrow" aria-hidden="true">←</span>
                     <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_pompiers', 'LES POMPIERS'), array('br' => array())); ?></div>
-            </a>
-            
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_proprete', 'https://www.arp-gan.be')); ?>" class="service-item" role="button" aria-label="Accéder au service Bruxelles Propreté">
-                <div class="service-icon">
-                    <?php 
-                    $image_proprete = get_theme_mod('habitants_image_proprete');
-                    if ($image_proprete) : ?>
-                        <img src="<?php echo esc_url($image_proprete); ?>" alt="Bruxelles Propreté">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Recyclage">🗑️♻️</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_proprete', 'BRUXELLES<br>PROPRETÉ'), array('br' => array())); ?></div>
-            </a>
-            
-            <!-- Ligne 3 -->
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_assistant', '/assistant-social')); ?>" class="service-item" role="button" aria-label="Accéder au service Assistant Social">
-                <div class="service-icon">
-                    <?php 
-                    $image_assistant = get_theme_mod('habitants_image_assistant');
-                    if ($image_assistant) : ?>
-                        <img src="<?php echo esc_url($image_assistant); ?>" alt="Assistant Social">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Assistant social">👤📄</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_assistant', 'L\'ASSISTANT<br>SOCIAL'), array('br' => array())); ?></div>
-            </a>
-            
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_reglement', '/reglement')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Règlement">
-                <div class="service-icon">
-                    <?php 
-                    $image_reglement = get_theme_mod('habitants_image_reglement');
-                    if ($image_reglement) : ?>
-                        <img src="<?php echo esc_url($image_reglement); ?>" alt="Le Règlement">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Document validé">📄✅</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_reglement', 'LE RÈGLEMENT'), array('br' => array())); ?></div>
-            </a>
-            
-            <!-- Ligne 4 -->
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_psychologique', '/aide-psychologique')); ?>" class="service-item" role="button" aria-label="Accéder au service Aide Psychologique">
-                <div class="service-icon">
-                    <?php 
-                    $image_psychologique = get_theme_mod('habitants_image_psychologique');
-                    if ($image_psychologique) : ?>
-                        <img src="<?php echo esc_url($image_psychologique); ?>" alt="Aide Psychologique">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Support psychologique">💬❤️</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_psychologique', 'AIDE<br>PSYCHOLOGIQUE'), array('br' => array())); ?></div>
-            </a>
-            
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_entretien', '/entretien-logement')); ?>" class="service-item" role="button" aria-label="Accéder au service Entretien du Logement">
-                <div class="service-icon">
-                    <?php 
-                    $image_entretien = get_theme_mod('habitants_image_entretien');
-                    if ($image_entretien) : ?>
-                        <img src="<?php echo esc_url($image_entretien); ?>" alt="Entretien du Logement">
-                    <?php else : ?>
-                        <span class="emoji-fallback" role="img" aria-label="Manuel d'entretien">📖🔧</span>
-                    <?php endif; ?>
-                </div>
-                <div class="service-title"><?php echo wp_kses(get_theme_mod('habitants_nom_entretien', 'L\'ENTRETIEN<br>DU LOGEMENT'), array('br' => array())); ?></div>
-            </a>
-        </div>
-        
-        <!-- Bouton retour -->
-        <div class="retour-section">
-            <a href="<?php echo esc_url(get_theme_mod('habitants_retour_url', home_url())); ?>" class="retour-button" role="button" aria-label="Retour à la page d'accueil">
-                <span class="arrow" aria-hidden="true">←</span>
-                <span class="retour-text"><?php echo esc_html(get_theme_mod('habitants_retour_text', 'RETOUR HOMEPAGE')); ?></span>
-            </a>
+                    <span class="retour-text"><?php echo esc_html(get_theme_mod('habitants_retour_text', 'RETOUR HOMEPAGE')); ?></span>
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<?php wp_footer(); ?>
+    <?php wp_footer(); ?>
 </body>
+
 </html>
