@@ -12,6 +12,9 @@ get_header(); ?>
     <title>Services pour les habitants</title>
     
     <style>
+        /* Import Google Fonts - Rubik */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+        
         /* MOBILE FIRST CSS - Utilisation maximale de l'espace écran */
         
         * {
@@ -21,15 +24,15 @@ get_header(); ?>
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
             overflow-x: hidden;
         }
 
         /* === STYLES MOBILE PAR DÉFAUT === */
         .habitants-page {
             min-height: 100dvh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -50,27 +53,27 @@ get_header(); ?>
             max-width: 100%;
         }
 
-        /* Grille principale - Taille maximisée */
+        /* Grille principale - DIMENSIONS HARMONISÉES */
         .services-grid {
-            background: #F4D03F;
-            border: 4px solid #000000;
-            border-radius: 20px;
+            background: #e9d16f;
+            border: 3px solid #000000;
+            border-radius: 25px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: repeat(4, 1fr);
             gap: 0;
             width: calc(100% - 16px);
-            max-width: 400px;
-            /* Hauteur optimisée pour utiliser l'espace disponible */
-            height: calc(100dvh - 120px);
-            min-height: 400px;
-            max-height: 600px;
-            padding: 12px;
+            max-width: 370px;
+            /* Hauteur augmentée de 10px */
+            height: calc(100vh - 120px);
+            min-height: 430px;
+            max-height: 510px;
+            padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-bottom: 12px;
         }
 
-        /* Item de service - Tailles agrandies */
+        /* Item de service - DIMENSIONS HARMONISÉES */
         .service-item {
             display: flex;
             flex-direction: column;
@@ -82,8 +85,6 @@ get_header(); ?>
             transition: transform 0.2s ease;
             text-decoration: none;
             color: inherit;
-            /* Hauteur flexible selon l'espace disponible */
-            min-height: calc((100dvh - 160px) / 4 - 6px);
         }
 
         .service-item:hover,
@@ -96,61 +97,51 @@ get_header(); ?>
             transform: scale(0.97);
         }
 
-        /* Zone icône - Taille dynamique */
+        /* Zone icône - TAILLE HARMONISÉE FIXE */
         .service-icon {
-            height: calc((100dvh - 200px) / 8);
-            min-height: 35px;
-            max-height: 55px;
-            margin-bottom: 6px;
+            width: 70px;
+            height: 70px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: calc((100dvh - 200px) / 12);
         }
 
-        /* Images uploadées - Taille dynamique */
+        /* Images uploadées - TAILLE HARMONISÉE */
         .service-icon img {
-            width: calc((100dvh - 200px) / 8);
-            height: calc((100dvh - 200px) / 8);
-            min-width: 32px;
-            min-height: 32px;
-            max-width: 50px;
-            max-height: 50px;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
         }
 
         /* Style émojis en fallback */
         .service-icon .emoji-fallback {
-            font-size: calc((100dvh - 200px) / 12);
-            min-font-size: 28px;
+            font-size: 58px;
             line-height: 1;
         }
 
-        /* Titre de service - Taille responsive */
+        /* Titre de service - TAILLE HARMONISÉE */
         .service-title {
-            font-size: calc((100dvh - 200px) / 40);
-            min-font-size: 10px;
-            max-font-size: 14px;
-            font-weight: bold;
+            font-size: 14px !important; 
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             line-height: 1.1;
             text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 1px;
-            letter-spacing: 0.3px;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
+            letter-spacing: 0.5px;
             text-align: center;
             word-break: break-word;
         }
 
-        /* Section bouton retour - Optimisée */
+        /* Section bouton retour - HARMONISÉE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            /* Espace minimal pour le bouton */
-            height: 60px;
+            height: 65px;
         }
 
         .retour-button {
@@ -175,26 +166,22 @@ get_header(); ?>
             transform: scale(0.95);
         }
 
-        /* Flèche de retour - Taille responsive */
+        /* Flèche de retour - TAILLE HARMONISÉE */
         .arrow {
-            font-size: calc((100dvh - 200px) / 15);
-            min-font-size: 32px;
-            max-font-size: 45px;
-            font-weight: bold;
+            font-size: 45px;
+            font-weight: 500;
             color: #000;
             line-height: 1;
         }
 
-        /* Texte retour homepage - Taille responsive */
+        /* Texte retour homepage - TAILLE HARMONISÉE */
         .retour-text {
-            font-size: calc((100dvh - 200px) / 35);
-            min-font-size: 14px;
-            max-font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-decoration: underline;
-            text-decoration-thickness: 1px;
+            text-decoration-thickness: 1.5px;
             text-underline-offset: 2px;
             letter-spacing: 0.5px;
         }
@@ -297,80 +284,64 @@ get_header(); ?>
             }
             
             .main-container {
-                height: calc(100dvh - 40px);
+                height: calc(100vh - 40px);
             }
 
             .services-grid {
                 width: calc(100% - 40px);
-                max-width: 450px;
-                height: calc(100dvh - 160px);
-                max-height: 600px;
+                max-width: 400px;
+                height: calc(100vh - 160px);
+                min-height: 560px;
+                max-height: 660px;
                 padding: 20px;
-                border: 5px solid #000000;
-                border-radius: 22px;
+                border: 6px solid #000000;
+                border-radius: 25px;
                 margin-bottom: 20px;
+                gap: 10px;
             }
             
             .service-item {
-                padding: 15px 10px;
+                padding: 12px 10px;
+            }
+            
+            .service-icon {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 10px;
+            }
+            
+            .service-icon img {
+                width: 85px;
+                height: 85px;
+            }
+            
+            .service-icon .emoji-fallback {
+                font-size: 75px;
+            }
+            
+            .service-title {
+                font-size: 16px;
+            }
+            
+            .retour-section {
+                height: 75px;
             }
             
             .arrow {
-                font-size: 45px;
-                min-font-size: 40px;
+                font-size: 55px;
             }
             
             .retour-text {
                 font-size: 18px;
-                min-font-size: 16px;
             }
         }
 
         /* === DESKTOP (768px+) === */
         @media (min-width: 768px) {
-            .habitants-page {
-                min-height: 100vh;
-            }
-            
-            .main-container {
-                height: calc(100vh - 40px);
-                max-width: 500px;
-            }
-            
             .services-grid {
-                max-width: 500px;
-                height: auto;
-                aspect-ratio: 1;
-                max-height: 550px;
-                padding: 25px;
+                max-width: 450px;
             }
-            
-            .service-item {
-                min-height: 110px;
-                padding: 20px 15px;
-            }
-            
-            .service-icon {
-                height: 55px;
-                margin-bottom: 10px;
-                font-size: 36px;
-            }
-            
-            .service-icon img {
-                width: 50px;
-                height: 50px;
-                max-width: 55px;
-                max-height: 55px;
-            }
-            
-            .service-icon .emoji-fallback {
-                font-size: 36px;
-            }
-            
-            .service-title {
-                font-size: 14px;
-                line-height: 1.2;
-            }
+        }
             
             .arrow {
                 font-size: 55px;
