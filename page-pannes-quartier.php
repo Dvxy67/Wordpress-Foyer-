@@ -27,7 +27,10 @@ get_header(); ?>
     <title>Pannes - <?php echo esc_html($quartier_display); ?></title>
     
     <style>
-        /* CSS identique à la page pannes normale */
+        /* Import Google Fonts - Rubik */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+        
+        /* CSS HARMONISÉ - Page Pannes */
         * {
             margin: 0;
             padding: 0;
@@ -35,33 +38,45 @@ get_header(); ?>
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
         .pannes-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 8px;
+        }
+
+        /* Container principal pour équilibrer l'espace */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100dvh - 16px);
+            width: 100%;
+            max-width: 100%;
         }
 
         .pannes-container {
             background: #F4D03F;
-            border: 4px solid #000000;
+            border: 3px solid #000000;
             border-radius: 25px;
-            width: 100%;
-            max-width: 340px;
-            height: calc(100vh - 100px);
-            max-height: 500px;
-            min-height: 420px;
-            padding: 20px 15px 15px 15px;
-            margin-bottom: 15px;
+            width: calc(100% - 16px);
+            max-width: 370px;
+            height: calc(100vh - 120px);
+            min-height: 505px;
+            max-height: 585px;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -99,10 +114,10 @@ get_header(); ?>
 
         .pannes-title {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-align: center;
             line-height: 1.2;
         }
@@ -168,12 +183,13 @@ get_header(); ?>
 
         .panne-text {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-align: center;
             line-height: 1.1;
             letter-spacing: 0.5px;
+        }
         }
 
         /* Affichage numéro téléphone */
@@ -231,17 +247,20 @@ get_header(); ?>
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 60px;
-            flex-shrink: 0;
+            width: 100%;
+            height: 118px;
         }
 
         .retour-button {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
+            padding: 10px 15px;
+            border-radius: 10px;
         }
 
         .retour-button:hover {
@@ -251,20 +270,21 @@ get_header(); ?>
         }
 
         .arrow {
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 45px;
+            font-weight: 500;
             color: #000;
             line-height: 1;
         }
 
         .retour-text {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-decoration: underline;
-            text-decoration-thickness: 2px;
-            letter-spacing: 1px;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
+            letter-spacing: 0.5px;
         }
 
         /* DESKTOP RESPONSIVE */
@@ -273,10 +293,15 @@ get_header(); ?>
                 padding: 20px;
             }
             
+            .main-container {
+                height: calc(100vh - 40px);
+            }
+            
             .pannes-container {
-                max-width: 380px;
-                min-height: 580px;
-                padding: 30px 25px 20px 25px;
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
                 border: 6px solid #000000;
             }
             
@@ -323,8 +348,12 @@ get_header(); ?>
                 font-size: 16px;
             }
             
+            .retour-section {
+                height: 75px;
+            }
+            
             .arrow {
-                font-size: 50px;
+                font-size: 55px;
             }
             
             .retour-text {
@@ -365,7 +394,7 @@ get_header(); ?>
         }
 
         .pannes-container {
-            border: 4px solid #000000 !important;
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
@@ -381,9 +410,10 @@ get_header(); ?>
 <body <?php body_class(); ?>>
 
 <div class="pannes-page">
-    <div class="pannes-container">
-        
-        <!-- Header avec titre et icône -->
+    <div class="main-container">
+        <div class="pannes-container">
+            
+            <!-- Header avec titre et icône -->
         <div class="pannes-header">
             <div class="tools-icon">
                 <?php 
@@ -529,6 +559,7 @@ get_header(); ?>
             <span class="arrow">←</span>
             <span class="retour-text"><?php echo esc_html(get_theme_mod("pannes_{$quartier}_retour_text", 'RETOUR AUX QUARTIERS')); ?></span>
         </a>
+    </div>
     </div>
 </div>
 

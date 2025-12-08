@@ -1,7 +1,22 @@
 <?php
 /*
-Template Name: Page Quartiers - Harmonisée
+Template Name: Pannes Quartier - Harmonisée avec Image Retour
 */
+
+// Détecter le quartier depuis le slug de la page
+$page_slug = get_post_field('post_name', get_post());
+$quartier = '';
+
+// Extraire le nom du quartier depuis le slug (ex: "pannes-prins" -> "prins")
+if (strpos($page_slug, 'pannes-') === 0) {
+    $quartier = str_replace('pannes-', '', $page_slug);
+} else {
+    $quartier = 'default';
+}
+
+// Convertir en format lisible (ex: "prins" -> "Prins")
+$quartier_display = ucfirst($quartier);
+
 get_header(); ?>
 
 <!DOCTYPE html>
@@ -9,11 +24,13 @@ get_header(); ?>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Quartiers</title>
+    <title>Pannes - <?php echo esc_html($quartier_display); ?></title>
     
     <style>
-        /* CSS HARMONISÉ - Page Quartiers Mobile-First */
+        /* Import Google Fonts - Rubik */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
         
+        /* CSS HARMONISÉ - Page Pannes */
         * {
             margin: 0;
             padding: 0;
@@ -21,53 +38,61 @@ get_header(); ?>
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Container principal */
-        .quartiers-page {
+        .pannes-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 8px;
         }
 
-        /* Container de la grille - TOTAL FIT ÉCRAN */
-        .quartiers-container {
-            background: #F4D03F;
-            border: 4px solid #000000;
-            border-radius: 25px;
+        /* Container principal pour équilibrer l'espace */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100dvh - 16px);
             width: 100%;
-            max-width: 340px;
+            max-width: 100%;
+        }
+
+        .pannes-container {
+            background: #F4D03F;
+            border: 3px solid #000000;
+            border-radius: 25px;
+            width: calc(100% - 16px);
+            max-width: 370px;
             height: calc(100vh - 120px);
-            max-height: 480px;
-            min-height: 400px;
+            min-height: 505px;
+            max-height: 585px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-top: 20px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
         }
 
-        /* Section titre avec immeuble - OPTIMISÉE */
-        .titre-section {
+        .pannes-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            gap: 12px;
-            min-height: 60px;
+            gap: 15px;
+            margin-bottom: 20px;
             flex-shrink: 0;
+            min-height: 60px;
         }
 
-        /* Image d'immeuble - RÉDUITE */
-        .immeuble-icon {
+        .tools-icon {
             width: 50px;
             height: 50px;
             flex-shrink: 0;
@@ -76,181 +101,268 @@ get_header(); ?>
             justify-content: center;
         }
 
-        .immeuble-icon img {
+        .tools-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        .immeuble-icon .emoji-fallback {
+        .tools-icon .emoji-fallback {
             font-size: 40px;
             line-height: 1;
         }
 
-        /* Titre "J'HABITE À" - RÉDUIT */
-        .titre-text {
+        .pannes-title {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            line-height: 1.2;
         }
 
-        /* Zone scrollable - OPTIMISÉE */
-        .quartiers-scroll {
+        .pannes-grid-container {
+            background: #E8E8E8;
+            border-radius: 15px;
+            padding: 20px 15px;
             flex: 1;
-            background: #FFFFFF;
-            border-radius: 10px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: thin;
-            scrollbar-color: #CCCCCC #F0F0F0;
-        }
-
-        /* Scrollbar pour Chrome/Safari */
-        .quartiers-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .quartiers-scroll::-webkit-scrollbar-track {
-            background: #F0F0F0;
-        }
-
-        .quartiers-scroll::-webkit-scrollbar-thumb {
-            background: #CCCCCC;
-            border-radius: 4px;
-        }
-
-        .quartiers-scroll::-webkit-scrollbar-thumb:hover {
-            background: #AAAAAA;
-        }
-
-        /* Liste des quartiers */
-        .quartiers-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Item de quartier - HARMONISÉ */
-        .quartier-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 15px;
+        }
+
+        .pannes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 280px;
+            height: 100%;
+            max-height: 280px;
+        }
+
+        .panne-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #000;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .panne-item:hover {
+            transform: scale(1.05);
+            text-decoration: none;
+            color: #000;
+        }
+
+        .panne-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .panne-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .panne-icon .emoji-fallback {
+            font-size: 50px;
+            line-height: 1;
+        }
+
+        .panne-text {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
-            text-decoration: none;
-            border-bottom: 1px solid #E5E5E5;
-            background: #FFFFFF;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            min-height: 45px;
+            text-align: center;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
         }
 
-        /* Hover normal */
-        .quartier-item:hover {
-            background-color: #F8F8F8;
+        /* Affichage numéro téléphone */
+        .panne-phone {
+            text-align: center;
+            animation: slideIn 0.3s ease;
         }
 
-        /* SÉLECTIONNÉ - Bleu au clic */
-        .quartier-item.selected {
-            background-color: #3498DB !important;
-            color: #FFFFFF !important;
+        .panne-phone .phone-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
         }
 
-        .quartier-item.selected:hover {
-            background-color: #2980B9 !important;
+        .panne-phone .phone-instruction {
+            font-size: 10px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 1.5s infinite;
         }
 
-        /* Dernier quartier sans bordure */
-        .quartier-item:last-child {
-            border-bottom: none;
+        /* Animation slide in */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Section bouton retour - COMPACTE */
+        /* Animation pulse pour instruction */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* État clicked */
+        .panne-item.clicked {
+            background-color: #f0f0f0;
+            transform: scale(0.98);
+        }
+
+        /* Section bouton retour - HARMONISÉE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 70px;
-            flex-shrink: 0;
+            width: 100%;
+            height: 118px;
         }
 
         .retour-button {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
+            padding: 10px 15px;
+            border-radius: 10px;
         }
 
         .retour-button:hover {
             transform: scale(1.05);
+            text-decoration: none;
+            color: #000;
         }
 
         /* Flèche de retour - HARMONISÉE */
         .arrow {
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 45px;
+            font-weight: 500;
             color: #000;
             line-height: 1;
+        }
+
+        /* Image de la flèche retour - HARMONISÉE 90x90px */
+        .arrow-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
         }
 
         /* Texte retour - HARMONISÉ */
         .retour-text {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-decoration: underline;
-            text-decoration-thickness: 2px;
-            letter-spacing: 1px;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
+            letter-spacing: 0.5px;
         }
 
         /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
-            .quartiers-page {
+            .pannes-page {
                 padding: 20px;
             }
             
-            .quartiers-container {
-                max-width: 380px;
-                height: 550px;
+            .main-container {
+                height: calc(100vh - 40px);
+            }
+            
+            .pannes-container {
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
                 border: 6px solid #000000;
-                padding: 20px;
             }
             
-            .titre-section {
-                margin-bottom: 20px;
-                gap: 15px;
+            .pannes-header {
+                margin-bottom: 25px;
                 min-height: 80px;
+                gap: 20px;
             }
             
-            .immeuble-icon {
+            .tools-icon {
                 width: 70px;
                 height: 70px;
             }
             
-            .immeuble-icon .emoji-fallback {
+            .tools-icon .emoji-fallback {
                 font-size: 56px;
             }
             
-            .titre-text {
-                font-size: 22px;
+            .pannes-title {
+                font-size: 20px;
             }
             
-            .quartier-item {
-                padding: 16px 20px;
+            .pannes-grid-container {
+                padding: 25px 20px;
+            }
+            
+            .pannes-grid {
+                gap: 30px;
+                max-width: 320px;
+                max-height: 320px;
+            }
+            
+            .panne-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 12px;
+            }
+            
+            .panne-icon .emoji-fallback {
+                font-size: 64px;
+            }
+            
+            .panne-text {
                 font-size: 16px;
-                min-height: 55px;
+            }
+            
+            .retour-section {
+                height: 75px;
             }
             
             .arrow {
-                font-size: 50px;
+                font-size: 55px;
             }
             
             .retour-text {
@@ -258,29 +370,47 @@ get_header(); ?>
             }
         }
 
+        @media (max-width: 360px) {
+            .pannes-container {
+                max-width: 300px;
+                padding: 12px;
+            }
+            
+            .pannes-grid {
+                gap: 18px;
+                max-width: 240px;
+                max-height: 240px;
+            }
+            
+            .panne-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .panne-icon .emoji-fallback {
+                font-size: 40px;
+            }
+            
+            .panne-text {
+                font-size: 12px;
+            }
+        }
+
         /* RESET pour éviter les interférences CSS du thème */
-        .quartiers-page * {
+        .pannes-page * {
             border: none !important;
             outline: none !important;
             box-shadow: none !important;
         }
 
         /* Exceptions pour nos styles */
-        .quartiers-container {
-            border: 4px solid #000000 !important;
+        .pannes-container {
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        .quartier-item {
-            border-bottom: 1px solid #E5E5E5 !important;
-        }
-
-        .quartier-item:last-child {
-            border-bottom: none !important;
-        }
-
         @media (min-width: 481px) {
-            .quartiers-container {
+            .pannes-container {
                 border: 6px solid #000000 !important;
             }
         }
@@ -290,101 +420,130 @@ get_header(); ?>
 </head>
 <body <?php body_class(); ?>>
 
-<div class="quartiers-page">
-    <div class="quartiers-container">
-        
-        <!-- Section titre avec immeuble -->
-        <div class="titre-section">
-            <div class="immeuble-icon">
-                <?php 
-                $image_immeuble = get_theme_mod('quartiers_image_immeuble');
-                if ($image_immeuble) : ?>
-                    <img src="<?php echo esc_url($image_immeuble); ?>" alt="Immeuble">
+<div class="pannes-page">
+    <div class="main-container">
+        <div class="pannes-container">
+            
+            <!-- Header avec titre -->
+        <div class="pannes-header">
+            <div class="tools-icon">
+                <?php
+                // Icône spécifique au quartier ou globale
+                $tools_icon = get_theme_mod("pannes_{$quartier}_tools_icon");
+                if (empty($tools_icon)) {
+                    $tools_icon = get_theme_mod('pannes_tools_icon');
+                }
+                
+                if ($tools_icon) : ?>
+                    <img src="<?php echo esc_url($tools_icon); ?>" alt="Outils">
                 <?php else : ?>
-                    <span class="emoji-fallback" role="img" aria-label="Immeuble">🏢</span>
+                    <span class="emoji-fallback" role="img" aria-label="Outils">🔧</span>
                 <?php endif; ?>
             </div>
-            <h1 class="titre-text">J'HABITE À</h1>
+            <h1 class="pannes-title">
+                <?php 
+                $title = get_theme_mod("pannes_{$quartier}_title", "PANNES<br>" . strtoupper($quartier_display));
+                echo wp_kses($title, array('br' => array()));
+                ?>
+            </h1>
         </div>
         
-        <!-- Zone scrollable des quartiers -->
-        <div class="quartiers-scroll">
-            <ul class="quartiers-list">
-                <?php
-                // Récupérer la liste des quartiers et des liens
-                $quartiers       = get_quartiers_list();
-                $quartiers_liens = function_exists('get_quartiers_links') ? get_quartiers_links() : array();
-
-                if ( ! empty( $quartiers ) ) :
-                    foreach ( $quartiers as $index => $quartier ) :
-                        // Lien correspondant (même index que dans la liste des quartiers)
-                        $url = ( isset( $quartiers_liens[ $index ] ) && $quartiers_liens[ $index ] !== '' )
-                            ? $quartiers_liens[ $index ]
-                            : '#';
+        <!-- Grille des pannes -->
+        <div class="pannes-grid-container">
+            <div class="pannes-grid">
+                <?php for ($i = 1; $i <= 4; $i++) : 
+                    // Récupérer les valeurs spécifiques au quartier ou globales
+                    $icon = get_theme_mod("pannes_{$quartier}_icon_panne{$i}");
+                    if (empty($icon)) {
+                        $icon = get_theme_mod("pannes_icon_panne{$i}");
+                    }
+                    
+                    $text = get_theme_mod("pannes_{$quartier}_text_panne{$i}");
+                    if (empty($text)) {
+                        $text = get_theme_mod("pannes_text_panne{$i}", 
+                            $i == 1 ? 'CHAUFFAGE' : ($i == 2 ? 'ASCENSEUR' : ($i == 3 ? 'TÉLÉVISION' : 'INTERNET'))
+                        );
+                    }
+                    
+                    $telephone = get_theme_mod("pannes_{$quartier}_telephone_panne{$i}");
+                    if (empty($telephone)) {
+                        $telephone = get_theme_mod("pannes_telephone_panne{$i}");
+                    }
+                    
+                    $url = get_theme_mod("pannes_{$quartier}_url_panne{$i}");
+                    if (empty($url)) {
+                        $url = "#";
+                    }
+                    
+                    // Si pas de téléphone, utiliser l'URL
+                    $onclick = '';
+                    if (!empty($telephone)) {
+                        $onclick = "event.preventDefault(); showPhoneNumber(this, '" . esc_js($telephone) . "');";
+                    }
                 ?>
-                    <li>
-                        <a href="<?php echo esc_url( $url ); ?>"
-                           class="quartier-item"
-                           data-quartier="<?php echo esc_attr( strtolower( $quartier ) ); ?>">
-                            <?php echo esc_html( strtoupper( $quartier ) ); ?>
-                        </a>
-                    </li>
-                <?php
-                    endforeach;
-                else :
-                    // Quartiers par défaut (si rien n'a été configuré)
-                    $default_quartiers = array(
-                        'PRINS',
-                        'PETERBOS',
-                        'RAUTER',
-                        'LA ROUE',
-                        'SQUARE ALBERT',
-                        'LENNIK',
-                        'BON AIR',
-                        'GOUJONS',
-                        'DAUPHINELLES',
-                    );
-                    foreach ( $default_quartiers as $quartier ) :
-                ?>
-                    <li>
-                        <a href="#"
-                           class="quartier-item"
-                           data-quartier="<?php echo esc_attr( strtolower( $quartier ) ); ?>">
-                            <?php echo esc_html( $quartier ); ?>
-                        </a>
-                    </li>
-                <?php
-                    endforeach;
-                endif;
-                ?>
-            </ul>
+                    <a href="<?php echo esc_url($url); ?>" 
+                       class="panne-item" 
+                       data-telephone="<?php echo esc_attr($telephone); ?>"
+                       onclick="<?php echo $onclick; ?>">
+                        <div class="panne-icon">
+                            <?php if ($icon) : ?>
+                                <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($text); ?>">
+                            <?php else : ?>
+                                <span class="emoji-fallback" role="img">
+                                    <?php echo $i == 1 ? '🔥' : ($i == 2 ? '🛗' : ($i == 3 ? '📺' : '🌐')); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="panne-text"><?php echo esc_html(strtoupper($text)); ?></div>
+                    </a>
+                <?php endfor; ?>
+            </div>
         </div>
     </div>
     
     <!-- Bouton retour -->
     <div class="retour-section">
-        <a href="<?php echo home_url(); ?>" class="retour-button">
-            <span class="arrow">←</span>
-            <span class="retour-text">RETOUR AU MENU</span>
+        <a href="<?php echo esc_url(get_theme_mod("pannes_{$quartier}_retour_url", '/quartiers')); ?>" class="retour-button">
+            <?php 
+            // Image de retour spécifique au quartier ou globale
+            $arrow_image = get_theme_mod("pannes_{$quartier}_retour_image");
+            if (empty($arrow_image)) {
+                $arrow_image = get_theme_mod('pannes_retour_image');
+            }
+            
+            if ($arrow_image) : ?>
+                <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+            <?php else : ?>
+                <span class="arrow" aria-hidden="true">←</span>
+            <?php endif; ?>
+            <span class="retour-text">
+                <?php echo esc_html(get_theme_mod("pannes_{$quartier}_retour_text", 'RETOUR AUX QUARTIERS')); ?>
+            </span>
         </a>
+    </div>
     </div>
 </div>
 
 <script>
-// JavaScript pour la sélection des quartiers
-function selectQuartier(element) {
-    // Enlever la sélection de tous les autres quartiers
-    var quartiers = document.querySelectorAll('.quartier-item');
-    quartiers.forEach(function(item) {
-        item.classList.remove('selected');
-    });
+function showPhoneNumber(element, phoneNumber) {
+    // Ajouter la classe clicked
+    element.classList.add('clicked');
     
-    // Ajouter la sélection à l'élément cliqué
-    element.classList.add('selected');
+    // Trouver le conteneur du texte
+    const textContainer = element.querySelector('.panne-text');
     
-    // Optionnel : faire quelque chose avec le quartier sélectionné
-    var quartierNom = element.dataset.quartier;
-    console.log('Quartier sélectionné:', quartierNom);
+    // Remplacer le texte par le numéro de téléphone
+    textContainer.innerHTML = `
+        <div class="panne-phone">
+            <div class="phone-number">${phoneNumber}</div>
+            <div class="phone-instruction">Appuyez pour appeler</div>
+        </div>
+    `;
+    
+    // Créer un lien tel: et simuler un clic après un court délai
+    setTimeout(() => {
+        window.location.href = 'tel:' + phoneNumber;
+    }, 500);
 }
 </script>
 

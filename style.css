@@ -228,6 +228,12 @@ body {
     height: auto !important;
     width: auto !important;
     display: block !important;
+
+    /* On neutralise toute décoration éventuelle */
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: transparent !important;
 }
 
 /* Touch et interaction */

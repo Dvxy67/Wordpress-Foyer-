@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Page Foyer - Harmonisée
+Template Name: Page Foyer - Harmonisée avec Image Retour
 */
 get_header(); ?>
 
@@ -12,6 +12,9 @@ get_header(); ?>
     <title>Le Foyer</title>
     
     <style>
+        /* Import Google Fonts - Rubik */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+        
         /* CSS HARMONISÉ - Page Foyer Mobile-First */
         
         * {
@@ -21,8 +24,8 @@ get_header(); ?>
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -30,26 +33,38 @@ get_header(); ?>
         /* Container principal */
         .foyer-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 8px;
         }
 
-        /* Container principal vert turquoise - TOTAL FIT ÉCRAN */
+        /* Container principal pour équilibrer l'espace */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100dvh - 16px);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Container principal vert turquoise - HARMONISÉ */
         .foyer-container {
             background: #7FCDCD;
-            border: 4px solid #000000;
+            border: 3px solid #000000;
             border-radius: 25px;
-            width: 100%;
-            max-width: 340px;
+            width: calc(100% - 16px);
+            max-width: 370px;
             height: calc(100vh - 120px);
-            max-height: 480px;
-            min-height: 400px;
-            padding: 25px 20px;
-            margin-bottom: 15px;
+            min-height: 505px;
+            max-height: 585px;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -85,24 +100,24 @@ get_header(); ?>
         /* Texte de l'option - HARMONISÉ */
         .option-text {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-align: center;
             line-height: 1.2;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 3px;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
         }
 
-        /* Section bouton retour - COMPACTE */
+        /* Section bouton retour - HARMONISÉE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 70px;
-            flex-shrink: 0;
+            width: 100%;
+            height: 118px;
         }
 
         .retour-button {
@@ -113,6 +128,8 @@ get_header(); ?>
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
+            padding: 10px 15px;
+            border-radius: 10px;
         }
 
         .retour-button:hover {
@@ -121,38 +138,31 @@ get_header(); ?>
             color: #000;
         }
 
-        /* Image/Icône de la flèche - HARMONISÉE */
-        .arrow-container {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .arrow-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Fallback flèche */
-        .arrow-fallback {
-            font-size: 40px;
-            font-weight: bold;
+        /* Flèche de retour - HARMONISÉE (90x90px pour image) */
+        .arrow {
+            font-size: 45px;
+            font-weight: 500;
             color: #000;
             line-height: 1;
+        }
+
+        /* Image de la flèche retour - HARMONISÉE 90x90px */
+        .arrow-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
         }
 
         /* Texte retour - HARMONISÉ */
         .retour-text {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-decoration: underline;
-            text-decoration-thickness: 2px;
-            letter-spacing: 1px;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
+            letter-spacing: 0.5px;
             text-align: center;
         }
 
@@ -162,28 +172,32 @@ get_header(); ?>
                 padding: 20px;
             }
             
+            .main-container {
+                height: calc(100vh - 40px);
+            }
+            
             .foyer-container {
-                max-width: 380px;
-                min-height: 650px;
-                padding: 40px 30px;
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
                 border: 6px solid #000000;
             }
             
             .options-container {
-                gap: 60px;
+                gap: 40px;
             }
             
             .option-text {
-                font-size: 20px;
+                font-size: 18px;
             }
             
-            .arrow-container {
-                width: 80px;
-                height: 80px;
+            .arrow {
+                font-size: 55px;
             }
             
-            .arrow-fallback {
-                font-size: 60px;
+            .retour-section {
+                height: 75px;
             }
             
             .retour-text {
@@ -216,7 +230,7 @@ get_header(); ?>
 
         /* Exceptions pour nos styles */
         .foyer-container {
-            border: 4px solid #000000 !important;
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
@@ -232,9 +246,10 @@ get_header(); ?>
 <body <?php body_class(); ?>>
 
 <div class="foyer-page">
-    <div class="foyer-container">
-        
-        <!-- Container des options -->
+    <div class="main-container">
+        <div class="foyer-container">
+            
+            <!-- Container des options -->
         <div class="options-container">
             
             <!-- Option 1: La Vision -->
@@ -287,17 +302,16 @@ get_header(); ?>
     <!-- Bouton retour -->
     <div class="retour-section">
         <a href="<?php echo get_theme_mod('foyer_retour_url', home_url()); ?>" class="retour-button">
-            <div class="arrow-container">
-                <?php 
-                $arrow_image = get_theme_mod('foyer_arrow_image');
-                if ($arrow_image) : ?>
-                    <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour">
-                <?php else : ?>
-                    <span class="arrow-fallback" role="img" aria-label="Flèche retour">←</span>
-                <?php endif; ?>
-            </div>
+            <?php 
+            $arrow_image = get_theme_mod('foyer_retour_image');
+            if ($arrow_image) : ?>
+                <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+            <?php else : ?>
+                <span class="arrow" aria-hidden="true">←</span>
+            <?php endif; ?>
             <span class="retour-text"><?php echo esc_html(get_theme_mod('foyer_retour_text', 'RETOUR HOMEPAGE')); ?></span>
         </a>
+    </div>
     </div>
 </div>
 

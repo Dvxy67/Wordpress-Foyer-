@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Page Logement Sous-Menu - Balanced Optimization
+Template Name: Page Logement Sous-Menu - Harmonisée avec Image Retour
 */
 get_header(); ?>
 
@@ -12,7 +12,10 @@ get_header(); ?>
     <title>Logement - Sous Menu</title>
     
     <style>
-        /* CSS BALANCED OPTIMIZATION - Page Logement Sous Menu Mobile-First */
+        /* Import Google Fonts - Rubik */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+        
+        /* CSS HARMONISÉ - Page Logement Sous Menu Mobile-First */
         
         * {
             margin: 0;
@@ -21,20 +24,19 @@ get_header(); ?>
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
             overflow-x: hidden;
         }
 
-        /* Container principal - Optimisé mais garde des bandes */
+        /* Container principal */
         .logement-page {
             min-height: 100dvh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Padding réduit mais pas minimal pour garder des bandes */
             padding: 8px;
         }
 
@@ -44,29 +46,28 @@ get_header(); ?>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* Utilise ~75% de l'écran au lieu de 100% ou 60% */
-            height: calc(100dvh - 60px);
+            height: calc(100dvh - 16px);
             width: 100%;
             max-width: 100%;
         }
 
-        /* Container principal rose - TAILLE ÉQUILIBRÉE */
+        /* Container principal rose - HARMONISÉ */
         .logement-container {
             background: #F4A6A6;
-            border: 4px solid #000000;
+            border: 3px solid #000000;
             border-radius: 25px;
             width: calc(100% - 16px);
-            max-width: 360px; /* Légèrement agrandi de 340px */
-            /* Hauteur qui nécessite un scroll léger mais pas excessif */
+            max-width: 370px;
             height: calc(100dvh - 120px);
-            min-height: 480px; /* Augmenté de 420px */
-            max-height: 600px; /* Augmenté de 520px */
-            padding: 18px 14px 14px 14px; /* Légèrement réduit */
+            min-height: 505px;
+            max-height: 585px;
+            padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             overflow: hidden;
+            margin-top: 20px;
             margin-bottom: 12px;
         }
 
@@ -74,8 +75,7 @@ get_header(); ?>
         .options-container {
             display: flex;
             flex-direction: column;
-            /* Gap légèrement réduit pour optimiser l'espace */
-            gap: 30px; /* Réduit de 35px à 30px */
+            gap: 30px;
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
@@ -83,7 +83,6 @@ get_header(); ?>
             scrollbar-width: thin;
             scrollbar-color: #CCCCCC #F0F0F0;
             justify-content: flex-start;
-            /* Padding interne pour forcer un scroll léger */
             padding-bottom: 20px;
         }
 
@@ -114,8 +113,7 @@ get_header(); ?>
             color: #000;
             transition: transform 0.2s ease;
             cursor: pointer;
-            /* Hauteur légèrement augmentée */
-            min-height: 90px; /* Était implicite, maintenant défini */
+            min-height: 90px;
         }
 
         .logement-option:hover {
@@ -128,81 +126,62 @@ get_header(); ?>
             transform: scale(0.98);
         }
 
-        /* Icône de l'option - MODÉRÉMENT AGRANDIE */
+        /* Icône de l'option - HARMONISÉE AVEC PAGE HABITANTS */
         .option-icon {
-            /* Légèrement agrandi de 70px */
-            width: 78px;
-            height: 78px;
-            border-radius: 15px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px; /* Réduit de 12px */
-            overflow: hidden;
+            margin-bottom: 8px;
         }
 
         .option-icon img {
-            width: 90%;
-            height: 90%;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
         }
 
-        /* Couleurs de fond des icônes */
-        .option-icon.candidature {
-            background: #E8F4FD;
-        }
-
-        .option-icon.eligibilite {
-            background: #A8E6CF;
-        }
-
-        .option-icon.delais {
-            background: #FFB84D;
-        }
-
-        .option-icon.autre {
-            background: #D4B896;
-        }
-
-        /* Emojis fallback - LÉGÈREMENT AGRANDIS */
+        /* Emojis fallback - HARMONISÉS AVEC PAGE HABITANTS */
         .option-icon .emoji-fallback {
-            font-size: 50px; /* Augmenté de 45px */
+            font-size: 58px;
             line-height: 1;
         }
 
-        /* Texte de l'option - LÉGÈREMENT AGRANDI */
+        /* Texte de l'option - HARMONISÉ */
         .option-text {
-            font-size: 16px; /* Augmenté de 15px */
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-align: center;
             line-height: 1.2;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             text-decoration: underline;
             text-decoration-thickness: 1.5px;
-            max-width: 260px; /* Légèrement agrandi */
+            text-underline-offset: 2px;
+            max-width: 260px;
             word-break: break-word;
         }
 
-        /* Section bouton retour - OPTIMISÉE */
+        /* Section bouton retour - HARMONISÉE */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 55px; /* Légèrement réduit de 60px */
-            flex-shrink: 0;
             width: 100%;
+            height: 118px;
         }
 
         .retour-button {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 10px;
             touch-action: manipulation;
         }
@@ -217,23 +196,31 @@ get_header(); ?>
             transform: scale(0.95);
         }
 
-        /* Flèche de retour - LÉGÈREMENT AGRANDIE */
+        /* Flèche de retour - HARMONISÉE */
         .arrow {
-            font-size: 42px; /* Légèrement augmenté de 40px */
-            font-weight: bold;
+            font-size: 45px;
+            font-weight: 500;
             color: #000;
             line-height: 1;
         }
 
-        /* Texte retour - LÉGÈREMENT AGRANDI */
+        /* Image de la flèche retour - HARMONISÉE 90x90px */
+        .arrow-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        /* Texte retour - HARMONISÉ */
         .retour-text {
-            font-size: 17px; /* Légèrement augmenté de 16px */
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             text-decoration: underline;
             text-decoration-thickness: 1.5px;
-            letter-spacing: 0.8px;
+            text-underline-offset: 2px;
+            letter-spacing: 0.5px;
         }
 
         /* OPTIMISATIONS POUR ÉCRANS TRÈS PETITS */
@@ -242,120 +229,51 @@ get_header(); ?>
                 padding: 6px;
             }
             
-            .main-container {
-                height: calc(100dvh - 50px);
-            }
-            
             .logement-container {
-                height: calc(100dvh - 90px);
-                min-height: 420px; /* Retour à l'original pour petits écrans */
-                max-height: 500px;
-                padding: 15px 12px 12px 12px;
-                border-radius: 20px;
-                border-width: 3px;
-                margin-bottom: 8px;
+                padding: 12px;
+                min-height: 480px;
             }
             
             .options-container {
-                gap: 25px; /* Légèrement réduit */
+                gap: 22px;
                 padding-bottom: 15px;
             }
             
-            .logement-option {
-                min-height: 80px;
+            .option-icon {
+                width: 60px;
+                height: 60px;
             }
             
-            .option-icon {
-                width: 70px; /* Retour proche de l'original */
-                height: 70px;
-                margin-bottom: 8px;
-                border-radius: 12px;
+            .option-icon img {
+                width: 55px;
+                height: 55px;
             }
             
             .option-icon .emoji-fallback {
-                font-size: 45px; /* Retour à l'original */
+                font-size: 48px;
             }
             
             .option-text {
-                font-size: 14px; /* Légèrement réduit */
-                letter-spacing: 0.6px;
-                line-height: 1.1;
-                max-width: 240px;
-            }
-            
-            .retour-section {
-                height: 50px;
-            }
-            
-            .retour-button {
-                gap: 8px;
-                padding: 6px 10px;
-            }
-            
-            .arrow {
-                font-size: 36px;
-            }
-            
-            .retour-text {
                 font-size: 14px;
-                letter-spacing: 0.6px;
             }
         }
 
-        /* ÉCRANS MOYENS - ÉQUILIBRE OPTIMAL */
-        @media (min-height: 700px) and (max-width: 480px) {
-            .logement-container {
-                height: calc(100dvh - 140px);
-                max-height: 650px; /* Légèrement plus grand */
-                max-width: 380px;
-            }
-            
-            .options-container {
-                gap: 35px; /* Retour au gap original */
-                padding-bottom: 25px;
-            }
-            
-            .option-icon {
-                width: 85px; /* Plus grand sur écrans moyens */
-                height: 85px;
-                margin-bottom: 12px;
-            }
-            
-            .option-icon .emoji-fallback {
-                font-size: 55px;
-            }
-            
-            .option-text {
-                font-size: 17px;
-                max-width: 280px;
-            }
-            
-            .retour-section {
-                height: 65px;
-            }
-        }
-
-        /* TABLETTE (481px+) */
+        /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
             .logement-page {
-                padding: 12px;
-                min-height: 100vh;
+                padding: 20px;
             }
             
             .main-container {
-                height: calc(100vh - 80px);
-                max-width: 420px;
+                height: calc(100vh - 40px);
             }
             
             .logement-container {
                 max-width: 400px;
-                height: calc(100vh - 140px);
-                max-height: 650px;
-                min-height: 550px;
-                padding: 22px 18px 18px 18px;
-                border: 5px solid #000000;
-                border-radius: 28px;
-                margin-bottom: 15px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
+                border: 6px solid #000000;
             }
             
             .options-container {
@@ -363,78 +281,27 @@ get_header(); ?>
                 padding-bottom: 25px;
             }
             
-            .logement-option {
-                min-height: 100px;
-            }
-            
             .option-icon {
-                width: 88px;
-                height: 88px;
+                width: 80px;
+                height: 80px;
                 margin-bottom: 12px;
-                border-radius: 18px;
+            }
+            
+            .option-icon img {
+                width: 75px;
+                height: 75px;
             }
             
             .option-icon .emoji-fallback {
-                font-size: 58px;
-            }
-            
-            .option-text {
-                font-size: 17px;
-                letter-spacing: 1px;
-                max-width: 300px;
-            }
-            
-            .arrow {
-                font-size: 48px;
-            }
-            
-            .retour-text {
-                font-size: 17px;
-                letter-spacing: 1px;
-            }
-            
-            .retour-section {
-                height: 65px;
-            }
-            
-            .retour-button {
-                gap: 12px;
-                padding: 10px 14px;
-            }
-        }
-
-        /* DESKTOP (768px+) */
-        @media (min-width: 768px) {
-            .main-container {
-                max-width: 450px;
-            }
-            
-            .logement-container {
-                max-width: 420px;
-                padding: 25px 20px 20px 20px;
-                border: 6px solid #000000;
-                border-radius: 30px;
-            }
-            
-            .options-container {
-                gap: 40px;
-                padding-bottom: 30px;
-            }
-            
-            .option-icon {
-                width: 90px;
-                height: 90px;
-                margin-bottom: 15px;
-                border-radius: 20px;
-            }
-            
-            .option-icon .emoji-fallback {
-                font-size: 60px;
+                font-size: 68px;
             }
             
             .option-text {
                 font-size: 18px;
-                letter-spacing: 1.2px;
+            }
+            
+            .retour-section {
+                height: 75px;
             }
             
             .arrow {
@@ -443,108 +310,6 @@ get_header(); ?>
             
             .retour-text {
                 font-size: 18px;
-                letter-spacing: 1.2px;
-            }
-        }
-
-        /* MODE PAYSAGE SUR MOBILE */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .logement-page {
-                padding: 4px;
-                justify-content: flex-start;
-            }
-            
-            .main-container {
-                height: calc(100dvh - 8px);
-                justify-content: space-between;
-            }
-            
-            .logement-container {
-                height: calc(100dvh - 55px);
-                width: calc(100% - 8px);
-                padding: 10px 8px 8px 8px;
-                border-radius: 15px;
-                border-width: 3px;
-                margin-bottom: 4px;
-            }
-            
-            .options-container {
-                gap: 18px;
-                padding-bottom: 10px;
-            }
-            
-            .logement-option {
-                min-height: 65px;
-            }
-            
-            .option-icon {
-                width: 55px;
-                height: 55px;
-                margin-bottom: 5px;
-                border-radius: 10px;
-            }
-            
-            .option-icon .emoji-fallback {
-                font-size: 32px;
-            }
-            
-            .option-text {
-                font-size: 11px;
-                letter-spacing: 0.4px;
-                line-height: 1;
-                max-width: 200px;
-            }
-            
-            .retour-section {
-                height: 40px;
-            }
-            
-            .retour-button {
-                gap: 5px;
-                padding: 5px 8px;
-            }
-            
-            .arrow {
-                font-size: 26px;
-            }
-            
-            .retour-text {
-                font-size: 10px;
-                letter-spacing: 0.3px;
-            }
-        }
-
-        /* OPTIMISATIONS TACTILES ET ACCESSIBILITÉ */
-        
-        /* Focus accessible au clavier */
-        .logement-option:focus,
-        .retour-button:focus {
-            outline: 3px solid #FFD700;
-            outline-offset: 2px;
-        }
-
-        /* Amélioration contraste pour accessibilité */
-        @media (prefers-contrast: high) {
-            .logement-container {
-                border-width: 6px;
-            }
-            
-            .option-text {
-                text-decoration-thickness: 2px;
-                font-weight: 900;
-            }
-            
-            .retour-text {
-                text-decoration-thickness: 2px;
-                font-weight: 900;
-            }
-        }
-
-        /* Réduction des animations si demandée */
-        @media (prefers-reduced-motion: reduce) {
-            .logement-option,
-            .retour-button {
-                transition: none;
             }
         }
 
@@ -557,17 +322,11 @@ get_header(); ?>
 
         /* Exceptions pour nos styles */
         .logement-container {
-            border: 4px solid #000000 !important;
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
         @media (min-width: 481px) {
-            .logement-container {
-                border: 5px solid #000000 !important;
-            }
-        }
-
-        @media (min-width: 768px) {
             .logement-container {
                 border: 6px solid #000000 !important;
             }
@@ -586,14 +345,14 @@ get_header(); ?>
             <div class="options-container">
                 
                 <!-- Option 1: Candidature -->
-                <a href="<?php echo get_logement_option_url('candidature'); ?>" class="logement-option">
+                <a href="<?php echo esc_url(get_theme_mod('logement_url_candidature', '#')); ?>" class="logement-option">
                     <div class="option-icon candidature">
-                        <?php 
+                        <?php
                         $icon_candidature = get_theme_mod('logement_icon_candidature');
                         if ($icon_candidature) : ?>
                             <img src="<?php echo esc_url($icon_candidature); ?>" alt="Candidature">
                         <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Document">📝</span>
+                            <span class="emoji-fallback" role="img" aria-label="Candidature">📝</span>
                         <?php endif; ?>
                     </div>
                     <div class="option-text">
@@ -602,14 +361,14 @@ get_header(); ?>
                 </a>
                 
                 <!-- Option 2: Éligibilité -->
-                <a href="<?php echo get_logement_option_url('eligibilite'); ?>" class="logement-option">
+                <a href="<?php echo esc_url(get_theme_mod('logement_url_eligibilite', '#')); ?>" class="logement-option">
                     <div class="option-icon eligibilite">
-                        <?php 
+                        <?php
                         $icon_eligibilite = get_theme_mod('logement_icon_eligibilite');
                         if ($icon_eligibilite) : ?>
                             <img src="<?php echo esc_url($icon_eligibilite); ?>" alt="Éligibilité">
                         <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Question">❓</span>
+                            <span class="emoji-fallback" role="img" aria-label="Éligibilité">✓</span>
                         <?php endif; ?>
                     </div>
                     <div class="option-text">
@@ -618,63 +377,51 @@ get_header(); ?>
                 </a>
                 
                 <!-- Option 3: Délais -->
-                <a href="<?php echo get_logement_option_url('delais'); ?>" class="logement-option">
+                <a href="<?php echo esc_url(get_theme_mod('logement_url_delais', '#')); ?>" class="logement-option">
                     <div class="option-icon delais">
-                        <?php 
+                        <?php
                         $icon_delais = get_theme_mod('logement_icon_delais');
                         if ($icon_delais) : ?>
                             <img src="<?php echo esc_url($icon_delais); ?>" alt="Délais">
                         <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Horloge">⏰</span>
+                            <span class="emoji-fallback" role="img" aria-label="Délais">⏳</span>
                         <?php endif; ?>
                     </div>
                     <div class="option-text">
                         <?php echo esc_html(get_theme_mod('logement_text_delais', 'COMBIEN DE TEMPS JE VAIS ATTENDRE?')); ?>
                     </div>
                 </a>
-
-                <!-- Option 4: Par défaut visible (comme dans la maquette) -->
-                <a href="<?php echo get_logement_option_url('autre'); ?>" class="logement-option">
+                
+                <!-- Option 4: Autre Question -->
+                <a href="<?php echo esc_url(get_theme_mod('logement_url_autre', '#')); ?>" class="logement-option">
                     <div class="option-icon autre">
-                        <?php 
+                        <?php
                         $icon_autre = get_theme_mod('logement_icon_autre');
                         if ($icon_autre) : ?>
-                            <img src="<?php echo esc_url($icon_autre); ?>" alt="Autre">
+                            <img src="<?php echo esc_url($icon_autre); ?>" alt="Autre Question">
                         <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Question">❓</span>
+                            <span class="emoji-fallback" role="img" aria-label="Autre">❓</span>
                         <?php endif; ?>
                     </div>
                     <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_autre', 'AUTRE QUESTION?')); ?>
+                        <?php echo esc_html(get_theme_mod('logement_text_autre', 'J\'AI UNE AUTRE QUESTION')); ?>
                     </div>
                 </a>
-
-                <!-- Options supplémentaires si activées -->
-                <?php if (get_theme_mod('logement_show_option4', false)) : ?>
-                <a href="<?php echo get_logement_option_url('option5'); ?>" class="logement-option">
-                    <div class="option-icon autre">
-                        <?php 
-                        $icon_option5 = get_theme_mod('logement_icon_option5');
-                        if ($icon_option5) : ?>
-                            <img src="<?php echo esc_url($icon_option5); ?>" alt="Option 5">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Plus">➕</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_option5', 'OPTION SUPPLÉMENTAIRE')); ?>
-                    </div>
-                </a>
-                <?php endif; ?>
                 
             </div>
         </div>
         
         <!-- Bouton retour -->
         <div class="retour-section">
-            <a href="<?php echo get_theme_mod('logement_retour_url', home_url()); ?>" class="retour-button">
-                <span class="arrow">←</span>
-                <span class="retour-text"><?php echo esc_html(get_theme_mod('logement_retour_text', 'RETOUR HOMEPAGE')); ?></span>
+            <a href="<?php echo home_url(); ?>" class="retour-button">
+                <?php 
+                $arrow_image = get_theme_mod('logement_retour_image');
+                if ($arrow_image) : ?>
+                    <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+                <?php else : ?>
+                    <span class="arrow" aria-hidden="true">←</span>
+                <?php endif; ?>
+                <span class="retour-text">RETOUR AU MENU</span>
             </a>
         </div>
     </div>
