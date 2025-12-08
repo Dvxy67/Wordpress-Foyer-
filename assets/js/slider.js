@@ -1,6 +1,6 @@
 /**
- * Foyer Slider - Extra Grandes Cartes 270×420
- * Version 3.1 - Sans hover, sans transparence
+ * Foyer Slider - Extra Grandes Cartes avec LOOP INFINI
+ * Version 4.0 - Ton code avec boucle infinie ajoutée ♾️
  */
 
 class FoyerSlider {
@@ -25,7 +25,7 @@ class FoyerSlider {
         this.maxSwipeTime = 500;
         this.velocityThreshold = 0.3;
         
-        // Distance entre les slides (ajusté pour cartes 270×420)
+        // Distance entre les slides
         this.slideOffset = this.calculateSlideOffset();
         
         this.init();
@@ -36,7 +36,7 @@ class FoyerSlider {
         this.updateSlider();
     }
     
-    // Calcul dynamique de l'offset - AJUSTÉ POUR CARTES 300×460
+    // Calcul dynamique de l'offset
     calculateSlideOffset() {
         const screenWidth = window.innerWidth;
         
@@ -134,27 +134,26 @@ class FoyerSlider {
         this.currentX = clientX;
         const diffX = this.currentX - this.startX;
         
+        // ✨ CALCUL CIRCULAIRE : Position des cartes adjacentes pendant le drag
+        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        
         // Appliquer le déplacement à toutes les slides
         this.slides.forEach((slide, index) => {
-            const relativeIndex = index - this.currentSlide;
             let baseOffset;
             
-            if (relativeIndex === 0) {
+            if (index === this.currentSlide) {
                 baseOffset = 0; // Active au centre
-            } else if (relativeIndex < 0) {
-                baseOffset = -this.slideOffset; // À gauche
+            } else if (index === previousIndex) {
+                baseOffset = -this.slideOffset; // À gauche (circulaire)
+            } else if (index === nextIndex) {
+                baseOffset = this.slideOffset; // À droite (circulaire)
             } else {
-                baseOffset = this.slideOffset; // À droite
+                // Cartes cachées (ne devrait pas arriver avec 3 slides)
+                baseOffset = -300 * window.innerWidth / 100; // Très loin
             }
             
-            // Ajouter l'effet de résistance aux bords
-            let adjustedDiffX = diffX;
-            if (this.currentSlide === 0 && diffX > 0) {
-                adjustedDiffX = diffX * 0.3; // Résistance au début
-            } else if (this.currentSlide === this.totalSlides - 1 && diffX < 0) {
-                adjustedDiffX = diffX * 0.3; // Résistance à la fin
-            }
-            
+            const adjustedDiffX = diffX;
             const newOffset = baseOffset + adjustedDiffX;
             slide.style.transform = `translateX(calc(-50% + ${newOffset}px))`;
         });
@@ -185,11 +184,12 @@ class FoyerSlider {
         
         const shouldSwipe = (shouldSwipeByDistance && shouldSwipeByTime) || shouldSwipeByVelocity;
         
+        // ✨ MODIFICATION : Swipe dans les deux sens TOUJOURS (loop infini)
         if (shouldSwipe) {
-            if (diffX > 0 && this.currentSlide > 0) {
+            if (diffX > 0) {
                 // Swipe vers la droite - slide précédent
                 this.previousSlide();
-            } else if (diffX < 0 && this.currentSlide < this.totalSlides - 1) {
+            } else if (diffX < 0) {
                 // Swipe vers la gauche - slide suivant
                 this.nextSlide();
             } else {
@@ -202,21 +202,30 @@ class FoyerSlider {
         }
     }
     
-    // Navigation
+    // ✨ MODIFICATION : Navigation avec LOOP INFINI
     nextSlide() {
-        if (this.currentSlide < this.totalSlides - 1) {
-            this.currentSlide++;
-            this.updateSlider();
-            this.announceSlideChange();
+        this.currentSlide++;
+        
+        // Si on dépasse la fin, on revient au début ♾️
+        if (this.currentSlide >= this.totalSlides) {
+            this.currentSlide = 0;
         }
+        
+        this.updateSlider();
+        this.announceSlideChange();
     }
     
+    // ✨ MODIFICATION : Navigation avec LOOP INFINI
     previousSlide() {
-        if (this.currentSlide > 0) {
-            this.currentSlide--;
-            this.updateSlider();
-            this.announceSlideChange();
+        this.currentSlide--;
+        
+        // Si on dépasse le début, on va à la fin ♾️
+        if (this.currentSlide < 0) {
+            this.currentSlide = this.totalSlides - 1;
         }
+        
+        this.updateSlider();
+        this.announceSlideChange();
     }
     
     goToSlide(index) {
@@ -227,35 +236,40 @@ class FoyerSlider {
         }
     }
     
-    // Mise à jour du slider
+    // Mise à jour du slider - VERSION CIRCULAIRE pour vrai carrousel ♾️
     updateSlider() {
         this.slides.forEach((slide, index) => {
-            const relativeIndex = index - this.currentSlide;
-            
             // Supprimer toutes les classes d'état
             slide.classList.remove('slide-active', 'slide-previous', 'slide-next', 'slide-hidden');
             
-            if (relativeIndex === 0) {
+            // ✨ CALCUL CIRCULAIRE : Pour afficher les cartes adjacentes tout le temps
+            const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+            const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+            
+            if (index === this.currentSlide) {
                 // Slide active au centre
                 slide.classList.add('slide-active');
                 slide.style.transform = 'translateX(-50%)';
                 slide.style.opacity = '1';
-            } else if (relativeIndex === -1) {
-                // Slide précédente (peek à gauche)
+                slide.style.zIndex = '10';
+            } else if (index === previousIndex) {
+                // Slide précédente (peek à gauche) - calculée de manière circulaire
                 slide.classList.add('slide-previous');
                 slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
-                slide.style.opacity = '1'; // PAS de transparence
-            } else if (relativeIndex === 1) {
-                // Slide suivante (peek à droite)
+                slide.style.opacity = '1';
+                slide.style.zIndex = '5';
+            } else if (index === nextIndex) {
+                // Slide suivante (peek à droite) - calculée de manière circulaire
                 slide.classList.add('slide-next');
                 slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
-                slide.style.opacity = '1'; // PAS de transparence
+                slide.style.opacity = '1';
+                slide.style.zIndex = '5';
             } else {
-                // Slides cachées
+                // Slides cachées (ne devrait jamais arriver avec 3 slides)
                 slide.classList.add('slide-hidden');
-                const direction = relativeIndex < 0 ? -1 : 1;
-                slide.style.transform = `translateX(${direction * 300}vw)`;
+                slide.style.transform = `translateX(-300vw)`;
                 slide.style.opacity = '0';
+                slide.style.zIndex = '1';
             }
         });
         
@@ -320,11 +334,7 @@ class FoyerSlider {
         this.stopAutoPlay();
         
         this.autoPlayInterval = setInterval(() => {
-            if (this.currentSlide < this.totalSlides - 1) {
-                this.nextSlide();
-            } else {
-                this.goToSlide(0);
-            }
+            this.nextSlide(); // ✨ Avec le loop infini, ça boucle automatiquement !
         }, interval);
     }
     
@@ -356,12 +366,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (sliderContainer) {
         const slider = new FoyerSlider(sliderContainer);
         
+        console.log('🎉 Slider avec LOOP INFINI initialisé !');
+        console.log('✅ Tu peux maintenant swiper indéfiniment dans les deux sens ! ♾️');
+        
         // Optionnel : démarrer l'auto-play après 3 secondes d'inactivité
-        // setTimeout(() => slider.startAutoPlay(4000), 3000);
+        // Décommente ces lignes si tu veux l'auto-play :
+        /*
+        setTimeout(() => slider.startAutoPlay(4000), 3000);
         
         // Arrêter l'auto-play sur interaction
         sliderContainer.addEventListener('touchstart', () => slider.stopAutoPlay());
         sliderContainer.addEventListener('mousedown', () => slider.stopAutoPlay());
+        */
         
         // Préchargement des images
         const images = sliderContainer.querySelectorAll('img[src]');
