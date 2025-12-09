@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Pannes Quartier - Dynamique
+Template Name: Pannes Quartier - Harmonisée avec Image Retour
 */
 
 // Détecter le quartier depuis le slug de la page
@@ -190,7 +190,6 @@ get_header(); ?>
             line-height: 1.1;
             letter-spacing: 0.5px;
         }
-        }
 
         /* Affichage numéro téléphone */
         .panne-phone {
@@ -243,6 +242,7 @@ get_header(); ?>
             transform: scale(0.98);
         }
 
+        /* Section bouton retour - HARMONISÉE */
         .retour-section {
             display: flex;
             align-items: center;
@@ -269,6 +269,7 @@ get_header(); ?>
             color: #000;
         }
 
+        /* Flèche de retour - HARMONISÉE */
         .arrow {
             font-size: 45px;
             font-weight: 500;
@@ -276,6 +277,14 @@ get_header(); ?>
             line-height: 1;
         }
 
+        /* Image de la flèche retour - HARMONISÉE 90x90px */
+        .arrow-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        /* Texte retour - HARMONISÉ */
         .retour-text {
             font-size: 16px;
             font-weight: 500;
@@ -364,12 +373,13 @@ get_header(); ?>
         @media (max-width: 360px) {
             .pannes-container {
                 max-width: 300px;
-                padding: 15px 12px;
+                padding: 12px;
             }
             
             .pannes-grid {
-                gap: 20px;
-                max-width: 250px;
+                gap: 18px;
+                max-width: 240px;
+                max-height: 240px;
             }
             
             .panne-icon {
@@ -386,13 +396,14 @@ get_header(); ?>
             }
         }
 
-        /* RESET */
+        /* RESET pour éviter les interférences CSS du thème */
         .pannes-page * {
             border: none !important;
             outline: none !important;
             box-shadow: none !important;
         }
 
+        /* Exceptions pour nos styles */
         .pannes-container {
             border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
@@ -413,12 +424,16 @@ get_header(); ?>
     <div class="main-container">
         <div class="pannes-container">
             
-            <!-- Header avec titre et icône -->
+            <!-- Header avec titre -->
         <div class="pannes-header">
             <div class="tools-icon">
-                <?php 
+                <?php
+                // Icône spécifique au quartier ou globale
                 $tools_icon = get_theme_mod("pannes_{$quartier}_tools_icon");
-                if (!$tools_icon) $tools_icon = get_theme_mod('pannes_tools_icon'); // Fallback global
+                if (empty($tools_icon)) {
+                    $tools_icon = get_theme_mod('pannes_tools_icon');
+                }
+                
                 if ($tools_icon) : ?>
                     <img src="<?php echo esc_url($tools_icon); ?>" alt="Outils">
                 <?php else : ?>
@@ -427,226 +442,106 @@ get_header(); ?>
             </div>
             <h1 class="pannes-title">
                 <?php 
-                $titre = get_theme_mod("pannes_{$quartier}_title", "PANNES<br>{$quartier_display}");
-                echo wp_kses($titre, array('br' => array()));
+                $title = get_theme_mod("pannes_{$quartier}_title", "PANNES<br>" . strtoupper($quartier_display));
+                echo wp_kses($title, array('br' => array()));
                 ?>
             </h1>
         </div>
         
-        <!-- Zone grise avec grille des pannes -->
+        <!-- Grille des pannes -->
         <div class="pannes-grid-container">
             <div class="pannes-grid">
-                
-                <!-- Panne 1 -->
-                <div class="panne-item" 
-                     data-telephone="<?php echo esc_attr(get_quartier_panne_telephone($quartier, 'panne1')); ?>"
-                     data-url="<?php echo esc_attr(get_quartier_panne_url($quartier, 'panne1')); ?>"
-                     onclick="handlePanneClick(this)">
-                    <div class="panne-icon">
-                        <?php 
-                        $icon = get_theme_mod("pannes_{$quartier}_icon_panne1");
-                        if (!$icon) $icon = get_theme_mod('pannes_icon_panne1'); // Fallback global
-                        if ($icon) : ?>
-                            <img src="<?php echo esc_url($icon); ?>" alt="Panne 1">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Panne 1">🔧</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="panne-text">
-                        <?php 
-                        $text = get_theme_mod("pannes_{$quartier}_text_panne1");
-                        if (!$text) $text = get_theme_mod('pannes_text_panne1', 'CHAUFFAGE'); // Fallback global
-                        echo esc_html($text);
-                        ?>
-                    </div>
-                    <div class="panne-phone" style="display: none;">
-                        <div class="phone-number"></div>
-                        <div class="phone-instruction">Cliquez pour appeler</div>
-                    </div>
-                </div>
-                
-                <!-- Panne 2 -->
-                <div class="panne-item" 
-                     data-telephone="<?php echo esc_attr(get_quartier_panne_telephone($quartier, 'panne2')); ?>"
-                     data-url="<?php echo esc_attr(get_quartier_panne_url($quartier, 'panne2')); ?>"
-                     onclick="handlePanneClick(this)">
-                    <div class="panne-icon">
-                        <?php 
-                        $icon = get_theme_mod("pannes_{$quartier}_icon_panne2");
-                        if (!$icon) $icon = get_theme_mod('pannes_icon_panne2'); // Fallback global
-                        if ($icon) : ?>
-                            <img src="<?php echo esc_url($icon); ?>" alt="Panne 2">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Panne 2">⚙️</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="panne-text">
-                        <?php 
-                        $text = get_theme_mod("pannes_{$quartier}_text_panne2");
-                        if (!$text) $text = get_theme_mod('pannes_text_panne2', 'ASCENSEUR'); // Fallback global
-                        echo esc_html($text);
-                        ?>
-                    </div>
-                    <div class="panne-phone" style="display: none;">
-                        <div class="phone-number"></div>
-                        <div class="phone-instruction">Cliquez pour appeler</div>
-                    </div>
-                </div>
-                
-                <!-- Panne 3 -->
-                <div class="panne-item" 
-                     data-telephone="<?php echo esc_attr(get_quartier_panne_telephone($quartier, 'panne3')); ?>"
-                     data-url="<?php echo esc_attr(get_quartier_panne_url($quartier, 'panne3')); ?>"
-                     onclick="handlePanneClick(this)">
-                    <div class="panne-icon">
-                        <?php 
-                        $icon = get_theme_mod("pannes_{$quartier}_icon_panne3");
-                        if (!$icon) $icon = get_theme_mod('pannes_icon_panne3'); // Fallback global
-                        if ($icon) : ?>
-                            <img src="<?php echo esc_url($icon); ?>" alt="Panne 3">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Panne 3">🔩</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="panne-text">
-                        <?php 
-                        $text = get_theme_mod("pannes_{$quartier}_text_panne3");
-                        if (!$text) $text = get_theme_mod('pannes_text_panne3', 'TÉLÉVISION'); // Fallback global
-                        echo esc_html($text);
-                        ?>
-                    </div>
-                    <div class="panne-phone" style="display: none;">
-                        <div class="phone-number"></div>
-                        <div class="phone-instruction">Cliquez pour appeler</div>
-                    </div>
-                </div>
-                
-                <!-- Panne 4 -->
-                <div class="panne-item" 
-                     data-telephone="<?php echo esc_attr(get_quartier_panne_telephone($quartier, 'panne4')); ?>"
-                     data-url="<?php echo esc_attr(get_quartier_panne_url($quartier, 'panne4')); ?>"
-                     onclick="handlePanneClick(this)">
-                    <div class="panne-icon">
-                        <?php 
-                        $icon = get_theme_mod("pannes_{$quartier}_icon_panne4");
-                        if (!$icon) $icon = get_theme_mod('pannes_icon_panne4'); // Fallback global
-                        if ($icon) : ?>
-                            <img src="<?php echo esc_url($icon); ?>" alt="Panne 4">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Panne 4">🛠️</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="panne-text">
-                        <?php 
-                        $text = get_theme_mod("pannes_{$quartier}_text_panne4");
-                        if (!$text) $text = get_theme_mod('pannes_text_panne4', 'INTERNET'); // Fallback global
-                        echo esc_html($text);
-                        ?>
-                    </div>
-                    <div class="panne-phone" style="display: none;">
-                        <div class="phone-number"></div>
-                        <div class="phone-instruction">Cliquez pour appeler</div>
-                    </div>
-                </div>
-                
+                <?php for ($i = 1; $i <= 4; $i++) : 
+                    // Récupérer les valeurs spécifiques au quartier ou globales
+                    $icon = get_theme_mod("pannes_{$quartier}_icon_panne{$i}");
+                    if (empty($icon)) {
+                        $icon = get_theme_mod("pannes_icon_panne{$i}");
+                    }
+                    
+                    $text = get_theme_mod("pannes_{$quartier}_text_panne{$i}");
+                    if (empty($text)) {
+                        $text = get_theme_mod("pannes_text_panne{$i}", 
+                            $i == 1 ? 'CHAUFFAGE' : ($i == 2 ? 'ASCENSEUR' : ($i == 3 ? 'TÉLÉVISION' : 'INTERNET'))
+                        );
+                    }
+                    
+                    $telephone = get_theme_mod("pannes_{$quartier}_telephone_panne{$i}");
+                    if (empty($telephone)) {
+                        $telephone = get_theme_mod("pannes_telephone_panne{$i}");
+                    }
+                    
+                    $url = get_theme_mod("pannes_{$quartier}_url_panne{$i}");
+                    if (empty($url)) {
+                        $url = "#";
+                    }
+                    
+                    // Si pas de téléphone, utiliser l'URL
+                    $onclick = '';
+                    if (!empty($telephone)) {
+                        $onclick = "event.preventDefault(); showPhoneNumber(this, '" . esc_js($telephone) . "');";
+                    }
+                ?>
+                    <a href="<?php echo esc_url($url); ?>" 
+                       class="panne-item" 
+                       data-telephone="<?php echo esc_attr($telephone); ?>"
+                       onclick="<?php echo $onclick; ?>">
+                        <div class="panne-icon">
+                            <?php if ($icon) : ?>
+                                <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($text); ?>">
+                            <?php else : ?>
+                                <span class="emoji-fallback" role="img">
+                                    <?php echo $i == 1 ? '🔥' : ($i == 2 ? '🛗' : ($i == 3 ? '📺' : '🌐')); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="panne-text"><?php echo esc_html(strtoupper($text)); ?></div>
+                    </a>
+                <?php endfor; ?>
             </div>
         </div>
     </div>
     
     <!-- Bouton retour -->
     <div class="retour-section">
-        <a href="<?php echo get_theme_mod("pannes_{$quartier}_retour_url", '/quartiers'); ?>" class="retour-button">
-            <span class="arrow">←</span>
-            <span class="retour-text"><?php echo esc_html(get_theme_mod("pannes_{$quartier}_retour_text", 'RETOUR AUX QUARTIERS')); ?></span>
+        <a href="<?php echo esc_url(get_theme_mod("pannes_{$quartier}_retour_url", '/quartiers')); ?>" class="retour-button">
+            <?php 
+            // Image de retour spécifique au quartier ou globale
+            $arrow_image = get_theme_mod("pannes_{$quartier}_retour_image");
+            if (empty($arrow_image)) {
+                $arrow_image = get_theme_mod('pannes_retour_image');
+            }
+            
+            if ($arrow_image) : ?>
+                <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+            <?php else : ?>
+                <span class="arrow" aria-hidden="true">←</span>
+            <?php endif; ?>
         </a>
     </div>
     </div>
 </div>
 
 <script>
-let clickedItems = new Map();
-let resetTimers = new Map();
-
-function handlePanneClick(element) {
-    const telephone = element.getAttribute('data-telephone');
-    const url = element.getAttribute('data-url');
-    const itemId = element.querySelector('.panne-text').textContent;
-    
-    // Si pas de téléphone configuré, utilise l'URL normale
-    if (!telephone || telephone === '') {
-        if (url && url !== '#' && url !== '') {
-            window.open(url, '_blank');
-        }
-        return;
-    }
-    
-    // Si déjà cliqué une fois
-    if (clickedItems.get(itemId)) {
-        // Deuxième clic = appel
-        window.location.href = 'tel:' + telephone;
-        resetPanneItem(element, itemId);
-        return;
-    }
-    
-    // Premier clic = affichage numéro
-    showPhoneNumber(element, telephone, itemId);
-}
-
-function showPhoneNumber(element, telephone, itemId) {
-    // Marquer comme cliqué
-    clickedItems.set(itemId, true);
+function showPhoneNumber(element, phoneNumber) {
+    // Ajouter la classe clicked
     element.classList.add('clicked');
     
-    // Cacher le texte original
-    const originalText = element.querySelector('.panne-text');
-    const phoneDisplay = element.querySelector('.panne-phone');
-    const phoneNumber = element.querySelector('.phone-number');
+    // Trouver le conteneur du texte
+    const textContainer = element.querySelector('.panne-text');
     
-    originalText.style.display = 'none';
-    phoneNumber.textContent = telephone;
-    phoneDisplay.style.display = 'block';
+    // Remplacer le texte par le numéro de téléphone
+    textContainer.innerHTML = `
+        <div class="panne-phone">
+            <div class="phone-number">${phoneNumber}</div>
+            <div class="phone-instruction">Appuyez pour appeler</div>
+        </div>
+    `;
     
-    // Timer de reset après 5 secondes
-    const timer = setTimeout(() => {
-        resetPanneItem(element, itemId);
-    }, 5000);
-    
-    resetTimers.set(itemId, timer);
+    // Créer un lien tel: et simuler un clic après un court délai
+    setTimeout(() => {
+        window.location.href = 'tel:' + phoneNumber;
+    }, 500);
 }
-
-function resetPanneItem(element, itemId) {
-    // Nettoyer les timers
-    const timer = resetTimers.get(itemId);
-    if (timer) {
-        clearTimeout(timer);
-        resetTimers.delete(itemId);
-    }
-    
-    // Remettre à l'état initial
-    clickedItems.delete(itemId);
-    element.classList.remove('clicked');
-    
-    const originalText = element.querySelector('.panne-text');
-    const phoneDisplay = element.querySelector('.panne-phone');
-    
-    originalText.style.display = 'block';
-    phoneDisplay.style.display = 'none';
-}
-
-// Reset tous les items si on clique ailleurs
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.panne-item')) {
-        clickedItems.forEach((value, key) => {
-            const allItems = document.querySelectorAll('.panne-item');
-            allItems.forEach(item => {
-                const text = item.querySelector('.panne-text').textContent;
-                if (text === key) {
-                    resetPanneItem(item, key);
-                }
-            });
-        });
-    }
-});
 </script>
 
 <?php wp_footer(); ?>

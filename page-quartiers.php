@@ -162,8 +162,8 @@ get_header(); ?>
         }
 
         .panne-icon {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -182,7 +182,7 @@ get_header(); ?>
         }
 
         .panne-text {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -516,9 +516,6 @@ get_header(); ?>
             <?php else : ?>
                 <span class="arrow" aria-hidden="true">←</span>
             <?php endif; ?>
-            <span class="retour-text">
-                <?php echo esc_html(get_theme_mod("pannes_{$quartier}_retour_text", 'RETOUR AUX QUARTIERS')); ?>
-            </span>
         </a>
     </div>
     </div>
