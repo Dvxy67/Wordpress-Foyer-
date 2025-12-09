@@ -1,6 +1,6 @@
 /**
  * Foyer Slider - Extra Grandes Cartes avec LOOP INFINI
- * Version 4.0 - Ton code avec boucle infinie ajoutée ♾️
+ * Version 4.2 - SANS animation de traversée d'écran (disparition/réapparition)
  */
 
 class FoyerSlider {
@@ -12,6 +12,9 @@ class FoyerSlider {
         
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
+        
+        // ✨ NOUVEAU : Tracker les positions précédentes des slides
+        this.previousPositions = new Map();
         
         // Variables pour le touch
         this.startX = 0;
@@ -236,42 +239,88 @@ class FoyerSlider {
         }
     }
     
-    // Mise à jour du slider - VERSION CIRCULAIRE pour vrai carrousel ♾️
+    // ✨ NOUVELLE VERSION : Avec détection et disparition/réapparition
     updateSlider() {
+        // Calculer les nouvelles positions
+        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        
+        // Créer un map des nouvelles positions
+        const newPositions = new Map();
+        newPositions.set(this.currentSlide, 'active');
+        newPositions.set(previousIndex, 'previous');
+        newPositions.set(nextIndex, 'next');
+        
         this.slides.forEach((slide, index) => {
             // Supprimer toutes les classes d'état
             slide.classList.remove('slide-active', 'slide-previous', 'slide-next', 'slide-hidden');
             
-            // ✨ CALCUL CIRCULAIRE : Pour afficher les cartes adjacentes tout le temps
-            const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-            const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+            const oldPosition = this.previousPositions.get(index);
+            const newPosition = newPositions.get(index);
             
-            if (index === this.currentSlide) {
-                // Slide active au centre
-                slide.classList.add('slide-active');
-                slide.style.transform = 'translateX(-50%)';
-                slide.style.opacity = '1';
-                slide.style.zIndex = '10';
-            } else if (index === previousIndex) {
-                // Slide précédente (peek à gauche) - calculée de manière circulaire
-                slide.classList.add('slide-previous');
-                slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
-                slide.style.opacity = '1';
-                slide.style.zIndex = '5';
-            } else if (index === nextIndex) {
-                // Slide suivante (peek à droite) - calculée de manière circulaire
-                slide.classList.add('slide-next');
-                slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
-                slide.style.opacity = '1';
-                slide.style.zIndex = '5';
-            } else {
-                // Slides cachées (ne devrait jamais arriver avec 3 slides)
-                slide.classList.add('slide-hidden');
-                slide.style.transform = `translateX(-300vw)`;
+            // 🎯 DÉTECTION : Cette carte fait un grand saut ?
+            const isTeleporting = 
+                (oldPosition === 'previous' && newPosition === 'next') ||
+                (oldPosition === 'next' && newPosition === 'previous');
+            
+            if (isTeleporting) {
+                // ✨ SOLUTION : Disparition instantanée + repositionnement + réapparition
+                
+                // 1. Désactiver la transition et cacher la carte
+                slide.style.transition = 'none';
                 slide.style.opacity = '0';
-                slide.style.zIndex = '1';
+                
+                // 2. Appliquer la nouvelle position immédiatement
+                if (index === this.currentSlide) {
+                    slide.classList.add('slide-active');
+                    slide.style.transform = 'translateX(-50%)';
+                    slide.style.zIndex = '10';
+                } else if (index === previousIndex) {
+                    slide.classList.add('slide-previous');
+                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
+                    slide.style.zIndex = '5';
+                } else if (index === nextIndex) {
+                    slide.classList.add('slide-next');
+                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
+                    slide.style.zIndex = '5';
+                }
+                
+                // 3. Réapparaître après un court délai
+                setTimeout(() => {
+                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    slide.style.opacity = '1';
+                }, 50);
+                
+            } else {
+                // Comportement normal pour les cartes qui ne se téléportent pas
+                
+                if (index === this.currentSlide) {
+                    slide.classList.add('slide-active');
+                    slide.style.transform = 'translateX(-50%)';
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '10';
+                } else if (index === previousIndex) {
+                    slide.classList.add('slide-previous');
+                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '5';
+                } else if (index === nextIndex) {
+                    slide.classList.add('slide-next');
+                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '5';
+                } else {
+                    // Slides cachées
+                    slide.classList.add('slide-hidden');
+                    slide.style.transform = `translateX(-300vw)`;
+                    slide.style.opacity = '0';
+                    slide.style.zIndex = '1';
+                }
             }
         });
+        
+        // ✨ IMPORTANT : Sauvegarder les positions actuelles pour la prochaine fois
+        this.previousPositions = new Map(newPositions);
         
         // Mettre à jour les dots
         this.dots.forEach((dot, index) => {
@@ -367,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const slider = new FoyerSlider(sliderContainer);
         
         console.log('🎉 Slider avec LOOP INFINI initialisé !');
-        console.log('✅ Tu peux maintenant swiper indéfiniment dans les deux sens ! ♾️');
+        console.log('✅ SANS animation de traversée d\'écran (disparition/réapparition) !');
         
         // Optionnel : démarrer l'auto-play après 3 secondes d'inactivité
         // Décommente ces lignes si tu veux l'auto-play :
