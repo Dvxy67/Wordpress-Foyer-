@@ -421,7 +421,6 @@ get_header(); ?>
                 <?php else : ?>
                     <span class="arrow" aria-hidden="true">←</span>
                 <?php endif; ?>
-                <span class="retour-text">RETOUR AU MENU</span>
             </a>
         </div>
     </div>

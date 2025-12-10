@@ -87,14 +87,14 @@ get_header(); ?>
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             flex-shrink: 0;
             min-height: 60px;
         }
 
         .tools-icon {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -105,6 +105,7 @@ get_header(); ?>
             width: 100%;
             height: 100%;
             object-fit: contain;
+            transform: rotate(20deg);
         }
 
         .tools-icon .emoji-fallback {
@@ -113,7 +114,7 @@ get_header(); ?>
         }
 
         .pannes-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -124,7 +125,7 @@ get_header(); ?>
 
         .pannes-grid-container {
             background: #E8E8E8;
-            border-radius: 15px;
+            border-radius: 0px;
             padding: 20px 15px;
             flex: 1;
             display: flex;
@@ -136,7 +137,8 @@ get_header(); ?>
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 25px;
+            row-gap: 35px;
+            column-gap: 5px;
             width: 100%;
             max-width: 280px;
             height: 100%;
@@ -162,8 +164,8 @@ get_header(); ?>
         }
 
         .panne-icon {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -181,8 +183,35 @@ get_header(); ?>
             line-height: 1;
         }
 
+        /* TAILLES INDIVIDUELLES DES ICÔNES - MOBILE */
+        /* Modifiez les valeurs ci-dessous selon votre maquette */
+        
+        /* Panne 1 - Chauffage */
+        .panne-icon-1 {
+            width: 80px !important;
+            height: 80px !important;
+        }
+        
+        /* Panne 2 - Ascenseur */
+        .panne-icon-2 {
+            width: 80px !important;
+            height: 80px !important;
+        }
+        
+        /* Panne 3 - Télévision */
+        .panne-icon-3 {
+            width: 80px !important;
+            height: 80px !important;
+        }
+        
+        /* Panne 4 - Internet */
+        .panne-icon-4 {
+            width: 80px !important;
+            height: 80px !important;
+        }
+
         .panne-text {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -190,6 +219,30 @@ get_header(); ?>
             line-height: 1.1;
             letter-spacing: 0.5px;
         }
+
+        /* TAILLES INDIVIDUELLES DES TEXTES - MOBILE */
+        /* Modifiez les valeurs ci-dessous selon votre maquette */
+        
+        /* Texte Panne 1 - Chauffage */
+        .panne-text-1 {
+            font-size: 20px !important;
+        }
+        
+        /* Texte Panne 2 - Ascenseur */
+        .panne-text-2 {
+            font-size: 20px !important;
+        }
+        
+        /* Texte Panne 3 - Télévision */
+        .panne-text-3 {
+            font-size: 20px !important;
+        }
+        
+        /* Texte Panne 4 - Internet */
+        .panne-text-4 {
+            font-size: 20px !important;
+        }
+
 
         /* Affichage numéro téléphone */
         .panne-phone {
@@ -353,9 +406,60 @@ get_header(); ?>
                 font-size: 64px;
             }
             
+            /* TAILLES INDIVIDUELLES DES ICÔNES - DESKTOP */
+            /* Modifiez les valeurs ci-dessous selon votre maquette */
+            
+            /* Panne 1 - Chauffage */
+            .panne-icon-1 {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            
+            /* Panne 2 - Ascenseur */
+            .panne-icon-2 {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            
+            /* Panne 3 - Télévision */
+            .panne-icon-3 {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            
+            /* Panne 4 - Internet */
+            .panne-icon-4 {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            
             .panne-text {
                 font-size: 16px;
             }
+            
+            /* TAILLES INDIVIDUELLES DES TEXTES - DESKTOP */
+            /* Modifiez les valeurs ci-dessous selon votre maquette */
+            
+            /* Texte Panne 1 - Chauffage */
+            .panne-text-1 {
+                font-size: 16px !important;
+            }
+            
+            /* Texte Panne 2 - Ascenseur */
+            .panne-text-2 {
+                font-size: 16px !important;
+            }
+            
+            /* Texte Panne 3 - Télévision */
+            .panne-text-3 {
+                font-size: 16px !important;
+            }
+            
+            /* Texte Panne 4 - Internet */
+            .panne-text-4 {
+                font-size: 16px !important;
+            }
+
             
             .retour-section {
                 height: 75px;
@@ -485,7 +589,7 @@ get_header(); ?>
                        class="panne-item" 
                        data-telephone="<?php echo esc_attr($telephone); ?>"
                        onclick="<?php echo $onclick; ?>">
-                        <div class="panne-icon">
+                        <div class="panne-icon panne-icon-<?php echo $i; ?>">
                             <?php if ($icon) : ?>
                                 <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($text); ?>">
                             <?php else : ?>
@@ -494,7 +598,7 @@ get_header(); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <div class="panne-text"><?php echo esc_html(strtoupper($text)); ?></div>
+                        <div class="panne-text panne-text-<?php echo $i; ?>"><?php echo esc_html(strtoupper($text)); ?></div>
                     </a>
                 <?php endfor; ?>
             </div>

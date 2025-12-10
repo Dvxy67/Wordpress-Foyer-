@@ -75,9 +75,10 @@ get_header(); ?>
         .options-container {
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 40px;
             flex: 1;
             justify-content: center;
+            padding: 20px 0;
         }
 
         /* Option individuelle */
@@ -99,7 +100,7 @@ get_header(); ?>
 
         /* Texte de l'option - HARMONISÉ */
         .option-text {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -185,11 +186,11 @@ get_header(); ?>
             }
             
             .options-container {
-                gap: 40px;
+                gap: 45px;
             }
             
             .option-text {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .arrow {
@@ -269,21 +270,21 @@ get_header(); ?>
             <!-- Option 3: Le Rapport Annuel -->
             <a href="<?php echo get_foyer_option_url('rapport'); ?>" class="foyer-option">
                 <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_rapport', 'LE RAPPORT ANNUEL')); ?>
+                    LE RAPPORT<br>ANNUEL
                 </div>
             </a>
             
             <!-- Option 4: Communiqués de Presse -->
             <a href="<?php echo get_foyer_option_url('communiques'); ?>" class="foyer-option">
                 <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_communiques', 'COMMUNIQUÉS DE PRESSE')); ?>
+                    COMMUNIQUÉS<br>DE PRESSE
                 </div>
             </a>
             
             <!-- Option 5: Conseil d'Administration -->
             <a href="<?php echo get_foyer_option_url('conseil'); ?>" class="foyer-option">
                 <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_conseil', 'LE CONSEIL D\'ADMINISTRATION')); ?>
+                    LE CONSEIL<br>D'ADMINISTRATION
                 </div>
             </a>
 
@@ -309,7 +310,6 @@ get_header(); ?>
             <?php else : ?>
                 <span class="arrow" aria-hidden="true">←</span>
             <?php endif; ?>
-            <span class="retour-text"><?php echo esc_html(get_theme_mod('foyer_retour_text', 'RETOUR HOMEPAGE')); ?></span>
         </a>
     </div>
     </div>
