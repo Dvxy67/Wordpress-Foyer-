@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Services Habitants - Full Screen Mobile
+Template Name: Services Habitants - Contrôle CSS Direct
 */
 get_header(); ?>
 
@@ -30,6 +30,65 @@ get_header(); ?>
             overflow-x: hidden;
         }
 
+        /* ============================================
+           🎨 CONTRÔLES DES ICÔNES - MODIFIE ICI
+           ============================================ */
+        
+        /* ICÔNE 1 : LES PANNES */
+        .icon-pannes img {
+            width: 65px;          /* ← Modifie la taille ici */
+            height: 65px;         /* ← Même valeur que width */
+            transform: rotate(17deg);  /* ← Modifie l'inclinaison ici (-180 à 180) */
+        }
+
+        /* ICÔNE 2 : LE CONCIERGE */
+        .icon-concierge img {
+            width: 75px;
+            height: 75px;
+            transform: rotate(0deg);
+        }
+
+        /* ICÔNE 3 : LES POMPIERS */
+        .icon-pompiers img {
+            width: 80px;
+            height: 80px;
+            transform: rotate(0deg);
+        }
+
+        /* ICÔNE 4 : BRUXELLES PROPRETÉ */
+        .icon-proprete img {
+            width: 65px;
+            height: 65px;
+        }
+
+        /* ICÔNE 5 : L'ASSISTANT SOCIAL */
+        .icon-assistant img {
+            width: 85px;
+            height: 85px;
+        }
+
+        /* ICÔNE 6 : LE RÈGLEMENT */
+        .icon-reglement img {
+            width: 55px;
+            height: 55px;
+        }
+
+        /* ICÔNE 7 : AIDE PSYCHOLOGIQUE */
+        .icon-psychologique img {
+            width: 75px;
+            height: 75px;
+        }
+
+        /* ICÔNE 8 : L'ENTRETIEN DU LOGEMENT */
+        .icon-entretien img {
+            width: 75px;
+            height: 75px;
+        }
+
+        /* ============================================
+           FIN DES CONTRÔLES - NE MODIFIE PAS EN DESSOUS
+           ============================================ */
+
         /* === STYLES MOBILE PAR DÉFAUT === */
         .habitants-page {
             min-height: 100dvh;
@@ -38,7 +97,6 @@ get_header(); ?>
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Padding réduit au minimum pour maximiser l'espace */
             padding: 8px;
             position: relative;
         }
@@ -65,7 +123,6 @@ get_header(); ?>
             gap: 0;
             width: calc(100% - 16px);
             max-width: 370px;
-            /* Hauteur augmentée de 10px */
             height: calc(100vh - 120px);
             min-height: 505px;
             max-height: 585px;
@@ -109,11 +166,10 @@ get_header(); ?>
             justify-content: center;
         }
 
-        /* Images uploadées - TAILLE HARMONISÉE */
+        /* Images uploadées - Style de base */
         .service-icon img {
-            width: 65px;
-            height: 65px;
             object-fit: contain;
+            transition: transform 0.2s ease;
         }
 
         /* Style émojis en fallback */
@@ -149,10 +205,8 @@ get_header(); ?>
         .retour-button {
             display: flex;
             flex-direction: column;
-            /* ← AJOUTE CETTE LIGNE */
             align-items: center;
             gap: 8px;
-            /* ← Réduis le gap pour rapprocher flèche et texte */
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -212,85 +266,14 @@ get_header(); ?>
         }
 
         .services-grid {
-            animation: slideInMobile 0.6s ease-out;
+            animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .retour-section {
-            animation: slideInMobile 0.6s ease-out 0.2s both;
+            animation: slideInMobile 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
         }
 
-        /* === OPTIMISATIONS POUR ÉCRANS TRÈS PETITS === */
-        @media (max-height: 600px) {
-            .services-grid {
-                height: calc(100dvh - 100px);
-                min-height: 350px;
-                padding: 10px;
-            }
-
-            .service-item {
-                min-height: calc((100dvh - 140px) / 4 - 5px);
-                padding: 6px 4px;
-            }
-
-            .service-icon {
-                height: calc((100dvh - 180px) / 8);
-                min-height: 28px;
-                margin-bottom: 4px;
-            }
-
-            .service-icon img {
-                width: calc((100dvh - 180px) / 8);
-                height: calc((100dvh - 180px) / 8);
-                min-width: 26px;
-                min-height: 26px;
-                max-width: 40px;
-                max-height: 40px;
-            }
-
-            .service-title {
-                font-size: calc((100dvh - 180px) / 45);
-                min-font-size: 8px;
-                max-font-size: 12px;
-                line-height: 1;
-            }
-
-            .retour-section {
-                height: 50px;
-            }
-
-            .retour-button {
-                padding: 8px 12px;
-                gap: 8px;
-            }
-        }
-
-        /* === ÉCRANS TRÈS LARGES EN MODE PORTRAIT === */
-        @media (min-height: 800px) and (max-width: 480px) {
-            .services-grid {
-                height: calc(100dvh - 140px);
-                max-height: 700px;
-                max-width: 380px;
-            }
-
-            .service-icon {
-                max-height: 60px;
-            }
-
-            .service-icon img {
-                max-width: 55px;
-                max-height: 55px;
-            }
-
-            .service-title {
-                max-font-size: 16px;
-            }
-
-            .retour-section {
-                height: 80px;
-            }
-        }
-
-        /* === TABLETTE (481px+) === */
+        /* === RESPONSIVE DESKTOP === */
         @media (min-width: 481px) {
             .habitants-page {
                 padding: 20px;
@@ -301,39 +284,26 @@ get_header(); ?>
             }
 
             .services-grid {
-                width: calc(100% - 40px);
-                max-width: 400px;
-                height: calc(100vh - 160px);
-                min-height: 560px;
-                max-height: 660px;
+                max-width: 450px;
+                min-height: 580px;
+                max-height: 680px;
                 padding: 20px;
+                gap: 5px;
                 border: 6px solid #000000;
-                border-radius: 25px;
-                margin-bottom: 20px;
-                gap: 10px;
             }
 
             .service-item {
-                padding: 12px 10px;
+                padding: 10px;
             }
 
             .service-icon {
-                width: 90px;
-                height: 90px;
+                width: 85px;
+                height: 85px;
                 margin-bottom: 10px;
             }
 
-            .service-icon img {
-                width: 85px;
-                height: 85px;
-            }
-
-            .service-icon .emoji-fallback {
-                font-size: 75px;
-            }
-
             .service-title {
-                font-size: 16px;
+                font-size: 16px !important;
             }
 
             .retour-section {
@@ -345,8 +315,8 @@ get_header(); ?>
             }
 
             .arrow-image {
-                width: 55px;
-                height: 55px;
+                width: 110px;
+                height: 110px;
             }
 
             .retour-text {
@@ -354,81 +324,180 @@ get_header(); ?>
             }
         }
 
-        /* === DESKTOP (768px+) === */
-        @media (min-width: 768px) {
+        /* === RESPONSIVE GRANDS ÉCRANS (Tablettes/Desktop larges) === */
+        @media (min-width: 769px) {
             .services-grid {
-                max-width: 450px;
-            }
-        }
-
-        .arrow {
-            font-size: 55px;
-        }
-
-        .retour-text {
-            font-size: 20px;
-        }
-
-        .retour-section {
-            height: auto;
-            margin-top: 20px;
-        }
-        }
-
-        /* === MODE PAYSAGE SUR MOBILE === */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .habitants-page {
-                padding: 5px;
-                justify-content: flex-start;
-            }
-
-            .main-container {
-                height: calc(100dvh - 10px);
-                justify-content: space-between;
-            }
-
-            .services-grid {
-                height: calc(100dvh - 70px);
-                width: calc(100% - 10px);
-                padding: 8px;
-                margin-bottom: 5px;
+                max-width: 550px;
+                min-height: 620px;
+                max-height: 750px;
+                padding: 25px;
+                gap: 8px;
             }
 
             .service-item {
-                min-height: calc((100dvh - 110px) / 4 - 2px);
-                padding: 4px 3px;
+                padding: 12px;
             }
 
             .service-icon {
-                height: calc((100dvh - 140px) / 8);
-                min-height: 20px;
-                max-height: 30px;
-                margin-bottom: 3px;
-            }
-
-            .service-icon img {
-                width: calc((100dvh - 140px) / 8);
-                height: calc((100dvh - 140px) / 8);
-                min-width: 18px;
-                min-height: 18px;
-                max-width: 28px;
-                max-height: 28px;
+                width: 100px;
+                height: 100px;
+                margin-bottom: 12px;
             }
 
             .service-title {
-                font-size: calc((100dvh - 140px) / 50);
-                min-font-size: 7px;
-                max-font-size: 10px;
-                line-height: 1;
+                font-size: 18px !important;
             }
 
             .retour-section {
-                height: 40px;
+                height: 80px;
             }
 
-            .retour-button {
-                padding: 5px 10px;
+            .arrow {
+                font-size: 65px;
+            }
+
+            .arrow-image {
+                width: 130px;
+                height: 130px;
+            }
+
+            .retour-text {
+                font-size: 20px;
+            }
+        }
+
+        /* === OPTIMISATIONS POUR ÉCRANS TRÈS PETITS === */
+        @media (max-height: 600px),
+        (max-width: 360px) {
+            .habitants-page {
+                padding: 6px;
+            }
+
+            .main-container {
+                height: calc(100dvh - 12px);
+            }
+
+            .services-grid {
+                width: calc(100% - 12px);
+                max-width: 350px;
+                min-height: 480px;
+                max-height: 545px;
+                padding: 12px;
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+
+            .service-item {
+                padding: 6px 4px;
+            }
+
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 6px;
+            }
+
+            .service-title {
+                font-size: 12px !important;
+            }
+
+            .retour-section {
+                height: 55px;
+            }
+
+            .arrow {
+                font-size: 38px;
+            }
+
+            .arrow-image {
+                width: 75px;
+                height: 75px;
+            }
+
+            .retour-text {
+                font-size: 14px;
+            }
+        }
+
+        /* === OPTIMISATIONS POUR ÉCRANS TRÈS HAUTS (> 900px) === */
+        @media (min-height: 900px) and (max-width: 480px) {
+            .services-grid {
+                min-height: 650px;
+                max-height: 750px;
+                padding: 20px;
                 gap: 5px;
+            }
+
+            .service-item {
+                padding: 12px 8px;
+            }
+
+            .service-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 10px;
+            }
+
+            .service-title {
+                font-size: 16px !important;
+            }
+
+            .retour-section {
+                height: 80px;
+            }
+
+            .arrow {
+                font-size: 52px;
+            }
+
+            .arrow-image {
+                width: 105px;
+                height: 105px;
+            }
+
+            .retour-text {
+                font-size: 18px;
+            }
+        }
+
+        /* === OPTIMISATIONS POUR ÉCRANS TRÈS BAS === */
+        @media (max-height: 500px) {
+            .habitants-page {
+                padding: 4px;
+            }
+
+            .main-container {
+                height: calc(100dvh - 8px);
+            }
+
+            .services-grid {
+                width: calc(100% - 8px);
+                max-width: 340px;
+                height: calc(100dvh - 100px);
+                min-height: 440px;
+                max-height: 480px;
+                padding: 10px;
+                margin-top: 12px;
+                margin-bottom: 8px;
+                gap: 0;
+            }
+
+            .service-item {
+                padding: 5px 3px;
+            }
+
+            .service-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 4px;
+            }
+
+            .service-title {
+                font-size: 11px !important;
+            }
+
+            .retour-section {
+                height: 50px;
             }
 
             .arrow {
@@ -507,7 +576,7 @@ get_header(); ?>
             <div class="services-grid">
                 <!-- Ligne 1 -->
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_pannes', '/pannes')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pannes">
-                    <div class="service-icon">
+                    <div class="service-icon icon-pannes">
                         <?php
                         $image_pannes = get_theme_mod('habitants_image_pannes');
                         if ($image_pannes) : ?>
@@ -520,7 +589,7 @@ get_header(); ?>
                 </a>
 
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_concierge', '/concierge')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Concierge">
-                    <div class="service-icon">
+                    <div class="service-icon icon-concierge">
                         <?php
                         $image_concierge = get_theme_mod('habitants_image_concierge');
                         if ($image_concierge) : ?>
@@ -534,7 +603,7 @@ get_header(); ?>
 
                 <!-- Ligne 2 -->
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_pompiers', 'tel:112')); ?>" class="service-item" role="button" aria-label="Accéder au service Les Pompiers">
-                    <div class="service-icon">
+                    <div class="service-icon icon-pompiers">
                         <?php
                         $image_pompiers = get_theme_mod('habitants_image_pompiers');
                         if ($image_pompiers) : ?>
@@ -547,7 +616,7 @@ get_header(); ?>
                 </a>
 
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_proprete', 'https://www.arp-gan.be')); ?>" class="service-item" role="button" aria-label="Accéder au service Bruxelles Propreté">
-                    <div class="service-icon">
+                    <div class="service-icon icon-proprete">
                         <?php
                         $image_proprete = get_theme_mod('habitants_image_proprete');
                         if ($image_proprete) : ?>
@@ -561,7 +630,7 @@ get_header(); ?>
 
                 <!-- Ligne 3 -->
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_assistant', '/assistant-social')); ?>" class="service-item" role="button" aria-label="Accéder au service Assistant Social">
-                    <div class="service-icon">
+                    <div class="service-icon icon-assistant">
                         <?php
                         $image_assistant = get_theme_mod('habitants_image_assistant');
                         if ($image_assistant) : ?>
@@ -574,7 +643,7 @@ get_header(); ?>
                 </a>
 
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_reglement', '/reglement')); ?>" class="service-item" role="button" aria-label="Accéder au service Le Règlement">
-                    <div class="service-icon">
+                    <div class="service-icon icon-reglement">
                         <?php
                         $image_reglement = get_theme_mod('habitants_image_reglement');
                         if ($image_reglement) : ?>
@@ -588,7 +657,7 @@ get_header(); ?>
 
                 <!-- Ligne 4 -->
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_psychologique', '/aide-psychologique')); ?>" class="service-item" role="button" aria-label="Accéder au service Aide Psychologique">
-                    <div class="service-icon">
+                    <div class="service-icon icon-psychologique">
                         <?php
                         $image_psychologique = get_theme_mod('habitants_image_psychologique');
                         if ($image_psychologique) : ?>
@@ -601,7 +670,7 @@ get_header(); ?>
                 </a>
 
                 <a href="<?php echo esc_url(get_theme_mod('habitants_url_entretien', '/entretien-logement')); ?>" class="service-item" role="button" aria-label="Accéder au service Entretien du Logement">
-                    <div class="service-icon">
+                    <div class="service-icon icon-entretien">
                         <?php
                         $image_entretien = get_theme_mod('habitants_image_entretien');
                         if ($image_entretien) : ?>
