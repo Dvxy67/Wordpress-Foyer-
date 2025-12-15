@@ -228,10 +228,42 @@ function foyer_customize_register($wp_customize) {
         'type' => 'url',
     ));
     
+    // Section pour la page Quartiers
+    $wp_customize->add_section('quartiers_page', array(
+        'title' => __('Page Quartiers', 'foyer-theme'),
+        'priority' => 32,
+    ));
+    
+    // Image d'immeuble pour la page quartiers
+    $wp_customize->add_setting('quartiers_image_immeuble', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'quartiers_image_immeuble', array(
+        'label' => __('Image Immeuble', 'foyer-theme'),
+        'description' => __('Image affichée à côté du titre "J\'HABITE À"', 'foyer-theme'),
+        'section' => 'quartiers_page',
+        'settings' => 'quartiers_image_immeuble',
+    )));
+    
+    // Image de retour pour la page quartiers
+    $wp_customize->add_setting('quartiers_image_retour', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'quartiers_image_retour', array(
+        'label' => __('Image Retour', 'foyer-theme'),
+        'description' => __('Image pour le bouton retour (remplace la flèche)', 'foyer-theme'),
+        'section' => 'quartiers_page',
+        'settings' => 'quartiers_image_retour',
+    )));
+    
     // Section pour la page Habitants
     $wp_customize->add_section('habitants_services', array(
         'title' => __('Page Habitants - Services', 'foyer-theme'),
-        'priority' => 32,
+        'priority' => 33,
     ));
     
     // Services - Liens et Icônes

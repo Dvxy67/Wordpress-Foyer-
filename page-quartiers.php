@@ -30,7 +30,7 @@ get_header(); ?>
         /* Container principal */
         .quartiers-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 50%, #9370DB 100%);
+            background: linear-gradient(135deg, #7391ff 0%, #5b7ae6 50%, #7391ff 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,7 +40,7 @@ get_header(); ?>
 
         /* Container de la grille - TOTAL FIT ÉCRAN */
         .quartiers-container {
-            background: #F4D03F;
+            background: #e9d16f;
             border: 4px solid #000000;
             border-radius: 25px;
             width: 100%;
@@ -60,7 +60,7 @@ get_header(); ?>
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 0px;
             gap: 12px;
             min-height: 60px;
             flex-shrink: 0;
@@ -68,8 +68,8 @@ get_header(); ?>
 
         /* Image d'immeuble - RÉDUITE */
         .immeuble-icon {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -89,7 +89,7 @@ get_header(); ?>
 
         /* Titre "J'HABITE À" - RÉDUIT */
         .titre-text {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -100,7 +100,7 @@ get_header(); ?>
         .quartiers-scroll {
             flex: 1;
             background: #FFFFFF;
-            border-radius: 10px;
+            border-radius: 0px;
             overflow-y: auto;
             overflow-x: hidden;
             scrollbar-width: thin;
@@ -138,7 +138,7 @@ get_header(); ?>
             align-items: center;
             justify-content: center;
             padding: 12px 15px;
-            font-size: 14px;
+            font-size: 18px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -157,12 +157,12 @@ get_header(); ?>
 
         /* SÉLECTIONNÉ - Bleu au clic */
         .quartier-item.selected {
-            background-color: #3498DB !important;
+            background-color: #7391ff !important;
             color: #FFFFFF !important;
         }
 
         .quartier-item.selected:hover {
-            background-color: #2980B9 !important;
+            background-color: #5b7ae6 !important;
         }
 
         /* Dernier quartier sans bordure */
@@ -182,7 +182,7 @@ get_header(); ?>
         .retour-button {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center; /* Centré maintenant */
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
@@ -192,8 +192,23 @@ get_header(); ?>
             transform: scale(1.05);
         }
 
-        /* Flèche de retour - HARMONISÉE */
+        /* Flèche/Image de retour - HARMONISÉE */
         .arrow {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .arrow .emoji-fallback {
             font-size: 40px;
             font-weight: bold;
             color: #000;
@@ -250,6 +265,11 @@ get_header(); ?>
             }
             
             .arrow {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .arrow .emoji-fallback {
                 font-size: 50px;
             }
             
@@ -364,8 +384,16 @@ get_header(); ?>
     <!-- Bouton retour -->
     <div class="retour-section">
         <a href="<?php echo home_url(); ?>" class="retour-button">
-            <span class="arrow">←</span>
-            <span class="retour-text">RETOUR AU MENU</span>
+            <span class="arrow">
+                <?php 
+                $image_retour = get_theme_mod('quartiers_image_retour');
+                if ($image_retour) : ?>
+                    <img src="<?php echo esc_url($image_retour); ?>" alt="Retour">
+                <?php else : ?>
+                    <span class="emoji-fallback">←</span>
+                <?php endif; ?>
+            </span>
+            <!-- <span class="retour-text">RETOUR AU MENU</span> -->
         </a>
     </div>
 </div>
