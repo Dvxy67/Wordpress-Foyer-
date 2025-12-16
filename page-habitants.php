@@ -29,10 +29,6 @@ get_header(); ?>
             font-weight: 500;
             overflow-x: hidden;
         }
-
-        /* ============================================
-           🎨 CONTRÔLES DES ICÔNES - MODIFIE ICI
-           ============================================ */
         
         /* ICÔNE 1 : LES PANNES */
         .icon-pannes img {
@@ -84,10 +80,6 @@ get_header(); ?>
             width: 75px;
             height: 75px;
         }
-
-        /* ============================================
-           FIN DES CONTRÔLES - NE MODIFIE PAS EN DESSOUS
-           ============================================ */
 
         /* === STYLES MOBILE PAR DÉFAUT === */
         .habitants-page {
@@ -539,7 +531,6 @@ get_header(); ?>
             }
         }
 
-        /* Réduction des animations si demandée */
         @media (prefers-reduced-motion: reduce) {
 
             .services-grid,

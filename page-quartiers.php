@@ -29,13 +29,13 @@ get_header(); ?>
 
         /* Container principal */
         .quartiers-page {
-            min-height: 100dvh;  /* ← MODIF : vh → dvh */
+            min-height: 100dvh;  
             background: linear-gradient(135deg, #7391ff 0%, #5b7ae6 50%, #7391ff 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 8px;  /* ← MODIF : 10px → 8px comme logement */
+            padding: 8px;  
         }
 
         /* Container principal pour équilibrer l'espace - AJOUTÉ ! */
@@ -49,19 +49,18 @@ get_header(); ?>
             max-width: 100%;
         }
 
-        /* Container de la grille - DIMENSIONS IDENTIQUES À LOGEMENT */
+        /* Container de la grille */
         .quartiers-container {
             background: #e9d16f;
-            border: 3px solid #000000;  /* ← MODIF : 4px → 3px */
             border-radius: 25px;
-            width: calc(100% - 16px);  /* ← MODIF : 100% → calc */
-            max-width: 370px;  /* ← MODIF : 340px → 370px */
-            height: calc(100dvh - 120px);  /* ← MODIF : vh → dvh */
-            max-height: 585px;  /* ← MODIF : 480px → 585px */
-            min-height: 505px;  /* ← MODIF : 400px → 505px */
+            width: calc(100% - 16px);  
+            max-width: 370px;  
+            height: calc(100dvh - 120px);  
+            max-height: 585px;  
+            min-height: 505px;  
             padding: 15px;
-            margin-top: 20px;  /* ← AJOUT */
-            margin-bottom: 12px;  /* ← MODIF : 15px → 12px */
+            margin-top: 20px;  
+            margin-bottom: 12px;  
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -155,7 +154,7 @@ get_header(); ?>
             color: #000;
             text-transform: uppercase;
             text-decoration: none;
-            border-bottom: 1px solid #E5E5E5;
+            border-bottom: 2px solid #ebecf4;
             background: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.2s ease;
@@ -297,25 +296,27 @@ get_header(); ?>
         }
 
         /* RESET pour éviter les interférences CSS du thème */
-        .quartiers-page * {
+        /* Exclure quartier-item et quartiers-container du reset */
+        .quartiers-page *:not(.quartier-item):not(.quartiers-container) {
             border: none !important;
             outline: none !important;
             box-shadow: none !important;
         }
 
-        /* Exceptions pour nos styles */
+        /* Exceptions pour nos styles - TOUT DOIT ÊTRE ICI */
         .quartiers-container {
-            border: 4px solid #000000 !important;
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        .quartier-item {
-            border-bottom: 1px solid #E5E5E5 !important;
+        /* Bordure des items - avec sélecteur plus spécifique */
+        .quartiers-page .quartiers-list .quartier-item {
+            border-bottom: 2px solid #ebecf4 !important;
         }
 
-        .quartier-item:last-child {
-            border-bottom: none !important;
-        }
+        .quartiers-page .quartiers-list li:last-child .quartier-item {
+    border-bottom: none !important;
+}
 
         @media (min-width: 481px) {
             .quartiers-container {
@@ -595,7 +596,7 @@ get_header(); ?>
             color: #000;
             text-transform: uppercase;
             text-decoration: none;
-            border-bottom: 1px solid #E5E5E5;
+            border-bottom: 2px solid #ebecf4 !important;
             background: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.2s ease;
@@ -737,20 +738,16 @@ get_header(); ?>
         }
 
         /* RESET pour éviter les interférences CSS du thème */
-        .quartiers-page * {
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
+
 
         /* Exceptions pour nos styles */
         .quartiers-container {
-            border: 4px solid #000000 !important;
+            border: 3px solid #000000 !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
         .quartier-item {
-            border-bottom: 1px solid #E5E5E5 !important;
+            border-bottom: 2px solid #000000 !important;
         }
 
         .quartier-item:last-child {
