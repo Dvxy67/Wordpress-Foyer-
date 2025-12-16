@@ -36,22 +36,22 @@ get_header(); ?>
         
         /* ICÔNE 1 : LES PANNES */
         .icon-pannes img {
-            width: 65px;          /* ← Modifie la taille ici */
-            height: 65px;         /* ← Même valeur que width */
-            transform: rotate(0deg);  /* ← Modifie l'inclinaison ici (-180 à 180) */
+            width: 65px;         
+            height: 65px;        
+            transform: rotate(17deg);  
         }
 
         /* ICÔNE 2 : LE CONCIERGE */
         .icon-concierge img {
-            width: 65px;
-            height: 65px;
+            width: 75px;
+            height: 75px;
             transform: rotate(0deg);
         }
 
         /* ICÔNE 3 : LES POMPIERS */
         .icon-pompiers img {
-            width: 65px;
-            height: 65px;
+            width: 80px;
+            height: 80px;
             transform: rotate(0deg);
         }
 
@@ -59,35 +59,30 @@ get_header(); ?>
         .icon-proprete img {
             width: 65px;
             height: 65px;
-            transform: rotate(0deg);
         }
 
         /* ICÔNE 5 : L'ASSISTANT SOCIAL */
         .icon-assistant img {
-            width: 65px;
-            height: 65px;
-            transform: rotate(0deg);
+            width: 85px;
+            height: 85px;
         }
 
         /* ICÔNE 6 : LE RÈGLEMENT */
         .icon-reglement img {
-            width: 65px;
-            height: 65px;
-            transform: rotate(0deg);
+            width: 55px;
+            height: 55px;
         }
 
         /* ICÔNE 7 : AIDE PSYCHOLOGIQUE */
         .icon-psychologique img {
-            width: 65px;
-            height: 65px;
-            transform: rotate(0deg);
+            width: 75px;
+            height: 75px;
         }
 
         /* ICÔNE 8 : L'ENTRETIEN DU LOGEMENT */
         .icon-entretien img {
-            width: 65px;
-            height: 65px;
-            transform: rotate(0deg);
+            width: 75px;
+            height: 75px;
         }
 
         /* ============================================
