@@ -38,20 +38,20 @@ get_header(); ?>
         .icon-pannes img {
             width: 65px;          /* ← Modifie la taille ici */
             height: 65px;         /* ← Même valeur que width */
-            transform: rotate(17deg);  /* ← Modifie l'inclinaison ici (-180 à 180) */
+            transform: rotate(0deg);  /* ← Modifie l'inclinaison ici (-180 à 180) */
         }
 
         /* ICÔNE 2 : LE CONCIERGE */
         .icon-concierge img {
-            width: 75px;
-            height: 75px;
+            width: 65px;
+            height: 65px;
             transform: rotate(0deg);
         }
 
         /* ICÔNE 3 : LES POMPIERS */
         .icon-pompiers img {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             transform: rotate(0deg);
         }
 
@@ -59,30 +59,35 @@ get_header(); ?>
         .icon-proprete img {
             width: 65px;
             height: 65px;
+            transform: rotate(0deg);
         }
 
         /* ICÔNE 5 : L'ASSISTANT SOCIAL */
         .icon-assistant img {
-            width: 85px;
-            height: 85px;
+            width: 65px;
+            height: 65px;
+            transform: rotate(0deg);
         }
 
         /* ICÔNE 6 : LE RÈGLEMENT */
         .icon-reglement img {
-            width: 55px;
-            height: 55px;
+            width: 65px;
+            height: 65px;
+            transform: rotate(0deg);
         }
 
         /* ICÔNE 7 : AIDE PSYCHOLOGIQUE */
         .icon-psychologique img {
-            width: 75px;
-            height: 75px;
+            width: 65px;
+            height: 65px;
+            transform: rotate(0deg);
         }
 
         /* ICÔNE 8 : L'ENTRETIEN DU LOGEMENT */
         .icon-entretien img {
-            width: 75px;
-            height: 75px;
+            width: 65px;
+            height: 65px;
+            transform: rotate(0deg);
         }
 
         /* ============================================
@@ -112,7 +117,7 @@ get_header(); ?>
             max-width: 100%;
         }
 
-        /* Grille principale - DIMENSIONS HARMONISÉES */
+        /* Grille principale - RÉDUIT DE 30PX */
         .services-grid {
             background: #e9d16f;
             border: 3px solid #000000;
@@ -123,13 +128,13 @@ get_header(); ?>
             gap: 0;
             width: calc(100% - 16px);
             max-width: 370px;
-            height: calc(100vh - 120px);
+            height: calc(100dvh - 150px);  /* ← MODIF : 120px → 150px (30px plus petit) */
             min-height: 505px;
             max-height: 585px;
             padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 12px;
             margin-top: 20px;
+            margin-bottom: 12px;
         }
 
         /* Item de service - DIMENSIONS HARMONISÉES */
@@ -193,13 +198,13 @@ get_header(); ?>
             word-break: break-word;
         }
 
-        /* Section bouton retour - HARMONISÉE */
+        /* Section bouton retour - IDENTIQUE À PAGE LOGEMENT */
         .retour-section {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 65px;
+            height: 118px;  /* ← IDENTIQUE à page logement */
         }
 
         .retour-button {
@@ -284,9 +289,9 @@ get_header(); ?>
             }
 
             .services-grid {
-                max-width: 450px;
-                min-height: 580px;
-                max-height: 680px;
+                max-width: 400px;  /* ← Ajusté pour correspondre à logement-container */
+                min-height: 560px; /* ← Ajusté pour correspondre à logement-container */
+                max-height: 660px; /* ← Ajusté pour correspondre à logement-container */
                 padding: 20px;
                 gap: 5px;
                 border: 6px solid #000000;
@@ -683,7 +688,7 @@ get_header(); ?>
                 </a>
             </div>
 
-            <!-- Bouton retour -->
+            <!-- Bouton retour - IDENTIQUE À PAGE LOGEMENT (sans texte) -->
             <div class="retour-section">
                 <a href="<?php echo esc_url(get_theme_mod('habitants_retour_url', home_url())); ?>" class="retour-button" role="button" aria-label="Retour à la page d'accueil">
                     <?php
@@ -693,7 +698,6 @@ get_header(); ?>
                     <?php else : ?>
                         <span class="arrow" aria-hidden="true">←</span>
                     <?php endif; ?>
-                    <span class="retour-text"><?php echo esc_html(get_theme_mod('habitants_retour_text', 'RETOUR HOMEPAGE')); ?></span>
                 </a>
             </div>
         </div>
