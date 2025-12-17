@@ -2,7 +2,7 @@
 /*
 Template Name: Page Quartiers - Harmonisée
 */
-get_header(); ?>
+?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -73,7 +73,7 @@ get_header(); ?>
             align-items: center;
             justify-content: center;
             margin-bottom: 0px;
-            gap: 12px;
+            gap: 40px;
             min-height: 60px;
             flex-shrink: 0;
         }
@@ -101,7 +101,7 @@ get_header(); ?>
 
         /* Titre "J'HABITE À" - RÉDUIT */
         .titre-text {
-            font-size: 22px;
+            font-size: 25px;
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
@@ -154,19 +154,11 @@ get_header(); ?>
             padding: 12px 15px;
             font-size: 22px !important;
             font-weight: 500;
-            /* ← MODIF : bold → 500 (comme habitants) */
             color: #000;
             text-transform: uppercase;
-            text-decoration: underline;
-            /* ← MODIF : none → underline (comme habitants) */
-            text-decoration-thickness: 1.5px;
-            /* ← AJOUT : comme habitants */
-            text-underline-offset: 2px;
-            /* ← AJOUT : comme habitants */
+            text-decoration: none;
             line-height: 1.1;
-            /* ← AJOUT : comme habitants */
             letter-spacing: 0.5px;
-            /* ← AJOUT : comme habitants */
             border-bottom: 2px solid #ebecf4;
             background: #FFFFFF;
             cursor: pointer;
@@ -348,122 +340,6 @@ get_header(); ?>
     </style>
 
     <?php wp_head(); ?>
-</head>
-
-<body <?php body_class(); ?>>
-
-    <div class="quartiers-page">
-        <div class="main-container">
-            <div class="quartiers-container">
-
-                <!-- Section titre avec immeuble -->
-                <div class="titre-section">
-                    <div class="immeuble-icon">
-                        <?php
-                        $image_immeuble = get_theme_mod('quartiers_image_immeuble');
-                        if ($image_immeuble) : ?>
-                            <img src="<?php echo esc_url($image_immeuble); ?>" alt="Immeuble">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Immeuble">🏢</span>
-                        <?php endif; ?>
-                    </div>
-                    <h1 class="titre-text">J'HABITE À</h1>
-                </div>
-
-                <!-- Zone scrollable des quartiers -->
-                <div class="quartiers-scroll">
-                    <ul class="quartiers-list">
-                        <?php
-                        // Récupérer la liste des quartiers et des liens
-                        $quartiers       = get_quartiers_list();
-                        $quartiers_liens = function_exists('get_quartiers_links') ? get_quartiers_links() : array();
-
-                        if (! empty($quartiers)) :
-                            foreach ($quartiers as $index => $quartier) :
-                                // Lien correspondant (même index que dans la liste des quartiers)
-                                $url = (isset($quartiers_liens[$index]) && $quartiers_liens[$index] !== '')
-                                    ? $quartiers_liens[$index]
-                                    : '#';
-                        ?>
-                                <li>
-                                    <a href="<?php echo esc_url($url); ?>"
-                                        class="quartier-item"
-                                        data-quartier="<?php echo esc_attr(strtolower($quartier)); ?>">
-                                        <?php echo esc_html(strtoupper($quartier)); ?>
-                                    </a>
-                                </li>
-                            <?php
-                            endforeach;
-                        else :
-                            // Quartiers par défaut (si rien n'a été configuré)
-                            $default_quartiers = array(
-                                'PRINS',
-                                'PETERBOS',
-                                'RAUTER',
-                                'LA ROUE',
-                                'SQUARE ALBERT',
-                                'LENNIK',
-                                'BON AIR',
-                                'GOUJONS',
-                                'DAUPHINELLES',
-                            );
-                            foreach ($default_quartiers as $quartier) :
-                            ?>
-                                <li>
-                                    <a href="#"
-                                        class="quartier-item"
-                                        data-quartier="<?php echo esc_attr(strtolower($quartier)); ?>">
-                                        <?php echo esc_html($quartier); ?>
-                                    </a>
-                                </li>
-                        <?php
-                            endforeach;
-                        endif;
-                        ?>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Bouton retour -->
-            <div class="retour-section">
-                <a href="<?php echo home_url(); ?>" class="retour-button">
-                    <span class="arrow">
-                        <?php
-                        $image_retour = get_theme_mod('quartiers_image_retour');
-                        if ($image_retour) : ?>
-                            <img src="<?php echo esc_url($image_retour); ?>" alt="Retour">
-                        <?php else : ?>
-                            <span class="emoji-fallback">←</span>
-                        <?php endif; ?>
-                    </span>
-                    <!-- <span class="retour-text">RETOUR AU MENU</span> -->
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // JavaScript pour la sélection des quartiers
-        function selectQuartier(element) {
-            // Enlever la sélection de tous les autres quartiers
-            var quartiers = document.querySelectorAll('.quartier-item');
-            quartiers.forEach(function(item) {
-                item.classList.remove('selected');
-            });
-
-            // Ajouter la sélection à l'élément cliqué
-            element.classList.add('selected');
-
-            // Optionnel : faire quelque chose avec le quartier sélectionné
-            var quartierNom = element.dataset.quartier;
-            console.log('Quartier sélectionné:', quartierNom);
-        }
-    </script>
-
-    <?php wp_footer(); ?>
-</body>
-
-</html>
 </head>
 
 <body <?php body_class(); ?>>
