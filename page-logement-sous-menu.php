@@ -6,17 +6,18 @@ get_header(); ?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
+
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logement - Sous Menu</title>
-    
+
     <style>
         /* Import Google Fonts - Rubik */
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
-        
+
         /* CSS HARMONISÉ - Page Logement Sous Menu Mobile-First */
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -224,35 +225,36 @@ get_header(); ?>
         }
 
         /* OPTIMISATIONS POUR ÉCRANS TRÈS PETITS */
-        @media (max-height: 600px), (max-width: 360px) {
+        @media (max-height: 600px),
+        (max-width: 360px) {
             .logement-page {
                 padding: 6px;
             }
-            
+
             .logement-container {
                 padding: 12px;
                 min-height: 480px;
             }
-            
+
             .options-container {
                 gap: 22px;
                 padding-bottom: 15px;
             }
-            
+
             .option-icon {
                 width: 60px;
                 height: 60px;
             }
-            
+
             .option-icon img {
                 width: 55px;
                 height: 55px;
             }
-            
+
             .option-icon .emoji-fallback {
                 font-size: 48px;
             }
-            
+
             .option-text {
                 font-size: 14px;
             }
@@ -263,11 +265,11 @@ get_header(); ?>
             .logement-page {
                 padding: 20px;
             }
-            
+
             .main-container {
                 height: calc(100vh - 40px);
             }
-            
+
             .logement-container {
                 max-width: 400px;
                 min-height: 560px;
@@ -275,39 +277,39 @@ get_header(); ?>
                 padding: 20px;
                 border: 6px solid #000000;
             }
-            
+
             .options-container {
                 gap: 35px;
                 padding-bottom: 25px;
             }
-            
+
             .option-icon {
                 width: 80px;
                 height: 80px;
                 margin-bottom: 12px;
             }
-            
+
             .option-icon img {
                 width: 75px;
                 height: 75px;
             }
-            
+
             .option-icon .emoji-fallback {
                 font-size: 68px;
             }
-            
+
             .option-text {
                 font-size: 18px;
             }
-            
+
             .retour-section {
                 height: 75px;
             }
-            
+
             .arrow {
                 font-size: 55px;
             }
-            
+
             .retour-text {
                 font-size: 18px;
             }
@@ -332,100 +334,100 @@ get_header(); ?>
             }
         }
     </style>
-    
+
     <?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?>>
 
-<div class="logement-page">
-    <div class="main-container">
-        <div class="logement-container">
-            
-            <!-- Container des options -->
-            <div class="options-container">
-                
-                <!-- Option 1: Candidature -->
-                <a href="<?php echo esc_url(get_theme_mod('logement_url_candidature', '#')); ?>" class="logement-option">
-                    <div class="option-icon candidature">
-                        <?php
-                        $icon_candidature = get_theme_mod('logement_icon_candidature');
-                        if ($icon_candidature) : ?>
-                            <img src="<?php echo esc_url($icon_candidature); ?>" alt="Candidature">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Candidature">📝</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_candidature', 'ENTRER MA CANDIDATURE')); ?>
-                    </div>
+    <div class="logement-page">
+        <div class="main-container">
+            <div class="logement-container">
+
+                <!-- Container des options -->
+                <div class="options-container">
+
+                    <!-- Option 1: Candidature -->
+                    <a href="<?php echo esc_url(get_theme_mod('logement_url_candidature', '#')); ?>" class="logement-option">
+                        <div class="option-icon candidature">
+                            <?php
+                            $icon_candidature = get_theme_mod('logement_icon_candidature');
+                            if ($icon_candidature) : ?>
+                                <img src="<?php echo esc_url($icon_candidature); ?>" alt="Candidature">
+                            <?php else : ?>
+                                <span class="emoji-fallback" role="img" aria-label="Candidature">📝</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('logement_text_candidature', 'ENTRER MA CANDIDATURE')); ?>
+                        </div>
+                    </a>
+
+                    <!-- Option 2: Éligibilité -->
+                    <a href="<?php echo esc_url(get_theme_mod('logement_url_eligibilite', '#')); ?>" class="logement-option">
+                        <div class="option-icon eligibilite">
+                            <?php
+                            $icon_eligibilite = get_theme_mod('logement_icon_eligibilite');
+                            if ($icon_eligibilite) : ?>
+                                <img src="<?php echo esc_url($icon_eligibilite); ?>" alt="Éligibilité">
+                            <?php else : ?>
+                                <span class="emoji-fallback" role="img" aria-label="Éligibilité">✓</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('logement_text_eligibilite', 'EST-CE QUE J\'Y AI DROIT?')); ?>
+                        </div>
+                    </a>
+
+                    <!-- Option 3: Délais -->
+                    <a href="<?php echo esc_url(get_theme_mod('logement_url_delais', '#')); ?>" class="logement-option">
+                        <div class="option-icon delais">
+                            <?php
+                            $icon_delais = get_theme_mod('logement_icon_delais');
+                            if ($icon_delais) : ?>
+                                <img src="<?php echo esc_url($icon_delais); ?>" alt="Délais">
+                            <?php else : ?>
+                                <span class="emoji-fallback" role="img" aria-label="Délais">⏳</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('logement_text_delais', 'COMBIEN DE TEMPS JE VAIS ATTENDRE?')); ?>
+                        </div>
+                    </a>
+
+                    <!-- Option 4: Autre Question -->
+                    <a href="<?php echo esc_url(get_theme_mod('logement_url_autre', '#')); ?>" class="logement-option">
+                        <div class="option-icon autre">
+                            <?php
+                            $icon_autre = get_theme_mod('logement_icon_autre');
+                            if ($icon_autre) : ?>
+                                <img src="<?php echo esc_url($icon_autre); ?>" alt="Autre Question">
+                            <?php endif; ?>
+                        </div>
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('logement_text_autre', 'J\'AI UNE AUTRE QUESTION')); ?>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Bouton retour -->
+            <div class="retour-section">
+                <a href="<?php echo home_url(); ?>" class="retour-button">
+                    <?php
+                    $arrow_image = get_theme_mod('logement_retour_image');
+                    if ($arrow_image) : ?>
+                        <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+                    <?php else : ?>
+                        <span class="arrow" aria-hidden="true">←</span>
+                    <?php endif; ?>
                 </a>
-                
-                <!-- Option 2: Éligibilité -->
-                <a href="<?php echo esc_url(get_theme_mod('logement_url_eligibilite', '#')); ?>" class="logement-option">
-                    <div class="option-icon eligibilite">
-                        <?php
-                        $icon_eligibilite = get_theme_mod('logement_icon_eligibilite');
-                        if ($icon_eligibilite) : ?>
-                            <img src="<?php echo esc_url($icon_eligibilite); ?>" alt="Éligibilité">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Éligibilité">✓</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_eligibilite', 'EST-CE QUE J\'Y AI DROIT?')); ?>
-                    </div>
-                </a>
-                
-                <!-- Option 3: Délais -->
-                <a href="<?php echo esc_url(get_theme_mod('logement_url_delais', '#')); ?>" class="logement-option">
-                    <div class="option-icon delais">
-                        <?php
-                        $icon_delais = get_theme_mod('logement_icon_delais');
-                        if ($icon_delais) : ?>
-                            <img src="<?php echo esc_url($icon_delais); ?>" alt="Délais">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Délais">⏳</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_delais', 'COMBIEN DE TEMPS JE VAIS ATTENDRE?')); ?>
-                    </div>
-                </a>
-                
-                <!-- Option 4: Autre Question -->
-                <a href="<?php echo esc_url(get_theme_mod('logement_url_autre', '#')); ?>" class="logement-option">
-                    <div class="option-icon autre">
-                        <?php
-                        $icon_autre = get_theme_mod('logement_icon_autre');
-                        if ($icon_autre) : ?>
-                            <img src="<?php echo esc_url($icon_autre); ?>" alt="Autre Question">
-                        <?php else : ?>
-                            <span class="emoji-fallback" role="img" aria-label="Autre">❓</span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="option-text">
-                        <?php echo esc_html(get_theme_mod('logement_text_autre', 'J\'AI UNE AUTRE QUESTION')); ?>
-                    </div>
-                </a>
-                
             </div>
         </div>
-        
-        <!-- Bouton retour -->
-        <div class="retour-section">
-            <a href="<?php echo home_url(); ?>" class="retour-button">
-                <?php 
-                $arrow_image = get_theme_mod('logement_retour_image');
-                if ($arrow_image) : ?>
-                    <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
-                <?php else : ?>
-                    <span class="arrow" aria-hidden="true">←</span>
-                <?php endif; ?>
-            </a>
-        </div>
     </div>
-</div>
 
-<?php wp_footer(); ?>
+    <?php wp_footer(); ?>
 </body>
+
 </html>
