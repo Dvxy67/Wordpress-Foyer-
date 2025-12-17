@@ -77,8 +77,8 @@ get_header(); ?>
 
         /* ICÔNE 8 : L'ENTRETIEN DU LOGEMENT */
         .icon-entretien img {
-            width: 75px;
-            height: 75px;
+            width: 78px;
+            height: 78px;
         }
 
         /* === STYLES MOBILE PAR DÉFAUT === */
