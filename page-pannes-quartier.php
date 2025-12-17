@@ -16,8 +16,7 @@ if (strpos($page_slug, 'pannes-') === 0) {
 
 // Convertir en format lisible (ex: "prins" -> "Prins")
 $quartier_display = ucfirst($quartier);
-
-get_header(); ?>
+?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -74,7 +73,7 @@ get_header(); ?>
             height: calc(100vh - 120px);
             min-height: 505px;
             max-height: 585px;
-            padding: 15px;
+            padding: 15px 15px 0 15px;
             margin-top: 20px;
             margin-bottom: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -105,7 +104,7 @@ get_header(); ?>
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transform: rotate(20deg);
+            transform: rotate(24deg);
         }
 
         .tools-icon .emoji-fallback {
@@ -114,7 +113,7 @@ get_header(); ?>
         }
 
         .pannes-title {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -126,7 +125,9 @@ get_header(); ?>
         .pannes-grid-container {
             background: #E8E8E8;
             border-radius: 0px;
-            padding: 20px 15px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            padding: 20px 5px;
             flex: 1;
             display: flex;
             align-items: center;
@@ -138,7 +139,9 @@ get_header(); ?>
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             row-gap: 35px;
-            column-gap: 5px;
+            column-gap: 15px;
+            justify-items: center;
+            align-items: center;
             width: 100%;
             max-width: 280px;
             height: 100%;
@@ -154,7 +157,7 @@ get_header(); ?>
             color: #000;
             transition: transform 0.2s ease;
             cursor: pointer;
-            padding: 10px;
+            padding: 5px;
         }
 
         .panne-item:hover {

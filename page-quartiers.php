@@ -31,7 +31,7 @@ Template Name: Page Quartiers - Harmonisée
         /* Container principal */
         .quartiers-page {
             min-height: 100dvh;
-            background: linear-gradient(135deg, #7391ff 0%, #5b7ae6 50%, #7391ff 100%);
+            background: #7391ff;
             display: flex;
             flex-direction: column;
             justify-content: center;

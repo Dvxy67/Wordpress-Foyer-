@@ -213,7 +213,7 @@ body {
 /* Logo au bas - AGRANDI */
 .bottom-logo {
     position: absolute !important;
-    bottom: -8vh !important;
+    bottom: -4vh !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     text-align: center !important;
@@ -223,8 +223,8 @@ body {
 }
 
 .bottom-logo img {
-    max-width: 250px !important;
-    max-height: 250px !important;
+    max-width: 200px !important;
+    max-height: 200px !important;
     height: auto !important;
     width: auto !important;
     display: block !important;
