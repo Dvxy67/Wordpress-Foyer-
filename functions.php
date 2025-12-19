@@ -1665,6 +1665,30 @@ function pannes_quartiers_customizer($wp_customize) {
         ));
     }
 
+    // Image de retour globale
+    $wp_customize->add_setting('pannes_retour_image', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'pannes_retour_image', array(
+        'label' => 'Image Retour (Par défaut)',
+        'section' => 'pannes_global_section',
+        'settings' => 'pannes_retour_image',
+        'description' => 'Image utilisée pour le bouton retour sur toutes les pages pannes',
+    )));
+
+    // URL de retour globale
+    $wp_customize->add_setting('pannes_retour_url', array(
+        'default' => '/quartiers',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pannes_retour_url', array(
+        'label' => 'URL Retour (Par défaut)',
+        'section' => 'pannes_global_section',
+        'type' => 'url',
+        'description' => 'URL utilisée pour le bouton retour sur toutes les pages pannes',
+    ));
+
     // --- SECTIONS PAR QUARTIER ---
     
     $quartiers = get_quartiers_pannes_list();

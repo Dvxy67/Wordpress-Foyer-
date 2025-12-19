@@ -610,7 +610,14 @@ $quartier_display = ucfirst($quartier);
     
     <!-- Bouton retour -->
     <div class="retour-section">
-        <a href="<?php echo esc_url(get_theme_mod("pannes_{$quartier}_retour_url", '/quartiers')); ?>" class="retour-button">
+        <a href="<?php 
+            // URL de retour avec fallback : spécifique > globale > défaut
+            $retour_url = get_theme_mod("pannes_{$quartier}_retour_url");
+            if (empty($retour_url)) {
+                $retour_url = get_theme_mod('pannes_retour_url', '/quartiers');
+            }
+            echo esc_url($retour_url);
+        ?>" class="retour-button">
             <?php 
             // Image de retour spécifique au quartier ou globale
             $arrow_image = get_theme_mod("pannes_{$quartier}_retour_image");
