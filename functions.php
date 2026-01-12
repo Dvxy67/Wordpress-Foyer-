@@ -1872,3 +1872,48 @@ function pannes_quartiers_theme_support() {
     add_theme_support('custom-logo');
 }
 add_action('after_setup_theme', 'pannes_quartiers_theme_support');
+
+/**
+ * Customizer Options pour Page Texte
+ * À ajouter dans votre functions.php existant
+ */
+
+function customize_page_texte_settings($wp_customize) {
+    
+    // Section pour la page Texte
+    $wp_customize->add_section('page_texte_section', array(
+        'title'    => __('Page Texte - Modal', 'votre-theme'),
+        'priority' => 31,
+    ));
+
+    // Titre de la page
+    $wp_customize->add_setting('texte_title', array(
+        'default'           => 'LOREM IPSUM DOLORS',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('texte_title', array(
+        'label'    => __('Titre de la page', 'votre-theme'),
+        'section'  => 'page_texte_section',
+        'type'     => 'text',
+        'description' => 'Le titre affiché en haut de la page (par défaut: titre de la page WordPress)',
+    ));
+
+    // URL de fermeture (bouton X)
+    $wp_customize->add_setting('texte_close_url', array(
+        'default'           => home_url(),
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('texte_close_url', array(
+        'label'    => __('URL du bouton de fermeture (X)', 'votre-theme'),
+        'section'  => 'page_texte_section',
+        'type'     => 'url',
+        'description' => 'URL de redirection quand on clique sur le X (par défaut: page d\'accueil)',
+    ));
+}
+
+add_action('customize_register', 'customize_page_texte_settings');
+
