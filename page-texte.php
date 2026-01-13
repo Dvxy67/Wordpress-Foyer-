@@ -131,21 +131,25 @@ get_header(); ?>
             margin-top: 0px !important;
         }
 
-        .text-content>*:first-child,
-        .text-content>p:first-child,
-        .text-content p:first-of-type {
-            margin-top: 0 !important;
-            margin-block-start: 0 !important;
-            padding-top: 0 !important;
-        }
-
-        /* Style des paragraphes */
-        .text-content p {
-            margin-bottom: 18px !important;
+        /* Style des paragraphes - RÈGLE GÉNÉRALE D'ABORD */
+        .texte-page .texte-container .text-content p {
+            margin: 0 0 18px 0 !important;
+            margin-block: 0 18px !important;
+            padding: 0 !important;
             display: block !important;
         }
 
-        .text-content p:last-child {
+        /* PUIS la règle spécifique pour le premier paragraphe APRÈS */
+        .texte-page .texte-container .text-content p:first-child,
+        .texte-page .texte-container .text-content p:first-of-type {
+            margin-top: -16px !important;
+            /* ← GAGNE car écrit en dernier */
+            margin-bottom: 18px !important;
+            padding: 0 !important;
+        }
+
+        /* Dernier paragraphe */
+        .texte-page .texte-container .text-content p:last-child {
             margin-bottom: 0 !important;
         }
 
