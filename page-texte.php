@@ -14,7 +14,7 @@ get_header(); ?>
 
     <style>
         /* Import Google Fonts - Rubik */
-        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100..900&display=swap');
 
         /* CSS HARMONISÉ - Page Texte Mobile-First */
 
@@ -57,7 +57,7 @@ get_header(); ?>
         .texte-container {
             background: #FFFFFF;
             border: none;
-            border-radius: 25px;
+            border-radius: 15px;
             width: calc(100% - 16px);
             max-width: 100%;
             height: calc(100vh - 80px);
@@ -67,6 +67,7 @@ get_header(); ?>
             padding-top: 50px;
             margin-top: 20px;
             margin-bottom: 12px;
+            padding-bottom: 35px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -77,12 +78,12 @@ get_header(); ?>
         /* Bouton de fermeture X */
         .close-button {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 50px;
-            height: 50px;
+            top: 22px;
+            right: 26px;
+            width: 32px;
+            height: 32px;
             background: #FFFFFF;
-            border: 3px solid #000000;
+            border: 0.5px solid #000000;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -100,20 +101,24 @@ get_header(); ?>
 
         .close-icon {
             color: #000000;
-            font-size: 20px;
-            font-weight: 400;
+            font-size: 33px;
+            font-weight: 370;
             line-height: 1;
+            position: relative;
+            top: -1px;
         }
 
         /* Titre */
         .text-title {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 450;
             color: #000000;
             text-transform: uppercase;
             margin-bottom: 0px !important;
             line-height: 1.2;
             letter-spacing: 0.5px;
+            margin-top: 15px; 
+            padding-left: 10px;
         }
 
         /* Zone de contenu scrollable */
@@ -129,6 +134,8 @@ get_header(); ?>
             hyphens: auto;
             padding-top: 0px !important;
             margin-top: 0px !important;
+            font-weight: 100;
+            padding-left: 10px;
         }
 
         /* Style des paragraphes - RÈGLE GÉNÉRALE D'ABORD */
@@ -260,7 +267,7 @@ get_header(); ?>
         }
 
         .close-button {
-            border: 3px solid #000000 !important;
+            border: 2.5px solid #000000 !important;
         }
     </style>
 
