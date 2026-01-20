@@ -285,11 +285,12 @@ get_header(); ?>
                     <span class="close-icon" aria-hidden="true">×</span>
                 </a>
 
+
                 <!-- Titre -->
                 <h1 class="text-title">
                     <?php echo esc_html(get_the_title()); ?>
                 </h1>
-                
+
                 <!-- Contenu -->
                 <div class="text-content">
                     <?php
@@ -309,4 +310,4 @@ get_header(); ?>
     <?php wp_footer(); ?>
 </body>
 
-</html>
+</html>x

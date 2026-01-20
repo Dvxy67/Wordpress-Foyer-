@@ -121,7 +121,6 @@ get_header(); ?>
             padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
-            margin-bottom: 12px;
         }
 
         /* Item de service - DIMENSIONS HARMONISÉES */
@@ -130,7 +129,7 @@ get_header(); ?>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px 6px;
+            padding: 6px 6px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s ease;
