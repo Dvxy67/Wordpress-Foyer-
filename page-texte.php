@@ -117,7 +117,7 @@ get_header(); ?>
             margin-bottom: 0px !important;
             line-height: 1.2;
             letter-spacing: 0.5px;
-            margin-top: 15px; 
+            margin-top: 15px;
             padding-left: 10px;
         }
 
@@ -281,15 +281,15 @@ get_header(); ?>
             <div class="texte-container">
 
                 <!-- Bouton de fermeture -->
-                <a href="<?php echo esc_url(get_theme_mod('texte_close_url', home_url())); ?>" class="close-button" aria-label="Fermer">
+                <a href="#" onclick="window.history.back(); return false;" class="close-button" aria-label="Fermer">
                     <span class="close-icon" aria-hidden="true">×</span>
                 </a>
 
                 <!-- Titre -->
                 <h1 class="text-title">
-                    <?php echo esc_html(get_theme_mod('texte_title', get_the_title())); ?>
+                    <?php echo esc_html(get_the_title()); ?>
                 </h1>
-
+                
                 <!-- Contenu -->
                 <div class="text-content">
                     <?php
