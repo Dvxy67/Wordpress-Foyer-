@@ -246,6 +246,33 @@ get_header(); ?>
             border-radius: 8px;
         }
 
+        /* Supprimer le carré bleu/jaune sur les options de logement */
+        a.logement-option,
+        .logement-option,
+        .logement-option img,
+        .logement-icon,
+        .logement-icon img {
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        a.logement-option:focus,
+        a.logement-option:active,
+        .logement-option:focus,
+        .logement-option:active,
+        .logement-option img:focus,
+        .logement-option img:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        a.logement-option:focus:not(:focus-visible),
+        .logement-option:focus:not(:focus-visible) {
+            outline: none !important;
+        }
+
         /* OPTIMISATIONS POUR ÉCRANS TRÈS PETITS */
         @media (max-height: 600px),
         (max-width: 360px) {
