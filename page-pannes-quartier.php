@@ -119,7 +119,7 @@ $quartier_display = ucfirst($quartier);
             color: #000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            text-align: center;
+            text-align: left;
             line-height: 1.2;
         }
 
@@ -159,6 +159,33 @@ $quartier_display = ucfirst($quartier);
             transition: transform 0.2s ease;
             cursor: pointer;
             padding: 5px;
+        }
+
+        /* Supprimer le carré bleu/jaune sur les items de panne */
+        .panne-item,
+        .panne-item img,
+        .panne-icon,
+        .panne-icon img,
+        a.panne-item {
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        .panne-item:focus,
+        .panne-item:active,
+        .panne-item img:focus,
+        .panne-item img:active,
+        a.panne-item:focus,
+        a.panne-item:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .panne-item:focus:not(:focus-visible),
+        a.panne-item:focus:not(:focus-visible) {
+            outline: none !important;
         }
 
         .panne-item:hover {
