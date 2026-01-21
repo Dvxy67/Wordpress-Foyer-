@@ -45,7 +45,7 @@ $quartier_display = ucfirst($quartier);
 
         .pannes-page {
             min-height: 100vh;
-            background: #7391ff;
+            background: #6b92ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -65,7 +65,7 @@ $quartier_display = ucfirst($quartier);
         }
 
         .pannes-container {
-            background: #F4D03F;
+            background: #eed05d;
             border: 3px solid #000000;
             border-radius: 25px;
             width: calc(100% - 16px);

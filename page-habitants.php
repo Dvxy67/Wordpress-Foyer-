@@ -84,7 +84,7 @@ get_header(); ?>
         /* === STYLES MOBILE PAR DÉFAUT === */
         .habitants-page {
             min-height: 100dvh;
-            background: #7391ff;
+            background: #6b92ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -106,7 +106,7 @@ get_header(); ?>
 
         /* Grille principale - RÉDUIT DE 30PX */
         .services-grid {
-            background: #e9d16f;
+            background: #eed05d;
             border: 3px solid #000000;
             border-radius: 25px;
             display: grid;
@@ -135,12 +135,6 @@ get_header(); ?>
             transition: transform 0.2s ease;
             text-decoration: none;
             color: inherit;
-        }
-
-        .service-item:hover,
-        .service-item:focus {
-            transform: scale(1.03);
-            outline: none;
         }
 
         .service-item:active {
@@ -204,12 +198,6 @@ get_header(); ?>
             padding: 10px 15px;
             border-radius: 10px;
             touch-action: manipulation;
-        }
-
-        .retour-button:hover,
-        .retour-button:focus {
-            transform: scale(1.05);
-            outline: none;
         }
 
         .retour-button:active {

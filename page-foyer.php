@@ -33,7 +33,7 @@ get_header(); ?>
         /* Container principal */
         .foyer-page {
             min-height: 100vh;
-            background: #7391ff;
+            background: #6b92ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -54,7 +54,7 @@ get_header(); ?>
 
         /* Container principal vert turquoise - HARMONISÉ */
         .foyer-container {
-            background: #7FCDCD;
+            background: #6cd7da;
             border: 3px solid #000000;
             border-radius: 25px;
             width: calc(100% - 16px);

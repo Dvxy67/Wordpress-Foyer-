@@ -30,7 +30,7 @@ body {
 /* Container principal */
 .homepage-container {
     height: 100vh;
-    background: #6699ff;
+    background: #6cd7da;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -115,7 +115,7 @@ body {
     width: 300px;
     height: 460px;
     border-radius: 20px;
-    border: 4px solid #000;
+    border: 3px solid #000;
     overflow: hidden;
     cursor: pointer;
     display: flex;
@@ -146,11 +146,11 @@ body {
 }
 
 .card.habitant .card-illustration {
-    background: linear-gradient(135deg, #F4D03F 0%, #E8C547 100%);
+    background: #eed05d
 }
 
 .card.logement .card-illustration {
-    background: #ebb3a8;
+    background: #f5b0a5;
 }
 
 .card.foyer .card-illustration {

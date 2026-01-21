@@ -33,7 +33,7 @@ get_header(); ?>
         /* Container principal */
         .logement-page {
             min-height: 100dvh;
-            background: #7391ff;
+            background: #6b92ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -54,7 +54,7 @@ get_header(); ?>
 
         /* Container principal rose - HARMONISÉ */
         .logement-container {
-            background: #F4A6A6;
+            background: #f5b0a5;
             border: 3px solid #000000;
             border-radius: 25px;
             width: calc(100% - 16px);

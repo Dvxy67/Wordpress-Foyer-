@@ -31,7 +31,7 @@ Template Name: Page Quartiers - Harmonisée
         /* Container principal */
         .quartiers-page {
             min-height: 100dvh;
-            background: #7391ff;
+            background: #6b92ff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -52,7 +52,7 @@ Template Name: Page Quartiers - Harmonisée
 
         /* Container de la grille */
         .quartiers-container {
-            background: #e9d16f;
+            background: #eed05d;
             border-radius: 25px;
             width: calc(100% - 16px);
             max-width: 370px;
