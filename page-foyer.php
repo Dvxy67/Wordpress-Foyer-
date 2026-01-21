@@ -6,17 +6,18 @@ get_header(); ?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
+
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Foyer</title>
-    
+
     <style>
         /* Import Google Fonts - Rubik */
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
-        
+
         /* CSS HARMONISÉ - Page Foyer Mobile-First */
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -167,16 +168,38 @@ get_header(); ?>
             text-align: center;
         }
 
+        /* Supprimer le carré bleu sur les boutons retour */
+        .retour-button,
+        .retour-button img,
+        .arrow-image {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Pour Safari/iOS */
+        }
+
+        /* Supprimer le focus au clic mais le garder au clavier */
+        .retour-button:focus:not(:focus-visible),
+        .retour-button img:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Garder un focus accessible au clavier (optionnel) */
+        .retour-button:focus-visible {
+            outline: 2px solid rgba(0, 0, 0, 0.3);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
         /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
             .foyer-page {
                 padding: 20px;
             }
-            
+
             .main-container {
                 height: calc(100vh - 40px);
             }
-            
+
             .foyer-container {
                 max-width: 400px;
                 min-height: 560px;
@@ -184,23 +207,23 @@ get_header(); ?>
                 padding: 20px;
                 border: 6px solid #000000;
             }
-            
+
             .options-container {
                 gap: 45px;
             }
-            
+
             .option-text {
                 font-size: 20px;
             }
-            
+
             .arrow {
                 font-size: 55px;
             }
-            
+
             .retour-section {
                 height: 75px;
             }
-            
+
             .retour-text {
                 font-size: 18px;
             }
@@ -212,11 +235,11 @@ get_header(); ?>
                 max-width: 300px;
                 padding: 20px 15px;
             }
-            
+
             .options-container {
                 gap: 25px;
             }
-            
+
             .option-text {
                 font-size: 14px;
             }
@@ -241,80 +264,82 @@ get_header(); ?>
             }
         }
     </style>
-    
+
     <?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?>>
 
-<div class="foyer-page">
-    <div class="main-container">
-        <div class="foyer-container">
-            
-            <!-- Container des options -->
-        <div class="options-container">
-            
-            <!-- Option 1: La Vision -->
-            <a href="<?php echo get_foyer_option_url('vision'); ?>" class="foyer-option">
-                <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_vision', 'LA VISION')); ?>
-                </div>
-            </a>
-            
-            <!-- Option 2: Les Chiffres -->
-            <a href="<?php echo get_foyer_option_url('chiffres'); ?>" class="foyer-option">
-                <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_chiffres', 'LES CHIFFRES')); ?>
-                </div>
-            </a>
-            
-            <!-- Option 3: Le Rapport Annuel -->
-            <a href="<?php echo get_foyer_option_url('rapport'); ?>" class="foyer-option">
-                <div class="option-text">
-                    LE RAPPORT<br>ANNUEL
-                </div>
-            </a>
-            
-            <!-- Option 4: Communiqués de Presse -->
-            <a href="<?php echo get_foyer_option_url('communiques'); ?>" class="foyer-option">
-                <div class="option-text">
-                    COMMUNIQUÉS<br>DE PRESSE
-                </div>
-            </a>
-            
-            <!-- Option 5: Conseil d'Administration -->
-            <a href="<?php echo get_foyer_option_url('conseil'); ?>" class="foyer-option">
-                <div class="option-text">
-                    LE CONSEIL<br>D'ADMINISTRATION
-                </div>
-            </a>
+    <div class="foyer-page">
+        <div class="main-container">
+            <div class="foyer-container">
 
-            <!-- Option 6: Optionnelle -->
-            <?php if (get_theme_mod('foyer_show_option6', false)) : ?>
-            <a href="<?php echo get_foyer_option_url('option6'); ?>" class="foyer-option">
-                <div class="option-text">
-                    <?php echo esc_html(get_theme_mod('foyer_text_option6', 'OPTION 6')); ?>
+                <!-- Container des options -->
+                <div class="options-container">
+
+                    <!-- Option 1: La Vision -->
+                    <a href="<?php echo get_foyer_option_url('vision'); ?>" class="foyer-option">
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('foyer_text_vision', 'LA VISION')); ?>
+                        </div>
+                    </a>
+
+                    <!-- Option 2: Les Chiffres -->
+                    <a href="<?php echo get_foyer_option_url('chiffres'); ?>" class="foyer-option">
+                        <div class="option-text">
+                            <?php echo esc_html(get_theme_mod('foyer_text_chiffres', 'LES CHIFFRES')); ?>
+                        </div>
+                    </a>
+
+                    <!-- Option 3: Le Rapport Annuel -->
+                    <a href="<?php echo get_foyer_option_url('rapport'); ?>" class="foyer-option">
+                        <div class="option-text">
+                            LE RAPPORT<br>ANNUEL
+                        </div>
+                    </a>
+
+                    <!-- Option 4: Communiqués de Presse -->
+                    <a href="<?php echo get_foyer_option_url('communiques'); ?>" class="foyer-option">
+                        <div class="option-text">
+                            COMMUNIQUÉS<br>DE PRESSE
+                        </div>
+                    </a>
+
+                    <!-- Option 5: Conseil d'Administration -->
+                    <a href="<?php echo get_foyer_option_url('conseil'); ?>" class="foyer-option">
+                        <div class="option-text">
+                            LE CONSEIL<br>D'ADMINISTRATION
+                        </div>
+                    </a>
+
+                    <!-- Option 6: Optionnelle -->
+                    <?php if (get_theme_mod('foyer_show_option6', false)) : ?>
+                        <a href="<?php echo get_foyer_option_url('option6'); ?>" class="foyer-option">
+                            <div class="option-text">
+                                <?php echo esc_html(get_theme_mod('foyer_text_option6', 'OPTION 6')); ?>
+                            </div>
+                        </a>
+                    <?php endif; ?>
+
                 </div>
-            </a>
-            <?php endif; ?>
-            
+            </div>
+
+            <!-- Bouton retour -->
+            <div class="retour-section">
+                <a href="<?php echo get_theme_mod('foyer_retour_url', home_url()); ?>" class="retour-button">
+                    <?php
+                    $arrow_image = get_theme_mod('foyer_retour_image');
+                    if ($arrow_image) : ?>
+                        <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
+                    <?php else : ?>
+                        <span class="arrow" aria-hidden="true">←</span>
+                    <?php endif; ?>
+                </a>
+            </div>
         </div>
     </div>
-    
-    <!-- Bouton retour -->
-    <div class="retour-section">
-        <a href="<?php echo get_theme_mod('foyer_retour_url', home_url()); ?>" class="retour-button">
-            <?php 
-            $arrow_image = get_theme_mod('foyer_retour_image');
-            if ($arrow_image) : ?>
-                <img src="<?php echo esc_url($arrow_image); ?>" alt="Retour" class="arrow-image" aria-hidden="true">
-            <?php else : ?>
-                <span class="arrow" aria-hidden="true">←</span>
-            <?php endif; ?>
-        </a>
-    </div>
-    </div>
-</div>
 
-<?php wp_footer(); ?>
+    <?php wp_footer(); ?>
 </body>
+
 </html>
