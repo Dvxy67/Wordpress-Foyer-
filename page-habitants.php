@@ -158,6 +158,29 @@ get_header(); ?>
             transition: transform 0.2s ease;
         }
 
+        /* Supprimer le carré bleu/jaune sur les items de service */
+        .service-item,
+        .service-item img,
+        .service-icon,
+        .service-icon img {
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        .service-item:focus,
+        .service-item:active,
+        .service-item img:focus,
+        .service-item img:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .service-item:focus:not(:focus-visible) {
+            outline: none !important;
+        }
+
         /* Style émojis en fallback */
         .service-icon .emoji-fallback {
             font-size: 58px;
@@ -256,7 +279,7 @@ get_header(); ?>
             border-radius: 8px;
         }
 
-        
+
         /* Animation d'entrée */
         @keyframes slideInMobile {
             from {
