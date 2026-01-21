@@ -248,6 +248,28 @@ Template Name: Page Quartiers - Harmonisée
             letter-spacing: 1px;
         }
 
+        /* Supprimer le carré bleu sur les boutons retour */
+        .retour-button,
+        .retour-button img,
+        .arrow-image {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Pour Safari/iOS */
+        }
+
+        /* Supprimer le focus au clic mais le garder au clavier */
+        .retour-button:focus:not(:focus-visible),
+        .retour-button img:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Garder un focus accessible au clavier (optionnel) */
+        .retour-button:focus-visible {
+            outline: 2px solid rgba(0, 0, 0, 0.3);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
         /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
             .quartiers-page {

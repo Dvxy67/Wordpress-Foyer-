@@ -224,6 +224,28 @@ get_header(); ?>
             letter-spacing: 0.5px;
         }
 
+        /* Supprimer le carré bleu sur les boutons retour */
+        .retour-button,
+        .retour-button img,
+        .arrow-image {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Pour Safari/iOS */
+        }
+
+        /* Supprimer le focus au clic mais le garder au clavier */
+        .retour-button:focus:not(:focus-visible),
+        .retour-button img:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Garder un focus accessible au clavier (optionnel) */
+        .retour-button:focus-visible {
+            outline: 2px solid rgba(0, 0, 0, 0.3);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
         /* OPTIMISATIONS POUR ÉCRANS TRÈS PETITS */
         @media (max-height: 600px),
         (max-width: 360px) {
