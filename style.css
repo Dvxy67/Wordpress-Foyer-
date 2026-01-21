@@ -30,7 +30,7 @@ body {
 /* Container principal */
 .homepage-container {
     height: 100vh;
-    background: #7391ff;
+    background: #6699ff;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -185,7 +185,7 @@ body {
 
 /* Zone titre  */
 .card-title {
-    background: #e63312;
+    background: #fb0400;
     padding: 15px 16px; 
     text-align: center;
     min-height: 80px; 

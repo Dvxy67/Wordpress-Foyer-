@@ -504,14 +504,6 @@ get_header(); ?>
             }
         }
 
-        /* === OPTIMISATIONS TACTILES ET ACCESSIBILITÉ === */
-
-        /* Focus accessible au clavier */
-        .service-item:focus,
-        .retour-button:focus {
-            outline: 3px solid #FFD700;
-            outline-offset: 2px;
-        }
 
         /* Amélioration contraste pour accessibilité */
         @media (prefers-contrast: high) {
