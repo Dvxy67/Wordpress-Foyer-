@@ -29,12 +29,12 @@ get_header(); ?>
             font-weight: 500;
             overflow-x: hidden;
         }
-        
+
         /* ICÔNE 1 : LES PANNES */
         .icon-pannes img {
-            width: 65px;         
-            height: 65px;        
-            transform: rotate(17deg);  
+            width: 65px;
+            height: 65px;
+            transform: rotate(17deg);
         }
 
         /* ICÔNE 2 : LE CONCIERGE */
@@ -115,7 +115,8 @@ get_header(); ?>
             gap: 0;
             width: calc(100% - 16px);
             max-width: 370px;
-            height: calc(100dvh - 150px);  /* ← MODIF : 120px → 150px (30px plus petit) */
+            height: calc(100dvh - 150px);
+            /* ← MODIF : 120px → 150px (30px plus petit) */
             min-height: 505px;
             max-height: 585px;
             padding: 15px;
@@ -184,7 +185,8 @@ get_header(); ?>
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 118px;  /* ← IDENTIQUE à page logement */
+            height: 118px;
+            /* ← IDENTIQUE à page logement */
         }
 
         .retour-button {
@@ -231,6 +233,30 @@ get_header(); ?>
             letter-spacing: 0.5px;
         }
 
+        /* Supprimer le carré bleu sur les boutons retour */
+
+        .retour-button,
+        .retour-button img,
+        .arrow-image {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Pour Safari/iOS */
+        }
+
+        /* Supprimer le focus au clic mais le garder au clavier */
+        .retour-button:focus:not(:focus-visible),
+        .retour-button img:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Garder un focus accessible au clavier (optionnel) */
+        .retour-button:focus-visible {
+            outline: 2px solid rgba(0, 0, 0, 0.3);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
+        
         /* Animation d'entrée */
         @keyframes slideInMobile {
             from {
@@ -263,9 +289,12 @@ get_header(); ?>
             }
 
             .services-grid {
-                max-width: 400px;  /* ← Ajusté pour correspondre à logement-container */
-                min-height: 560px; /* ← Ajusté pour correspondre à logement-container */
-                max-height: 660px; /* ← Ajusté pour correspondre à logement-container */
+                max-width: 400px;
+                /* ← Ajusté pour correspondre à logement-container */
+                min-height: 560px;
+                /* ← Ajusté pour correspondre à logement-container */
+                max-height: 660px;
+                /* ← Ajusté pour correspondre à logement-container */
                 padding: 20px;
                 gap: 5px;
                 border: 6px solid #000000;
