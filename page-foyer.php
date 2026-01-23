@@ -280,14 +280,14 @@ get_header(); ?>
                     <!-- Option 1: La Vision -->
                     <a href="<?php echo get_foyer_option_url('vision'); ?>" class="foyer-option">
                         <div class="option-text">
-                            <?php echo esc_html(get_theme_mod('foyer_text_vision', 'LA VISION')); ?>
+                            <?php echo wp_kses_post(get_theme_mod('foyer_text_vision', 'LA VISION')); ?>
                         </div>
                     </a>
 
                     <!-- Option 2: Les Chiffres -->
                     <a href="<?php echo get_foyer_option_url('chiffres'); ?>" class="foyer-option">
                         <div class="option-text">
-                            <?php echo esc_html(get_theme_mod('foyer_text_chiffres', 'LES CHIFFRES')); ?>
+                            <?php echo wp_kses_post(get_theme_mod('foyer_text_chiffres', 'LES CHIFFRES')); ?>
                         </div>
                     </a>
 
@@ -316,7 +316,7 @@ get_header(); ?>
                     <?php if (get_theme_mod('foyer_show_option6', false)) : ?>
                         <a href="<?php echo get_foyer_option_url('option6'); ?>" class="foyer-option">
                             <div class="option-text">
-                                <?php echo esc_html(get_theme_mod('foyer_text_option6', 'OPTION 6')); ?>
+                                <?php echo wp_kses_post(get_theme_mod('foyer_text_option6', 'OPTION 6')); ?>
                             </div>
                         </a>
                     <?php endif; ?>

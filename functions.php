@@ -1917,3 +1917,56 @@ function customize_page_texte_settings($wp_customize) {
 
 add_action('customize_register', 'customize_page_texte_settings');
 
+/**
+ * ===============================
+ * CUSTOMIZER - PAGE RAPPORT ANNUEL
+ * ===============================
+ * À ajouter dans votre functions.php
+ */
+
+ function rapport_annuel_customizer($wp_customize) {
+    
+    // Section Rapport Annuel
+    $wp_customize->add_section('rapport_annuel_section', array(
+        'title' => 'Page Rapport Annuel',
+        'description' => 'Configuration de la page de visualisation du rapport annuel',
+        'priority' => 135,
+    ));
+
+    // --- TITRE DE LA PAGE ---
+    $wp_customize->add_setting('rapport_title', array(
+        'default' => 'RAPPORT ANNUEL',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('rapport_title', array(
+        'label' => 'Titre de la page',
+        'section' => 'rapport_annuel_section',
+        'type' => 'text',
+        'description' => 'Titre affiché en haut de la page',
+    ));
+
+    // --- URL DU PDF ---
+    $wp_customize->add_setting('rapport_pdf_url', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('rapport_pdf_url', array(
+        'label' => 'URL du PDF',
+        'section' => 'rapport_annuel_section',
+        'type' => 'url',
+        'description' => 'URL complète du fichier PDF à afficher (ex: https://votresite.com/wp-content/uploads/rapport-2024.pdf)',
+    ));
+
+    // --- URL DE RETOUR ---
+    $wp_customize->add_setting('rapport_retour_url', array(
+        'default' => '/foyer',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('rapport_retour_url', array(
+        'label' => 'URL du bouton Retour',
+        'section' => 'rapport_annuel_section',
+        'type' => 'url',
+        'description' => 'Page vers laquelle retourner (par défaut: /foyer)',
+    ));
+}
+add_action('customize_register', 'rapport_annuel_customizer');
