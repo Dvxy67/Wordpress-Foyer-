@@ -1091,11 +1091,13 @@ add_action('after_setup_theme', 'logement_theme_support');
 
 /**
  * Configuration WordPress Customizer pour Page Foyer
- * À ajouter dans functions.php
+ */
+/*
+ FONCTION FOYER_CUSTOMIZER CORRIGÉE
+ 
  */
 
-// Customizer pour la page Foyer
-function foyer_customizer($wp_customize) {
+ function foyer_customizer($wp_customize) {
     
     // Section principale
     $wp_customize->add_section('foyer_section', array(
@@ -1109,12 +1111,13 @@ function foyer_customizer($wp_customize) {
     // Texte Vision
     $wp_customize->add_setting('foyer_text_vision', array(
         'default' => 'LA VISION',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_vision', array(
         'label' => 'Texte - La Vision',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Vision
@@ -1134,12 +1137,13 @@ function foyer_customizer($wp_customize) {
     // Texte Chiffres
     $wp_customize->add_setting('foyer_text_chiffres', array(
         'default' => 'LES CHIFFRES',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_chiffres', array(
         'label' => 'Texte - Les Chiffres',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Chiffres
@@ -1159,12 +1163,13 @@ function foyer_customizer($wp_customize) {
     // Texte Rapport
     $wp_customize->add_setting('foyer_text_rapport', array(
         'default' => 'LE RAPPORT ANNUEL',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_rapport', array(
         'label' => 'Texte - Le Rapport Annuel',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Rapport
@@ -1184,12 +1189,13 @@ function foyer_customizer($wp_customize) {
     // Texte Communiqués
     $wp_customize->add_setting('foyer_text_communiques', array(
         'default' => 'COMMUNIQUÉS DE PRESSE',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_communiques', array(
         'label' => 'Texte - Communiqués de Presse',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Communiqués
@@ -1209,12 +1215,13 @@ function foyer_customizer($wp_customize) {
     // Texte Conseil
     $wp_customize->add_setting('foyer_text_conseil', array(
         'default' => 'LE CONSEIL D\'ADMINISTRATION',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_conseil', array(
         'label' => 'Texte - Le Conseil d\'Administration',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Conseil
@@ -1246,12 +1253,13 @@ function foyer_customizer($wp_customize) {
     // Texte Option 6
     $wp_customize->add_setting('foyer_text_option6', array(
         'default' => 'OPTION 6',
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wp_kses_post',  // ✅ Autorise les <br>
     ));
     $wp_customize->add_control('foyer_text_option6', array(
         'label' => 'Texte - Option 6',
         'section' => 'foyer_section',
         'type' => 'text',
+        'description' => 'Utilisez <br> pour une nouvelle ligne',
     ));
 
     // URL Option 6
@@ -1268,15 +1276,15 @@ function foyer_customizer($wp_customize) {
     // --- BOUTON RETOUR ---
     
     // Image de la flèche
-    $wp_customize->add_setting('foyer_arrow_image', array(
+    $wp_customize->add_setting('foyer_retour_image', array(
         'default' => '',
         'sanitize_callback' => 'esc_url_raw',
     ));
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'foyer_arrow_image', array(
-        'label' => 'Image - Flèche de Retour',
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'foyer_retour_image', array(
+        'label' => 'Image - Flèche Retour',
         'section' => 'foyer_section',
-        'settings' => 'foyer_arrow_image',
-        'description' => 'Upload de votre image de flèche (PNG/JPG)',
+        'settings' => 'foyer_retour_image',
+        'description' => 'Image de flèche pour le bouton retour (90x90px recommandé)',
     )));
 
     // Texte du bouton retour
