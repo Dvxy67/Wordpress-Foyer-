@@ -294,21 +294,21 @@ get_header(); ?>
                     <!-- Option 3: Le Rapport Annuel -->
                     <a href="<?php echo get_foyer_option_url('rapport'); ?>" class="foyer-option">
                         <div class="option-text">
-                            LE RAPPORT<br>ANNUEL
+                            <?php echo wp_kses_post(get_theme_mod('foyer_text_rapport', 'LE RAPPORT<br>ANNUEL')); ?>
                         </div>
                     </a>
 
                     <!-- Option 4: Communiqués de Presse -->
                     <a href="<?php echo get_foyer_option_url('communiques'); ?>" class="foyer-option">
                         <div class="option-text">
-                            COMMUNIQUÉS<br>DE PRESSE
+                            <?php echo wp_kses_post(get_theme_mod('foyer_text_communiques', 'COMMUNIQUÉS<br>DE PRESSE')); ?>
                         </div>
                     </a>
 
                     <!-- Option 5: Conseil d'Administration -->
                     <a href="<?php echo get_foyer_option_url('conseil'); ?>" class="foyer-option">
                         <div class="option-text">
-                            LE CONSEIL<br>D'ADMINISTRATION
+                            <?php echo wp_kses_post(get_theme_mod('foyer_text_conseil', 'LE CONSEIL<br>D\'ADMINISTRATION')); ?>
                         </div>
                     </a>
 
