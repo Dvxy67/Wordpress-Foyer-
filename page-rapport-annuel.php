@@ -42,7 +42,7 @@ get_header(); ?>
             right: 20px;
             width: 50px;
             height: 50px;
-            background: #6cd7da;
+            background: #fff;
             border: 3px solid #000;
             border-radius: 50%;
             display: flex;
@@ -59,7 +59,7 @@ get_header(); ?>
         }
 
         .close-button:hover {
-            background: #5bc5c8;
+            background: #fff;
             transform: scale(1.1);
         }
 
