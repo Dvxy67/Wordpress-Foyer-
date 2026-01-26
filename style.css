@@ -30,7 +30,7 @@ body {
 /* Container principal */
 .homepage-container {
     height: 100vh;
-    background: #6cd7da;
+    background: #6b92ff;
     display: flex;
     flex-direction: column;
     position: relative;
