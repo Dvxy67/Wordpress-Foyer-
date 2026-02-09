@@ -115,8 +115,8 @@ body {
 /* CARTES - HYBRIDE avec aspect-ratio */
 .card {
     height: clamp(380px, 66vh, 618px);
-    aspect-ratio: 300 / 460;
-    max-width: 75vw;
+    aspect-ratio: 310 / 460;
+    max-width: 78vw;
     
     /* Le reste des propriétés */
     border-radius: clamp(16px, 5.3vmin, 24px);
@@ -371,27 +371,6 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* ============================================
-   RESPONSIVE - MOBILES > iPhone SE
-   ============================================ */
-   @media (min-width: 360px) and (max-width: 767px) {
-    .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 14vh - 53vw));
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 14vh + 53vw));
-    }
-    
-    .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) !important;
-    }
-    
-    .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) !important;
     }
 }
 
