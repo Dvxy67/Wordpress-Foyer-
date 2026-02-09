@@ -35,7 +35,7 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    padding-top: 8vh;
+    padding-top: 6vh;
     box-sizing: border-box;
 }
 
@@ -55,7 +55,7 @@ body {
     position: relative;
     width: 100vw;
     max-width: 100%;
-    height: clamp(570px, 71vh, 808px); 
+    height: clamp(420px, 72vh, 680px); /* S'adapte à la hauteur disponible */
     overflow: visible;
     margin: 0;
     display: flex;
@@ -68,7 +68,7 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     cursor: grab;
     cursor: -webkit-grab;
@@ -87,7 +87,7 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
 }
@@ -102,21 +102,26 @@ body {
 .slide:nth-child(2) {
     left: 50%;
     /* Valeurs augmentées pour éviter le chevauchement */
-    transform: translateX(calc(-50% - 16vh - 55vw));
+    transform: translateX(calc(-50% - 16vh - 56vw));
     z-index: 5;
 }
 
 .slide:nth-child(3) {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 55vw));
+    transform: translateX(calc(-50% + 16vh + 56vw));
     z-index: 5;
 }
 
 /* CARTES - HYBRIDE avec aspect-ratio */
 .card {
-    height: clamp(380px, 66vh, 618px);
-    aspect-ratio: 300 / 460;
-    max-width: 75vw;
+    /* S'adapte à la hauteur disponible */
+    height: clamp(385px, 66vh, 622px);
+    
+    /* La largeur suit automatiquement le ratio 300:460 */
+    aspect-ratio: 320 / 460;
+    
+    /* Mais ne dépasse JAMAIS 85% de la largeur écran */
+    max-width: 78vw;
     
     /* Le reste des propriétés */
     border-radius: clamp(16px, 5.3vmin, 24px);
@@ -289,13 +294,13 @@ body {
 
 .slide.slide-previous {
     left: 50%;
-    transform: translateX(calc(-50% - 16vh - 55vw)) !important;
+    transform: translateX(calc(-50% - 16vh - 56vw)) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-next {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 55vw)) !important;
+    transform: translateX(calc(-50% + 16vh + 56vw)) !important;
     z-index: 5 !important;
 }
 
@@ -313,7 +318,7 @@ body {
 /* Container des dots */
 .slider-dots {
     position: absolute;
-    bottom: clamp(-14px, -2.1vh, -10px);
+    bottom: clamp(-19px, -3vh, -15px);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -371,27 +376,6 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* ============================================
-   RESPONSIVE - MOBILES > iPhone SE
-   ============================================ */
-   @media (min-width: 360px) and (max-width: 767px) {
-    .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 14vh - 53vw));
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 14vh + 53vw));
-    }
-    
-    .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) !important;
-    }
-    
-    .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) !important;
     }
 }
 
