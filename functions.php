@@ -1967,7 +1967,7 @@ add_action('customize_register', 'customize_page_texte_settings');
 
     // --- URL DE RETOUR ---
     $wp_customize->add_setting('rapport_retour_url', array(
-        'default' => '/foyer',
+        'default' => home_url('/foyer'),
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control('rapport_retour_url', array(

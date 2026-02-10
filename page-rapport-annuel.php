@@ -1,15 +1,14 @@
 <?php
 /*
-Template Name: Rapport Annuel - Plein Écran
+Template Name: Rapport Annuel - Navigation Bar
 */
-get_header(); ?>
-
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Rapport Annuel</title>
 
     <style>
@@ -25,21 +24,24 @@ get_header(); ?>
             width: 100vw;
         }
 
-        /* Container plein écran */
-        .pdf-fullscreen {
+        /* BARRE DE NAVIGATION - Complètement séparée de l'iframe */
+        .nav-bar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: #525659;
+            right: 0;
+            height: max(70px, calc(env(safe-area-inset-top) + 70px));
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: max(20px, calc(env(safe-area-inset-top) + 10px)) 20px 20px;
+            pointer-events: none;
         }
 
-        /* Bouton fermer - fixé en haut à droite */
+        /* Bouton fermer - dans la nav bar */
         .close-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             width: 50px;
             height: 50px;
             background: #fff;
@@ -54,16 +56,32 @@ get_header(); ?>
             color: #000;
             cursor: pointer;
             transition: all 0.2s ease;
-            z-index: 1000;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .close-button:hover {
-            background: #fff;
+        .close-button:hover,
+        .close-button:active {
+            background: #f0f0f0;
             transform: scale(1.1);
         }
 
-        /* Iframe PDF plein écran */
+        /* Container PDF - SOUS la barre de navigation */
+        .pdf-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #525659;
+            z-index: 1;
+        }
+
+        /* Iframe PDF */
         .pdf-iframe {
             width: 100%;
             height: 100%;
@@ -82,34 +100,44 @@ get_header(); ?>
             text-align: center;
         }
 
-        /* Mobile - bouton un peu plus petit */
+        /* Mobile */
         @media (max-width: 480px) {
+            .nav-bar {
+                height: max(60px, calc(env(safe-area-inset-top) + 60px));
+                padding: max(15px, calc(env(safe-area-inset-top) + 8px)) 15px 15px;
+            }
+            
             .close-button {
                 width: 45px;
                 height: 45px;
                 font-size: 24px;
-                top: 15px;
-                right: 15px;
             }
         }
     </style>
-
-    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
 
-    <div class="pdf-fullscreen">
-        <!-- Bouton fermer -->
-        <a href="<?php echo get_theme_mod('rapport_retour_url', '/foyer'); ?>" class="close-button" title="Fermer">
+    <!-- BARRE DE NAVIGATION avec le bouton -->
+    <nav class="nav-bar" role="navigation">
+        <a href="<?php echo esc_url(get_theme_mod('rapport_retour_url', home_url('/foyer'))); ?>" 
+           class="close-button" 
+           title="Fermer"
+           aria-label="Fermer le rapport annuel">
             ✕
         </a>
+    </nav>
 
+    <!-- Container PDF -->
+    <div class="pdf-fullscreen">
         <!-- PDF en plein écran -->
         <?php
         $pdf_url = get_theme_mod('rapport_pdf_url', '');
         if ($pdf_url) : ?>
-            <iframe class="pdf-iframe" src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0" title="Rapport Annuel"></iframe>
+            <iframe class="pdf-iframe" 
+                    src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0" 
+                    title="Rapport Annuel"
+                    loading="lazy"></iframe>
         <?php else : ?>
             <div class="no-pdf">
                 <p>Aucun PDF configuré.<br>Ajoutez l'URL dans Apparence > Personnaliser > Page Rapport Annuel</p>
@@ -117,7 +145,5 @@ get_header(); ?>
         <?php endif; ?>
     </div>
 
-    <?php wp_footer(); ?>
 </body>
-
 </html>
