@@ -134,6 +134,19 @@ Template Name: Rapport Annuel - Navigation Bar
         <?php
         $pdf_url = get_theme_mod('rapport_pdf_url', '');
         if ($pdf_url) : ?>
+            
+            <!-- Script de détection mobile et ouverture auto -->
+            <script>
+                // Détection mobile
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // Sur mobile : ouvrir directement le PDF
+                    window.location.href = '<?php echo esc_url($pdf_url); ?>';
+                }
+            </script>
+            
+            <!-- Iframe pour desktop uniquement -->
             <iframe class="pdf-iframe" 
                     src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0" 
                     title="Rapport Annuel"

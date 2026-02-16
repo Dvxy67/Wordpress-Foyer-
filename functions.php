@@ -1059,6 +1059,18 @@ function logement_sous_menu_customizer($wp_customize) {
         'type' => 'url',
         'description' => 'URL de retour (par défaut: homepage)',
     ));
+
+    // Image du bouton retour
+    $wp_customize->add_setting('logement_retour_image', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logement_retour_image', array(
+        'label' => 'Image - Bouton Retour',
+        'section' => 'logement_sous_menu_section',
+        'settings' => 'logement_retour_image',
+        'description' => 'Image du bouton retour (optionnel, sinon le texte sera utilisé)',
+    )));
 }
 add_action('customize_register', 'logement_sous_menu_customizer');
 
@@ -1980,31 +1992,3 @@ add_action('customize_register', 'customize_page_texte_settings');
     ));
 }
 add_action('customize_register', 'rapport_annuel_customizer');
-
-/**
- * Autoriser l'upload de fichiers SVG
- */
-function allow_svg_upload($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-    $mimes['svgz'] = 'image/svg+xml';
-    return $mimes;
-}
-add_filter('upload_mimes', 'allow_svg_upload');
-
-/**
- * Corriger l'affichage des miniatures SVG dans la médiathèque
- */
-function fix_svg_display($response, $attachment, $meta) {
-    if ($response['mime'] === 'image/svg+xml' && empty($response['sizes'])) {
-        $svg_path = get_attached_file($attachment->ID);
-        if (file_exists($svg_path)) {
-            $response['sizes'] = array(
-                'full' => array(
-                    'url' => wp_get_attachment_url($attachment->ID),
-                )
-            );
-        }
-    }
-    return $response;
-}
-add_filter('wp_prepare_attachment_for_js', 'fix_svg_display', 10, 3);
