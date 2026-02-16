@@ -1980,3 +1980,31 @@ add_action('customize_register', 'customize_page_texte_settings');
     ));
 }
 add_action('customize_register', 'rapport_annuel_customizer');
+
+/**
+ * Autoriser l'upload de fichiers SVG
+ */
+function allow_svg_upload($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'allow_svg_upload');
+
+/**
+ * Corriger l'affichage des miniatures SVG dans la médiathèque
+ */
+function fix_svg_display($response, $attachment, $meta) {
+    if ($response['mime'] === 'image/svg+xml' && empty($response['sizes'])) {
+        $svg_path = get_attached_file($attachment->ID);
+        if (file_exists($svg_path)) {
+            $response['sizes'] = array(
+                'full' => array(
+                    'url' => wp_get_attachment_url($attachment->ID),
+                )
+            );
+        }
+    }
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'fix_svg_display', 10, 3);
