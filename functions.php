@@ -1953,17 +1953,19 @@ add_action('customize_register', 'customize_page_texte_settings');
         'description' => 'Titre affiché en haut de la page',
     ));
 
-    // --- URL DU PDF ---
+    // --- UPLOAD DU PDF ---
     $wp_customize->add_setting('rapport_pdf_url', array(
         'default' => '',
         'sanitize_callback' => 'esc_url_raw',
     ));
-    $wp_customize->add_control('rapport_pdf_url', array(
-        'label' => 'URL du PDF',
+    
+    $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'rapport_pdf_url', array(
+        'label' => 'PDF du Rapport Annuel',
         'section' => 'rapport_annuel_section',
-        'type' => 'url',
-        'description' => 'URL complète du fichier PDF à afficher (ex: https://votresite.com/wp-content/uploads/rapport-2024.pdf)',
-    ));
+        'settings' => 'rapport_pdf_url',
+        'mime_type' => 'application/pdf',
+        'description' => 'Cliquez sur "Téléverser" pour ajouter le PDF du rapport annuel',
+    )));
 
     // --- URL DE RETOUR ---
     $wp_customize->add_setting('rapport_retour_url', array(
