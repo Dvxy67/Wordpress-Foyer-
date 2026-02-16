@@ -271,64 +271,8 @@ Template Name: Page Quartiers - Harmonisée
         }
 
         /* DESKTOP RESPONSIVE */
-        @media (min-width: 481px) {
-            .quartiers-page {
-                padding: 20px;
-            }
+        @media (min-width: 390px) {
 
-            .main-container {
-                height: calc(100vh - 40px);
-                /* ← AJOUT : comme logement */
-            }
-
-            .quartiers-container {
-                max-width: 400px;
-                /* ← MODIF : 380px → 400px */
-                min-height: 560px;
-                /* ← AJOUT : comme logement */
-                max-height: 660px;
-                /* ← AJOUT : comme logement */
-                border: 6px solid #000000;
-                padding: 20px;
-            }
-
-            .titre-section {
-                margin-bottom: 20px;
-                gap: 15px;
-                min-height: 80px;
-            }
-
-            .immeuble-icon {
-                width: 70px;
-                height: 70px;
-            }
-
-            .immeuble-icon .emoji-fallback {
-                font-size: 56px;
-            }
-
-            .titre-text {
-                font-size: 22px;
-            }
-
-            .quartier-item {
-                padding: 16px 20px;
-                font-size: 16px !important;
-                min-height: 55px;
-            }
-
-            .arrow {
-                width: 100px;
-                height: 100px;
-            }
-
-            .arrow .emoji-fallback {
-                font-size: 50px;
-            }
-
-            .retour-text {
-                font-size: 18px;
-            }
         }
 
         /* RESET pour éviter les interférences CSS du thème */
