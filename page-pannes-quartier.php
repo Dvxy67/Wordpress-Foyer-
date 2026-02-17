@@ -538,7 +538,9 @@ $quartier_display = ucfirst($quartier);
             }
 
             .pannes-grid {
-                gap: 18px;
+                row-gap: 18px;
+                /* ← remplace gap: 18px pour être explicite */
+                column-gap: 12px;
                 max-width: 240px;
                 max-height: 240px;
             }
@@ -548,12 +550,29 @@ $quartier_display = ucfirst($quartier);
                 height: 50px;
             }
 
+            /* ↓ C'est ça qui manquait ! Surcharger les !important individuels */
+            .panne-icon-1,
+            .panne-icon-2,
+            .panne-icon-3,
+            .panne-icon-4 {
+                width: 50px !important;
+                height: 50px !important;
+            }
+
             .panne-icon .emoji-fallback {
                 font-size: 40px;
             }
 
             .panne-text {
                 font-size: 12px;
+            }
+
+            /* Textes individuels aussi */
+            .panne-text-1,
+            .panne-text-2,
+            .panne-text-3,
+            .panne-text-4 {
+                font-size: 12px !important;
             }
         }
 
