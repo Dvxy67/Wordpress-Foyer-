@@ -31,7 +31,7 @@ Template Name: Rapport Annuel - Navigation Bar
             left: 0;
             right: 0;
             height: max(70px, calc(env(safe-area-inset-top) + 70px));
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -59,7 +59,7 @@ Template Name: Rapport Annuel - Navigation Bar
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
             touch-action: manipulation;
-            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
             user-select: none;
             -webkit-user-select: none;
         }
@@ -73,10 +73,10 @@ Template Name: Rapport Annuel - Navigation Bar
         /* Container PDF - SOUS la barre de navigation */
         .pdf-fullscreen {
             position: fixed;
-            top: 0;
+            top: max(70px, calc(env(safe-area-inset-top) + 70px));
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - max(70px, calc(env(safe-area-inset-top) + 70px)));
             background: #525659;
             z-index: 1;
         }
@@ -106,7 +106,25 @@ Template Name: Rapport Annuel - Navigation Bar
                 height: max(60px, calc(env(safe-area-inset-top) + 60px));
                 padding: max(15px, calc(env(safe-area-inset-top) + 8px)) 15px 15px;
             }
-            
+
+            .close-button {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-bar {
+                height: max(60px, calc(env(safe-area-inset-top) + 60px));
+                padding: max(15px, calc(env(safe-area-inset-top) + 8px)) 15px 15px;
+            }
+
+            .pdf-fullscreen {
+                top: max(60px, calc(env(safe-area-inset-top) + 60px));
+                height: calc(100% - max(60px, calc(env(safe-area-inset-top) + 60px)));
+            }
+
             .close-button {
                 width: 45px;
                 height: 45px;
@@ -120,10 +138,10 @@ Template Name: Rapport Annuel - Navigation Bar
 
     <!-- BARRE DE NAVIGATION avec le bouton -->
     <nav class="nav-bar" role="navigation">
-        <a href="<?php echo esc_url(get_theme_mod('rapport_retour_url', home_url('/foyer'))); ?>" 
-           class="close-button" 
-           title="Fermer"
-           aria-label="Fermer le rapport annuel">
+        <a href="<?php echo esc_url(get_theme_mod('rapport_retour_url', home_url('/foyer'))); ?>"
+            class="close-button"
+            title="Fermer"
+            aria-label="Fermer le rapport annuel">
             ✕
         </a>
     </nav>
@@ -134,23 +152,23 @@ Template Name: Rapport Annuel - Navigation Bar
         <?php
         $pdf_url = get_theme_mod('rapport_pdf_url', '');
         if ($pdf_url) : ?>
-            
+
             <!-- Script de détection mobile et ouverture auto -->
             <script>
                 // Détection mobile
                 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                
+
                 if (isMobile) {
                     // Sur mobile : ouvrir directement le PDF
                     window.location.href = '<?php echo esc_url($pdf_url); ?>';
                 }
             </script>
-            
+
             <!-- Iframe pour desktop uniquement -->
-            <iframe class="pdf-iframe" 
-                    src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0" 
-                    title="Rapport Annuel"
-                    loading="lazy"></iframe>
+            <iframe class="pdf-iframe"
+                src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0"
+                title="Rapport Annuel"
+                loading="lazy"></iframe>
         <?php else : ?>
             <div class="no-pdf">
                 <p>Aucun PDF configuré.<br>Ajoutez l'URL dans Apparence > Personnaliser > Page Rapport Annuel</p>
@@ -159,4 +177,5 @@ Template Name: Rapport Annuel - Navigation Bar
     </div>
 
 </body>
+
 </html>
