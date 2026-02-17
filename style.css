@@ -572,3 +572,19 @@ body {
         transform: translateX(calc(-50% + 85vw - 70px)) !important;
     }
 }
+
+/* ============================================
+   RESPONSIVE - TRÈS PETITS MOBILES (< 360px)
+   ============================================ */
+   @media (max-width: 359px) {
+    .card-title h2 {
+        font-size: clamp(20px, 3.2vh, 24px) !important;
+        letter-spacing: 0.2px !important;
+        line-height: 1.2 !important;
+    }
+
+    .card-title {
+        min-height: clamp(60px, 10vh, 90px) !important;
+        padding: clamp(10px, 1.8vh, 16px) clamp(12px, 3.5vmin, 18px) !important;
+    }
+}
