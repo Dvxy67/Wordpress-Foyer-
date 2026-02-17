@@ -532,40 +532,46 @@ $quartier_display = ucfirst($quartier);
         }
 
         @media (max-width: 360px) {
-            .pannes-container {
-                max-width: 300px;
-                padding: 12px;
-            }
+    .pannes-container {
+        max-width: 300px;
+        padding: 12px;
+    }
 
-            .pannes-grid {
-                row-gap: 18px;
-                /* ← remplace gap: 18px pour être explicite */
-                column-gap: 12px;
-                max-width: 240px;
-                max-height: 240px;
-            }
+    .pannes-grid {
+        row-gap: 25px;
+        column-gap: 12px;
+        max-width: 280px;
+        max-height: 280px;
+    }
 
-            .panne-icon {
-                width: 50px;
-                height: 50px;
-            }
+    .panne-icon {
+        width: 70px;
+        height: 70px;
+    }
 
-            /* ↓ C'est ça qui manquait ! Surcharger les !important individuels */
-            .panne-icon-1,
-            .panne-icon-2,
-            .panne-icon-3,
-            .panne-icon-4 {
-                width: 50px !important;
-                height: 50px !important;
-            }
+    .panne-icon-1,
+    .panne-icon-2,
+    .panne-icon-3,
+    .panne-icon-4 {
+        width: 70px !important;
+        height: 70px !important;
+    }
 
-            .panne-icon .emoji-fallback {
-                font-size: 40px;
-            }
+    .panne-icon .emoji-fallback {
+        font-size: 50px;
+    }
 
-            .panne-text {
-                font-size: 12px;
-            }
+    .panne-text {
+        font-size: 13px;
+    }
+
+    .panne-text-1,
+    .panne-text-2,
+    .panne-text-3,
+    .panne-text-4 {
+        font-size: 13px !important;
+    }
+}
 
             /* Textes individuels aussi */
             .panne-text-1,
