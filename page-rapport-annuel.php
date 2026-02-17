@@ -73,10 +73,10 @@ Template Name: Rapport Annuel - Navigation Bar
         /* Container PDF - SOUS la barre de navigation */
         .pdf-fullscreen {
             position: fixed;
-            top: max(70px, calc(env(safe-area-inset-top) + 70px));
+            top: 70px;
             left: 0;
             width: 100%;
-            height: calc(100% - max(70px, calc(env(safe-area-inset-top) + 70px)));
+            height: calc(100% - 70px);
             background: #525659;
             z-index: 1;
         }
@@ -103,26 +103,13 @@ Template Name: Rapport Annuel - Navigation Bar
         /* Mobile */
         @media (max-width: 480px) {
             .nav-bar {
-                height: max(60px, calc(env(safe-area-inset-top) + 60px));
-                padding: max(15px, calc(env(safe-area-inset-top) + 8px)) 15px 15px;
-            }
-
-            .close-button {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-bar {
-                height: max(60px, calc(env(safe-area-inset-top) + 60px));
-                padding: max(15px, calc(env(safe-area-inset-top) + 8px)) 15px 15px;
+                height: 60px;
+                padding: 10px 15px;
             }
 
             .pdf-fullscreen {
-                top: max(60px, calc(env(safe-area-inset-top) + 60px));
-                height: calc(100% - max(60px, calc(env(safe-area-inset-top) + 60px)));
+                top: 60px;
+                height: calc(100% - 60px);
             }
 
             .close-button {
