@@ -390,30 +390,9 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE - MOBILES MOYENS (360-374px) - Galaxy S8+ etc.
-   ============================================ */
-   @media (min-width: 360px) and (max-width: 374px) { /* ← S'arrête à 374px */
-    .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 14vh - 53vw));
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 14vh + 53vw));
-    }
-    
-    .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) !important;
-    }
-    
-    .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) !important;
-    }
-}
-
-/* ============================================
    RESPONSIVE - MOBILES > iPhone SE
    ============================================ */
-   @media (min-width: 376px) and (max-width: 767px) { /* ← 376px au lieu de 360px */
+   @media (min-width: 360px) and (max-width: 374px) {
     .slide:nth-child(2) {
         transform: translateX(calc(-50% - 14vh - 53vw));
     }
@@ -428,6 +407,15 @@ body {
     
     .slide.slide-next {
         transform: translateX(calc(-50% + 14vh + 53vw)) !important;
+    }
+
+    .card-title h2 {
+        font-size: clamp(22px, 3.5vh, 28px) !important;
+        letter-spacing: 0.2px !important;
+    }
+
+    .card-title {
+        min-height: clamp(65px, 10vh, 95px) !important;
     }
 }
 
