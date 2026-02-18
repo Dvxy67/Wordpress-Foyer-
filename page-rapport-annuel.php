@@ -25,39 +25,41 @@ Template Name: Rapport Annuel - EmbedPDF Version
             background: #525659;
         }
 
-        /* BARRE DE NAVIGATION - Complètement séparée */
+        /* BARRE DE NAVIGATION - Superposée au-dessus du PDF */
         .nav-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: max(70px, calc(env(safe-area-inset-top) + 70px));
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+            height: max(80px, calc(env(safe-area-inset-top) + 80px));
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 100%);
             z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding: max(20px, calc(env(safe-area-inset-top) + 10px)) 20px 20px;
+            padding: max(20px, calc(env(safe-area-inset-top) + 10px)) 25px 20px;
             pointer-events: none;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
-        /* Bouton fermer - dans la nav bar */
+        /* Bouton fermer - flottant au-dessus du PDF */
         .close-button {
-            width: 50px;
-            height: 50px;
-            background: #fff;
-            border: 3px solid #000;
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #000;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
             pointer-events: auto;
             touch-action: manipulation;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
@@ -65,19 +67,24 @@ Template Name: Rapport Annuel - EmbedPDF Version
             -webkit-user-select: none;
         }
 
-        .close-button:hover,
-        .close-button:active {
-            background: #f0f0f0;
-            transform: scale(1.1);
+        .close-button:hover {
+            background: #fff;
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 3px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Container PDF - SOUS la barre de navigation */
+        .close-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Container PDF - Plein écran */
         .pdf-fullscreen {
             position: fixed;
-            top: 70px;
+            top: 0;
             left: 0;
             width: 100%;
-            height: calc(100% - 70px);
+            height: 100%;
             background: #525659;
             z-index: 1;
         }
@@ -131,19 +138,14 @@ Template Name: Rapport Annuel - EmbedPDF Version
         /* Mobile */
         @media (max-width: 480px) {
             .nav-bar {
-                height: 60px;
-                padding: 10px 15px;
-            }
-
-            .pdf-fullscreen {
-                top: 60px;
-                height: calc(100% - 60px);
+                height: max(70px, calc(env(safe-area-inset-top) + 70px));
+                padding: max(12px, calc(env(safe-area-inset-top) + 8px)) 20px 15px;
             }
 
             .close-button {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
             }
         }
 
