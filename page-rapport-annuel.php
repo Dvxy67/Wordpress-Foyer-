@@ -22,9 +22,10 @@ Template Name: Rapport Annuel - Navigation Bar
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            background: #525659;
         }
 
-        /* BARRE DE NAVIGATION - Complètement séparée de l'iframe */
+        /* BARRE DE NAVIGATION - Complètement séparée */
         .nav-bar {
             position: fixed;
             top: 0;
@@ -79,16 +80,103 @@ Template Name: Rapport Annuel - Navigation Bar
             height: calc(100% - 70px);
             background: #525659;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Iframe PDF */
-        .pdf-iframe {
-            width: 100%;
-            height: 100%;
+        /* Container du canvas PDF */
+        .pdf-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        /* Canvas PDF */
+        #pdf-canvas {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Contrôles de navigation */
+        .pdf-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 9998;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .pdf-controls button {
+            background: #fff;
             border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
         }
 
-        /* Message si pas de PDF */
+        .pdf-controls button:hover:not(:disabled) {
+            background: #f0f0f0;
+            transform: scale(1.1);
+        }
+
+        .pdf-controls button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pdf-controls .page-info {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Message de chargement */
+        .loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .loading-message::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Message d'erreur */
         .no-pdf {
             display: flex;
             align-items: center;
@@ -117,6 +205,27 @@ Template Name: Rapport Annuel - Navigation Bar
                 height: 45px;
                 font-size: 24px;
             }
+
+            .pdf-container {
+                padding: 10px;
+            }
+
+            .pdf-controls {
+                bottom: 10px;
+                padding: 8px 15px;
+                gap: 10px;
+            }
+
+            .pdf-controls button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .pdf-controls .page-info {
+                font-size: 12px;
+                min-width: 60px;
+            }
         }
     </style>
 </head>
@@ -135,27 +244,196 @@ Template Name: Rapport Annuel - Navigation Bar
 
     <!-- Container PDF -->
     <div class="pdf-fullscreen">
-        <!-- PDF en plein écran -->
         <?php
         $pdf_url = get_theme_mod('rapport_pdf_url', '');
         if ($pdf_url) : ?>
+            
+            <!-- Message de chargement -->
+            <div class="loading-message" id="loading">
+                Chargement du PDF
+            </div>
 
-            <!-- Script de détection mobile et ouverture auto -->
-            <script>
-                // Détection mobile
-                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            <!-- Container du canvas -->
+            <div class="pdf-container" id="pdf-container" style="display: none;">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
 
-                if (isMobile) {
-                    // Sur mobile : ouvrir directement le PDF
-                    window.location.href = '<?php echo esc_url($pdf_url); ?>';
+            <!-- Contrôles de navigation -->
+            <div class="pdf-controls" id="pdf-controls" style="display: none;">
+                <button id="prev-page" title="Page précédente">◀</button>
+                <span class="page-info">
+                    <span id="page-num">1</span> / <span id="page-count">-</span>
+                </span>
+                <button id="next-page" title="Page suivante">▶</button>
+            </div>
+
+            <!-- PDF.js Library -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs" type="module"></script>
+            
+            <script type="module">
+                // Import PDF.js
+                const pdfjsLib = window['pdfjs-dist/build/pdf'];
+                
+                // Configuration du worker
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+
+                // Variables globales
+                let pdfDoc = null;
+                let pageNum = 1;
+                let pageRendering = false;
+                let pageNumPending = null;
+                let scale = 1.5; // Qualité d'affichage
+
+                const canvas = document.getElementById('pdf-canvas');
+                const ctx = canvas.getContext('2d');
+                const pdfUrl = '<?php echo esc_js($pdf_url); ?>';
+
+                // Éléments DOM
+                const loading = document.getElementById('loading');
+                const container = document.getElementById('pdf-container');
+                const controls = document.getElementById('pdf-controls');
+                const pageNumDisplay = document.getElementById('page-num');
+                const pageCountDisplay = document.getElementById('page-count');
+                const prevButton = document.getElementById('prev-page');
+                const nextButton = document.getElementById('next-page');
+
+                /**
+                 * Affiche une page spécifique du PDF
+                 */
+                function renderPage(num) {
+                    pageRendering = true;
+                    
+                    pdfDoc.getPage(num).then(function(page) {
+                        // Ajuste le scale selon la largeur de l'écran
+                        const viewport = page.getViewport({ scale: 1 });
+                        const containerWidth = container.clientWidth - 40; // Padding
+                        scale = containerWidth / viewport.width;
+                        
+                        const scaledViewport = page.getViewport({ scale: scale });
+                        canvas.height = scaledViewport.height;
+                        canvas.width = scaledViewport.width;
+
+                        const renderContext = {
+                            canvasContext: ctx,
+                            viewport: scaledViewport
+                        };
+
+                        const renderTask = page.render(renderContext);
+
+                        renderTask.promise.then(function() {
+                            pageRendering = false;
+                            if (pageNumPending !== null) {
+                                renderPage(pageNumPending);
+                                pageNumPending = null;
+                            }
+                        });
+                    });
+
+                    // Mise à jour de l'affichage
+                    pageNumDisplay.textContent = num;
+                    updateButtons();
                 }
+
+                /**
+                 * Met en file d'attente le rendu d'une page
+                 */
+                function queueRenderPage(num) {
+                    if (pageRendering) {
+                        pageNumPending = num;
+                    } else {
+                        renderPage(num);
+                    }
+                }
+
+                /**
+                 * Page précédente
+                 */
+                function onPrevPage() {
+                    if (pageNum <= 1) return;
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+
+                /**
+                 * Page suivante
+                 */
+                function onNextPage() {
+                    if (pageNum >= pdfDoc.numPages) return;
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+
+                /**
+                 * Met à jour l'état des boutons
+                 */
+                function updateButtons() {
+                    prevButton.disabled = pageNum <= 1;
+                    nextButton.disabled = pageNum >= pdfDoc.numPages;
+                }
+
+                // Événements
+                prevButton.addEventListener('click', onPrevPage);
+                nextButton.addEventListener('click', onNextPage);
+
+                // Support du swipe sur mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                canvas.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                canvas.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+
+                function handleSwipe() {
+                    if (touchEndX < touchStartX - 50) {
+                        // Swipe gauche = page suivante
+                        onNextPage();
+                    }
+                    if (touchEndX > touchStartX + 50) {
+                        // Swipe droite = page précédente
+                        onPrevPage();
+                    }
+                }
+
+                // Support des flèches clavier
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') onPrevPage();
+                    if (e.key === 'ArrowRight') onNextPage();
+                });
+
+                // Chargement du PDF
+                const loadingTask = pdfjsLib.getDocument(pdfUrl);
+                
+                loadingTask.promise.then(function(pdf) {
+                    pdfDoc = pdf;
+                    pageCountDisplay.textContent = pdf.numPages;
+
+                    // Masquer le chargement, afficher le PDF
+                    loading.style.display = 'none';
+                    container.style.display = 'flex';
+                    controls.style.display = 'flex';
+
+                    // Afficher la première page
+                    renderPage(pageNum);
+                }, function(error) {
+                    loading.innerHTML = 'Erreur de chargement du PDF.<br><small>' + error.message + '</small>';
+                    console.error('Erreur PDF.js:', error);
+                });
+
+                // Recalcul du rendu lors du redimensionnement
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        renderPage(pageNum);
+                    }, 250);
+                });
             </script>
 
-            <!-- Iframe pour desktop uniquement -->
-            <iframe class="pdf-iframe"
-                src="<?php echo esc_url($pdf_url); ?>#view=FitH&toolbar=0"
-                title="Rapport Annuel"
-                loading="lazy"></iframe>
         <?php else : ?>
             <div class="no-pdf">
                 <p>Aucun PDF configuré.<br>Ajoutez l'URL dans Apparence > Personnaliser > Page Rapport Annuel</p>

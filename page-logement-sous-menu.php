@@ -83,8 +83,8 @@ get_header(); ?>
             padding-right: 5px;
             scrollbar-width: thin;
             scrollbar-color: #CCCCCC #F0F0F0;
-            justify-content: flex-start;
-            padding-bottom: 20px;
+            justify-content: center;
+            padding-bottom: 0;
         }
 
         /* Scrollbar pour Chrome/Safari */
@@ -312,7 +312,7 @@ get_header(); ?>
         /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
             .logement-page {
-                padding: 20px;
+                padding: 0px;
             }
 
             .main-container {
