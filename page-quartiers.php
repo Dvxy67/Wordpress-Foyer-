@@ -271,9 +271,7 @@ Template Name: Page Quartiers - Harmonisée
         }
 
         /* DESKTOP RESPONSIVE */
-        @media (min-width: 390px) {
-
-        }
+        @media (min-width: 390px) {}
 
         /* RESET pour éviter les interférences CSS du thème */
         /* Exclure quartier-item et quartiers-container du reset */
@@ -384,7 +382,7 @@ Template Name: Page Quartiers - Harmonisée
 
             <!-- Bouton retour -->
             <div class="retour-section">
-                <a href="<?php echo home_url(); ?>" class="retour-button">
+                <a href="<?php echo home_url('/habitants'); ?>" class="retour-button">
                     <span class="arrow">
                         <?php
                         $image_retour = get_theme_mod('quartiers_image_retour');

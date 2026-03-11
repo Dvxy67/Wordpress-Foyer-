@@ -551,14 +551,14 @@ body {
         letter-spacing: 0.5px;
     }
     
-    /* Cacher les dots sur desktop */
+    
     .slider-dots {
         display: none !important;
     }
     
-    /* Logo en bas - REMONTÉ */
+    /
     .bottom-logo {
-        bottom: 2vh !important; /* REMONTÉ - plus haut qu'avant */
+        bottom: 2vh !important; 
     }
     
     .bottom-logo img {
