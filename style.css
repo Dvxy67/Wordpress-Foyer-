@@ -468,65 +468,106 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE - DESKTOP (1024px+)
+   RESPONSIVE - DESKTOP (1024px+) - AFFICHER LES 3 CARTES
    ============================================ */
-@media (min-width: 1024px) {
+   @media (min-width: 1024px) {
     .homepage-container {
         flex-direction: row;
         align-items: center;
+        justify-content: center; 
+        padding-top: 0vh; 
     }
     
     .slider-section {
+        width: 100%;
+        height: auto;
         min-height: auto;
-        padding: clamp(32px, 3.5vh, 48px) 0;
+        padding: 0; 
+        margin-top: -10vh;
     }
     
+    /* Container du slider */
     .slider-container {
-        height: clamp(700px, 80vh, 950px);
+        height: auto; /* Hauteur automatique */
+        width: 100%;
+        max-width: 1400px; /* Largeur max pour éviter que ça déborde */
+        margin: 0 auto;
+        padding: 0 20px;
     }
     
+    /* Wrapper - FLEXBOX pour afficher les 3 cartes côte à côte */
+    .slider-wrapper {
+        position: static !important; /* Plus de position relative */
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        gap: clamp(20px, 2vw, 40px); /* Espace entre les cartes */
+        width: 100%;
+        height: auto;
+        cursor: default; /* Plus de curseur grab */
+    }
+    
+    /* SLIDES - Position statique, plus de transform */
+    .slide {
+        position: static !important;
+        transform: none !important;
+        width: auto;
+        height: auto;
+        opacity: 1 !important;
+        transition: none;
+    }
+    
+    /* Désactiver TOUTES les classes de slide sur desktop */
+    .slide.slide-active,
+    .slide.slide-previous,
+    .slide.slide-next,
+    .slide.slide-hidden {
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
+        z-index: auto !important;
+        left: auto !important;
+    }
+    
+    /* CARTES - Taille adaptée pour afficher 3 cartes */
     .card {
-        height: clamp(720px, 78vh, 920px);
-        max-width: 75vw; /* Encore plus d'espace sur desktop */
-    }
-    
-    /* Espacement de 60px sur desktop */
-    .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 87.5vw + 60px)) translateZ(0);
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 87.5vw - 60px)) translateZ(0);
+        height: clamp(500px, 60vh, 680px);
+        width: 100%;
+        max-width: 380px; /* Largeur max pour que 3 tiennent */
+        flex-shrink: 0; /* Empêche la compression */
     }
     
     .card-title {
-        padding: clamp(32px, 3.5vh, 44px) clamp(24px, 2.7vmin, 32px);
-        min-height: clamp(140px, 15vh, 190px);
+        padding: clamp(28px, 3.2vh, 40px) clamp(20px, 2.5vmin, 28px);
+        min-height: clamp(120px, 14vh, 170px);
     }
     
     .card-title h2 {
-        font-size: clamp(28px, 3.6vh, 38px);
+        font-size: clamp(26px, 3.4vh, 36px);
         font-weight: 500;
-        text-decoration-thickness: clamp(3px, 0.4vmin, 5px);
-        text-underline-offset: clamp(3px, 0.4vmin, 5px);
+        text-decoration-thickness: clamp(2px, 0.4vmin, 4px);
+        text-underline-offset: clamp(2px, 0.4vmin, 4px);
         letter-spacing: 0.5px;
     }
     
-    .slide.slide-previous {
-        transform: translateX(calc(-50% - 87.5vw + 60px)) translateZ(0) !important;
+    /* Cacher les dots sur desktop */
+    .slider-dots {
+        display: none !important;
     }
     
-    .slide.slide-next {
-        transform: translateX(calc(-50% + 87.5vw - 60px)) translateZ(0) !important;
+    /* Logo en bas - REMONTÉ */
+    .bottom-logo {
+        bottom: 2vh !important; /* REMONTÉ - plus haut qu'avant */
     }
     
     .bottom-logo img {
-        max-width: clamp(150px, 17vh, 200px) !important;
-        max-height: clamp(150px, 17vh, 200px) !important;
+        max-width: clamp(180px, 20vh, 250px) !important;
+        max-height: clamp(180px, 20vh, 250px) !important;
     }
     
     .card.logement .illustration-image {
-        transform: scale(1.05) translateY(clamp(40px, 4.5vh, 55px));
+        transform: scale(1.05) translateY(clamp(35px, 4.5vh, 50px));
     }
 }
 
@@ -534,40 +575,16 @@ body {
    EXTRA LARGE SCREENS (1440px+)
    ============================================ */
 @media (min-width: 1440px) {
+    .slider-container {
+        max-width: 1600px;
+    }
+    
     .card {
-        max-width: 70vw;
+        max-width: 420px; /* Plus de place sur grands écrans */
+        height: clamp(550px, 65vh, 720px);
     }
     
-    /* Espacement de 70px sur grands écrans */
-    .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 85vw + 70px)) translateZ(0);
-    }
-    
-    .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 85vw - 70px)) translateZ(0);
-    }
-    
-    .slide.slide-previous {
-        transform: translateX(calc(-50% - 85vw + 70px)) translateZ(0) !important;
-    }
-    
-    .slide.slide-next {
-        transform: translateX(calc(-50% + 85vw - 70px)) translateZ(0) !important;
-    }
-}
-
-/* ============================================
-   RESPONSIVE - TRÈS PETITS MOBILES (< 360px)
-   ============================================ */
-   @media (max-width: 359px) {
-    .card-title h2 {
-        font-size: clamp(20px, 3.2vh, 24px) !important;
-        letter-spacing: 0.2px !important;
-        line-height: 1.2 !important;
-    }
-
-    .card-title {
-        min-height: clamp(60px, 10vh, 90px) !important;
-        padding: clamp(10px, 1.8vh, 16px) clamp(12px, 3.5vmin, 18px) !important;
+    .slider-wrapper {
+        gap: clamp(30px, 3vw, 50px);
     }
 }
