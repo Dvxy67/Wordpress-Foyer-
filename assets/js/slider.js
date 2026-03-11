@@ -211,7 +211,7 @@ class FoyerSlider {
         
         visibleIndices.forEach(idx => {
             //  Transition plus rapide (0.35s au lieu de 0.4s)
-            this.slides[idx].style.transition = 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            this.slides[idx].style.transition = 'transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1)';
         });
         
         // Déterminer s'il faut changer de slide
@@ -320,7 +320,7 @@ class FoyerSlider {
                 // 3. Réapparaître après un court délai
                 setTimeout(() => {
                     //  Transition optimisée (0.35s)
-                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1)';
                     slide.style.opacity = '1';
                 }, 50);
                 

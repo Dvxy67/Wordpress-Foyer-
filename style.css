@@ -86,7 +86,7 @@ body {
     justify-content: center;
     align-items: flex-end;
     
-    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 1;
     
     will-change: transform, opacity;
@@ -117,16 +117,9 @@ body {
 
 /* CARTES - HYBRIDE avec aspect-ratio */
 .card {
-    /* S'adapte à la hauteur disponible */
     height: clamp(385px, 66vh, 622px);
-    
-    /* La largeur suit automatiquement le ratio 300:460 */
     aspect-ratio: 320 / 460;
-    
-    /* Mais ne dépasse JAMAIS 85% de la largeur écran */
     max-width: 78vw;
-    
-    /* Le reste des propriétés */
     border-radius: clamp(16px, 5.3vmin, 24px);
     border: clamp(2px, 0.8vmin, 4px) solid #000;
     overflow: hidden;
@@ -135,7 +128,6 @@ body {
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 clamp(6px, 2.1vmin, 10px) clamp(16px, 5.3vmin, 24px) rgba(0,0,0,0.2);
     z-index: 20;
 }
 
