@@ -113,8 +113,6 @@ Template Name: Page Quartiers - Harmonisée
             flex: 1;
             background: #FFFFFF;
             border-radius: 0px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
             overflow-y: auto;
             overflow-x: hidden;
             scrollbar-width: thin;
