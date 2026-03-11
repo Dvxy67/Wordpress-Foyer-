@@ -1,7 +1,3 @@
-/**
- * Foyer Slider - Extra Grandes Cartes avec LOOP INFINI
- * Version 4.2 - SANS animation de traversée d'écran (disparition/réapparition)
- */
 
 class FoyerSlider {
     constructor(container) {
@@ -13,7 +9,7 @@ class FoyerSlider {
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
         
-        // ✨ NOUVEAU : Tracker les positions précédentes des slides
+        // Tracker les positions précédentes des slides
         this.previousPositions = new Map();
         
         // Variables pour le touch
@@ -23,13 +19,20 @@ class FoyerSlider {
         this.startTime = 0;
         this.initialTransform = null;
         
-        // Seuils pour la détection de swipe
-        this.minSwipeDistance = 40;
+        this.ticking = false;
+        
+        this.minSwipeDistance = 30; // Réduit de 40px à 30px
         this.maxSwipeTime = 500;
         this.velocityThreshold = 0.3;
         
         // Distance entre les slides
         this.slideOffset = this.calculateSlideOffset();
+        
+        this.cachedPositions = {
+            active: 0,
+            previous: -this.slideOffset,
+            next: this.slideOffset
+        };
         
         this.init();
     }
@@ -80,6 +83,12 @@ class FoyerSlider {
         // Resize handler
         window.addEventListener('resize', this.debounce(() => {
             this.slideOffset = this.calculateSlideOffset();
+            //  NOUVEAU : Mettre à jour le cache
+            this.cachedPositions = {
+                active: 0,
+                previous: -this.slideOffset,
+                next: this.slideOffset
+            };
             this.updateSlider();
         }, 250));
     }
@@ -122,43 +131,63 @@ class FoyerSlider {
         this.isDragging = true;
         this.startTime = Date.now();
         
-        // Récupérer la position actuelle
-        this.slides.forEach(slide => {
-            slide.style.transition = 'none';
+        // OPTIMISÉ : Ne désactiver la transition que sur les slides visibles
+        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        const visibleIndices = [this.currentSlide, previousIndex, nextIndex];
+        
+        visibleIndices.forEach(idx => {
+            this.slides[idx].style.transition = 'none';
         });
         
         // Ajouter une classe pour le feedback visuel
         this.wrapper.classList.add('dragging');
     }
     
+    //  NOUVEAU : Méthode optimisée avec requestAnimationFrame
     moveTouch(clientX) {
         if (!this.isDragging) return;
         
+        // Stocker la position actuelle
         this.currentX = clientX;
+        
+        // Throttler avec requestAnimationFrame (synchronise avec l'écran à 60fps)
+        if (!this.ticking) {
+            requestAnimationFrame(() => {
+                this.updateDragPosition();
+                this.ticking = false;
+            });
+            this.ticking = true;
+        }
+    }
+    
+    //  NOUVEAU : Calculs de position séparés dans leur propre méthode
+    updateDragPosition() {
         const diffX = this.currentX - this.startX;
         
-        // ✨ CALCUL CIRCULAIRE : Position des cartes adjacentes pendant le drag
+        // Calcul circulaire : Position des cartes adjacentes pendant le drag
         const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
         const nextIndex = (this.currentSlide + 1) % this.totalSlides;
         
-        // Appliquer le déplacement à toutes les slides
+        //  OPTIMISÉ : Utiliser le cache pour les positions de base
         this.slides.forEach((slide, index) => {
             let baseOffset;
             
             if (index === this.currentSlide) {
-                baseOffset = 0; // Active au centre
+                baseOffset = this.cachedPositions.active; // 0
             } else if (index === previousIndex) {
-                baseOffset = -this.slideOffset; // À gauche (circulaire)
+                baseOffset = this.cachedPositions.previous; // -slideOffset
             } else if (index === nextIndex) {
-                baseOffset = this.slideOffset; // À droite (circulaire)
+                baseOffset = this.cachedPositions.next; // +slideOffset
             } else {
                 // Cartes cachées (ne devrait pas arriver avec 3 slides)
-                baseOffset = -300 * window.innerWidth / 100; // Très loin
+                baseOffset = -300 * window.innerWidth / 100;
             }
             
-            const adjustedDiffX = diffX;
-            const newOffset = baseOffset + adjustedDiffX;
-            slide.style.transform = `translateX(calc(-50% + ${newOffset}px))`;
+            const newOffset = baseOffset + diffX;
+            
+            //  OPTIMISÉ : Utiliser translateZ(0) pour forcer GPU
+            slide.style.transform = `translateX(calc(-50% + ${newOffset}px)) translateZ(0)`;
         });
     }
     
@@ -175,9 +204,14 @@ class FoyerSlider {
         // Retirer la classe de dragging
         this.wrapper.classList.remove('dragging');
         
-        // Remettre la transition
-        this.slides.forEach(slide => {
-            slide.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        //  OPTIMISÉ : Remettre la transition uniquement sur les slides visibles
+        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        const visibleIndices = [this.currentSlide, previousIndex, nextIndex];
+        
+        visibleIndices.forEach(idx => {
+            //  Transition plus rapide (0.35s au lieu de 0.4s)
+            this.slides[idx].style.transition = 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
         
         // Déterminer s'il faut changer de slide
@@ -187,7 +221,7 @@ class FoyerSlider {
         
         const shouldSwipe = (shouldSwipeByDistance && shouldSwipeByTime) || shouldSwipeByVelocity;
         
-        // ✨ MODIFICATION : Swipe dans les deux sens TOUJOURS (loop infini)
+        // Swipe dans les deux sens TOUJOURS (loop infini)
         if (shouldSwipe) {
             if (diffX > 0) {
                 // Swipe vers la droite - slide précédent
@@ -205,7 +239,7 @@ class FoyerSlider {
         }
     }
     
-    // ✨ MODIFICATION : Navigation avec LOOP INFINI
+    // Navigation avec LOOP INFINI
     nextSlide() {
         this.currentSlide++;
         
@@ -218,11 +252,10 @@ class FoyerSlider {
         this.announceSlideChange();
     }
     
-    // ✨ MODIFICATION : Navigation avec LOOP INFINI
     previousSlide() {
         this.currentSlide--;
         
-        // Si on dépasse le début, on va à la fin ♾️
+        // Si on passe avant le début, on va à la fin ♾️
         if (this.currentSlide < 0) {
             this.currentSlide = this.totalSlides - 1;
         }
@@ -232,20 +265,19 @@ class FoyerSlider {
     }
     
     goToSlide(index) {
-        if (index >= 0 && index < this.totalSlides && index !== this.currentSlide) {
-            this.currentSlide = index;
-            this.updateSlider();
-            this.announceSlideChange();
-        }
+        if (index < 0 || index >= this.totalSlides) return;
+        
+        this.currentSlide = index;
+        this.updateSlider();
+        this.announceSlideChange();
     }
     
-    // ✨ NOUVELLE VERSION : Avec détection et disparition/réapparition
     updateSlider() {
-        // Calculer les nouvelles positions
+        // Calculer les indices circulaires
         const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
         const nextIndex = (this.currentSlide + 1) % this.totalSlides;
         
-        // Créer un map des nouvelles positions
+        // Créer une map des nouvelles positions
         const newPositions = new Map();
         newPositions.set(this.currentSlide, 'active');
         newPositions.set(previousIndex, 'previous');
@@ -258,7 +290,7 @@ class FoyerSlider {
             const oldPosition = this.previousPositions.get(index);
             const newPosition = newPositions.get(index);
             
-            // 🎯 DÉTECTION : Cette carte fait un grand saut ?
+            // DÉTECTION : Cette carte fait un grand saut ?
             const isTeleporting = 
                 (oldPosition === 'previous' && newPosition === 'next') ||
                 (oldPosition === 'next' && newPosition === 'previous');
@@ -273,21 +305,22 @@ class FoyerSlider {
                 // 2. Appliquer la nouvelle position immédiatement
                 if (index === this.currentSlide) {
                     slide.classList.add('slide-active');
-                    slide.style.transform = 'translateX(-50%)';
+                    slide.style.transform = 'translateX(-50%) translateZ(0)';
                     slide.style.zIndex = '10';
                 } else if (index === previousIndex) {
                     slide.classList.add('slide-previous');
-                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
+                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px)) translateZ(0)`;
                     slide.style.zIndex = '5';
                 } else if (index === nextIndex) {
                     slide.classList.add('slide-next');
-                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
+                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px)) translateZ(0)`;
                     slide.style.zIndex = '5';
                 }
                 
                 // 3. Réapparaître après un court délai
                 setTimeout(() => {
-                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    //  Transition optimisée (0.35s)
+                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     slide.style.opacity = '1';
                 }, 50);
                 
@@ -296,30 +329,30 @@ class FoyerSlider {
                 
                 if (index === this.currentSlide) {
                     slide.classList.add('slide-active');
-                    slide.style.transform = 'translateX(-50%)';
+                    slide.style.transform = 'translateX(-50%) translateZ(0)';
                     slide.style.opacity = '1';
                     slide.style.zIndex = '10';
                 } else if (index === previousIndex) {
                     slide.classList.add('slide-previous');
-                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px))`;
+                    slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px)) translateZ(0)`;
                     slide.style.opacity = '1';
                     slide.style.zIndex = '5';
                 } else if (index === nextIndex) {
                     slide.classList.add('slide-next');
-                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px))`;
+                    slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px)) translateZ(0)`;
                     slide.style.opacity = '1';
                     slide.style.zIndex = '5';
                 } else {
                     // Slides cachées
                     slide.classList.add('slide-hidden');
-                    slide.style.transform = `translateX(-300vw)`;
+                    slide.style.transform = `translateX(-300vw) translateZ(0)`;
                     slide.style.opacity = '0';
                     slide.style.zIndex = '1';
                 }
             }
         });
         
-        // ✨ IMPORTANT : Sauvegarder les positions actuelles pour la prochaine fois
+        // ✨ Sauvegarder les positions actuelles pour la prochaine fois
         this.previousPositions = new Map(newPositions);
         
         // Mettre à jour les dots
@@ -415,8 +448,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (sliderContainer) {
         const slider = new FoyerSlider(sliderContainer);
         
-        console.log('🎉 Slider avec LOOP INFINI initialisé !');
-        console.log('✅ SANS animation de traversée d\'écran (disparition/réapparition) !');
+        console.log('Slider OPTIMISÉ initialisé !');
+        console.log('requestAnimationFrame activé pour 60fps constant');
+        console.log('Seuil de swipe réduit à 30px (plus réactif)');
+        console.log(' Transition accélérée à 0.35s');
         
         // Optionnel : démarrer l'auto-play après 3 secondes d'inactivité
         // Décommente ces lignes si tu veux l'auto-play :

@@ -1,11 +1,3 @@
-/*
-Theme Name: Foyer Ander Lechtois
-Description: Slider full-width - VERSION HYBRIDE avec espacement constant
-Version: 6.1 - Espacement fixe de 35px entre les cartes
-Author: Custom Theme
-*/
-
-/* Import Google Fonts - Rubik */
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 
 /* Reset et base */
@@ -63,6 +55,7 @@ body {
     justify-content: center;
 }
 
+/* ⚡ OPTIMISATION : Prévenir le navigateur qu'on va animer ce wrapper */
 .slider-wrapper {
     position: relative;
     width: 100%;
@@ -72,6 +65,9 @@ body {
     justify-content: center;
     cursor: grab;
     cursor: -webkit-grab;
+    
+    /* 🚀 NOUVEAU : Active l'accélération GPU */
+    will-change: transform;
 }
 
 .slider-wrapper.dragging {
@@ -80,6 +76,7 @@ body {
 }
 
 /* Slides - Positionnement centré - HYBRIDE */
+/* ⚡ OPTIMISATION : Containment + will-change + hardware acceleration */
 .slide {
     position: absolute;
     /* La largeur sera déterminée par la carte à l'intérieur */
@@ -88,27 +85,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
+    
+    will-change: transform, opacity;
+    contain: layout style paint;
+    transform: translateX(-50%) translateZ(0); /* Force GPU */
+    backface-visibility: hidden;
 }
 
 /* POSITIONS INITIALES - Mobile avec espacement constant de 35px */
 .slide:nth-child(1) {
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateZ(0);
     z-index: 10;
 }
 
 .slide:nth-child(2) {
     left: 50%;
     /* Valeurs augmentées pour éviter le chevauchement */
-    transform: translateX(calc(-50% - 16vh - 56vw));
+    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0);
     z-index: 5;
 }
 
 .slide:nth-child(3) {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 56vw));
+    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0);
     z-index: 5;
 }
 
@@ -288,25 +291,25 @@ body {
 /* Classes d'état pour JavaScript - HYBRIDE avec espacement constant */
 .slide.slide-active {
     left: 50%;
-    transform: translateX(-50%) !important;
+    transform: translateX(-50%) translateZ(0) !important;
     z-index: 10 !important;
 }
 
 .slide.slide-previous {
     left: 50%;
-    transform: translateX(calc(-50% - 16vh - 56vw)) !important;
+    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-next {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 56vw)) !important;
+    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-hidden {
     left: 50%;
-    transform: translateX(-300vw) !important;
+    transform: translateX(-300vw) translateZ(0) !important;
     z-index: 1 !important;
     opacity: 0;
 }
@@ -394,19 +397,19 @@ body {
    ============================================ */
    @media (min-width: 360px) and (max-width: 374px) {
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 14vh - 53vw));
+        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0);
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 14vh + 53vw));
+        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0);
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) !important;
+        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) !important;
+        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0) !important;
     }
 
     .card-title h2 {
@@ -434,11 +437,11 @@ body {
     
     /* Espacement de 50px sur tablette */
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 90vw + 50px));
+        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0);
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 90vw - 50px));
+        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0);
     }
     
     .card-title {
@@ -455,11 +458,11 @@ body {
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 90vw + 50px)) !important;
+        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 90vw - 50px)) !important;
+        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0) !important;
     }
     
     .bottom-logo img {
@@ -497,11 +500,11 @@ body {
     
     /* Espacement de 60px sur desktop */
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 87.5vw + 60px));
+        transform: translateX(calc(-50% - 87.5vw + 60px)) translateZ(0);
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 87.5vw - 60px));
+        transform: translateX(calc(-50% + 87.5vw - 60px)) translateZ(0);
     }
     
     .card-title {
@@ -518,11 +521,11 @@ body {
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 87.5vw + 60px)) !important;
+        transform: translateX(calc(-50% - 87.5vw + 60px)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 87.5vw - 60px)) !important;
+        transform: translateX(calc(-50% + 87.5vw - 60px)) translateZ(0) !important;
     }
     
     .bottom-logo img {
@@ -545,19 +548,19 @@ body {
     
     /* Espacement de 70px sur grands écrans */
     .slide:nth-child(2) {
-        transform: translateX(calc(-50% - 85vw + 70px));
+        transform: translateX(calc(-50% - 85vw + 70px)) translateZ(0);
     }
     
     .slide:nth-child(3) {
-        transform: translateX(calc(-50% + 85vw - 70px));
+        transform: translateX(calc(-50% + 85vw - 70px)) translateZ(0);
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 85vw + 70px)) !important;
+        transform: translateX(calc(-50% - 85vw + 70px)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 85vw - 70px)) !important;
+        transform: translateX(calc(-50% + 85vw - 70px)) translateZ(0) !important;
     }
 }
 
