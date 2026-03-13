@@ -189,7 +189,7 @@ get_header(); ?>
 
         /* Titre de service - TAILLE HARMONISÉE */
         .service-title {
-            font-size: 14px !important;
+            font-size: 15px !important;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;

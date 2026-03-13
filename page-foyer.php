@@ -101,7 +101,7 @@ get_header(); ?>
 
         /* Texte de l'option - HARMONISÉ */
         .option-text {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
             color: #000;
             text-transform: uppercase;
@@ -193,7 +193,7 @@ get_header(); ?>
         /* DESKTOP RESPONSIVE */
         @media (min-width: 481px) {
             .foyer-page {
-                padding: 20px;
+                padding: 15px;
             }
 
             .main-container {
@@ -241,7 +241,7 @@ get_header(); ?>
             }
 
             .option-text {
-                font-size: 14px;
+                font-size: 20px;
             }
         }
 
