@@ -300,6 +300,17 @@ get_header(); ?>
         .retour-section {
             animation: slideInMobile 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
         }
+
+        /* === DESKTOP RESPONSIVE - Harmonisation avec page-foyer === */
+        @media (min-width: 481px) {
+            .services-grid {
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
+                border: 6px solid #000000;
+            }
+        }
     </style>
 
     <?php wp_head(); ?>
