@@ -190,11 +190,11 @@ get_header(); ?>
             }
 
             .texte-container {
-                max-width: 600px;
+                max-width: 680px;
                 min-height: 650px;
                 max-height: 750px;
-                padding: 25px;
-                padding-top: 55px;
+                padding: 45px 50px;
+                padding-top: 60px;
                 border: none;
             }
 
@@ -212,12 +212,15 @@ get_header(); ?>
 
             .text-title {
                 font-size: 22px;
-                margin-bottom: 18px;
+                margin-bottom: 22px;
+                padding-left: 0;
             }
 
             .text-content {
                 font-size: 16px;
-                line-height: 1.5;
+                line-height: 1.6;
+                padding-left: 0;
+                padding-right: 10px;
             }
 
             .text-content::-webkit-scrollbar {
