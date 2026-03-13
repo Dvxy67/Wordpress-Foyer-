@@ -24,6 +24,12 @@ get_header(); ?>
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Rubik', sans-serif;
             font-weight: 400;
@@ -114,7 +120,7 @@ get_header(); ?>
             font-weight: 450;
             color: #000000;
             text-transform: uppercase;
-            margin-bottom: 0px !important;
+            margin-bottom: 20px !important;
             line-height: 1.2;
             letter-spacing: 0.5px;
             margin-top: 15px;
