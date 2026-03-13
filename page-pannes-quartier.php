@@ -573,6 +573,33 @@ $quartier_display = ucfirst($quartier);
             }
         }
 
+        /* Ajustement pour iPhone 12/13/14 (390px) et modèles similaires */
+        @media (min-width: 375px) and (max-width: 430px) {
+            .panne-icon {
+                width: 88px;
+                height: 88px;
+            }
+
+            .panne-icon-1,
+            .panne-icon-2,
+            .panne-icon-3,
+            .panne-icon-4 {
+                width: 88px !important;
+                height: 88px !important;
+            }
+
+            .panne-text {
+                font-size: 20px;
+            }
+
+            .panne-text-1,
+            .panne-text-2,
+            .panne-text-3,
+            .panne-text-4 {
+                font-size: 13px !important;
+            }
+        }
+
         /* Textes individuels aussi */
         .panne-text-1,
         .panne-text-2,
