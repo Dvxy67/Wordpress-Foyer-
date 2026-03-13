@@ -37,6 +37,13 @@ $quartier_display = ucfirst($quartier);
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+
         body {
             font-family: 'Rubik', sans-serif;
             font-weight: 500;

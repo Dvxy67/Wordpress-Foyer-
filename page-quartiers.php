@@ -21,6 +21,12 @@ Template Name: Page Quartiers - Harmonisée
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             font-weight: bold;

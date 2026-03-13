@@ -24,6 +24,12 @@ get_header(); ?>
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Rubik', sans-serif;
             font-weight: 500;
