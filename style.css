@@ -12,6 +12,11 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;  
+}
+
 body {
     font-family: 'Rubik', sans-serif;
     line-height: 1.4;
@@ -47,7 +52,7 @@ body {
     position: relative;
     width: 100vw;
     max-width: 100%;
-    height: clamp(420px, 72vh, 680px); /* S'adapte à la hauteur disponible */
+    height: clamp(420px, 72vh, 680px); 
     overflow: visible;
     margin: 0;
     display: flex;
@@ -66,7 +71,7 @@ body {
     cursor: grab;
     cursor: -webkit-grab;
     
-    /* 🚀 NOUVEAU : Active l'accélération GPU */
+    /* NOUVEAU : Active l'accélération GPU */
     will-change: transform;
 }
 
@@ -467,10 +472,7 @@ body {
     }
 }
 
-/* ============================================
-   RESPONSIVE - DESKTOP (1024px+) - AFFICHER LES 3 CARTES
-   ============================================ */
-   @media (min-width: 1024px) {
+@media (min-width: 1024px) {
     .homepage-container {
         flex-direction: row;
         align-items: center;
@@ -486,29 +488,27 @@ body {
         margin-top: -10vh;
     }
     
-    /* Container du slider */
     .slider-container {
-        height: auto; /* Hauteur automatique */
+        height: auto;
         width: 100%;
-        max-width: 1400px; /* Largeur max pour éviter que ça déborde */
+        max-width: 1400px;
         margin: 0 auto;
         padding: 0 20px;
     }
     
-    /* Wrapper - FLEXBOX pour afficher les 3 cartes côte à côte */
     .slider-wrapper {
-        position: static !important; /* Plus de position relative */
+        position: static !important;
         display: flex !important;
         flex-direction: row;
         justify-content: center;
         align-items: flex-end;
-        gap: clamp(20px, 2vw, 40px); /* Espace entre les cartes */
+        gap: clamp(20px, 2vw, 40px);
         width: 100%;
         height: auto;
-        cursor: default; /* Plus de curseur grab */
+        cursor: default;
+        will-change: auto; /* AJOUT - neutralise l'optimisation GPU */
     }
     
-    /* SLIDES - Position statique, plus de transform */
     .slide {
         position: static !important;
         transform: none !important;
@@ -516,9 +516,13 @@ body {
         height: auto;
         opacity: 1 !important;
         transition: none;
+        left: auto !important; /* AJOUT - force la suppression du left */
+        will-change: auto; /* AJOUT - neutralise l'optimisation GPU */
+        contain: none; /* AJOUT - retire le containment problématique */
+        backface-visibility: visible; /* AJOUT - retire l'optimisation 3D */
+        flex: 0 0 auto; /* AJOUT - force Safari à traiter comme flex item */
     }
     
-    /* Désactiver TOUTES les classes de slide sur desktop */
     .slide.slide-active,
     .slide.slide-previous,
     .slide.slide-next,
@@ -528,14 +532,16 @@ body {
         opacity: 1 !important;
         z-index: auto !important;
         left: auto !important;
+        will-change: auto; /* AJOUT */
+        contain: none; /* AJOUT */
+        backface-visibility: visible; /* AJOUT */
     }
     
-    /* CARTES - Taille adaptée pour afficher 3 cartes */
     .card {
         height: clamp(500px, 60vh, 680px);
         width: 100%;
-        max-width: 380px; /* Largeur max pour que 3 tiennent */
-        flex-shrink: 0; /* Empêche la compression */
+        max-width: 380px;
+        flex-shrink: 0;
     }
     
     .card-title {
@@ -551,12 +557,10 @@ body {
         letter-spacing: 0.5px;
     }
     
-    
     .slider-dots {
         display: none !important;
     }
     
-    /
     .bottom-logo {
         bottom: 2vh !important; 
     }
