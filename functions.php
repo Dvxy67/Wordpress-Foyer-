@@ -41,24 +41,21 @@ add_action('after_setup_theme', 'foyer_theme_setup');
  * Enqueue des styles et scripts
  */
 function foyer_enqueue_assets() {
-    // Stylesheet principal
     wp_enqueue_style(
         'foyer-style',
         get_stylesheet_uri(),
         array(),
-        '1.0.0'
+        filemtime(get_stylesheet_directory() . '/style.css')  
     );
     
-    // JavaScript pour le slider
     wp_enqueue_script(
         'foyer-slider',
         get_template_directory_uri() . '/assets/js/slider.js',
-        array(),
-        '1.0.0',
+        array(),  
+        filemtime(get_template_directory() . '/assets/js/slider.js'),  
         true
     );
     
-    // Variables pour JavaScript
     wp_localize_script('foyer-slider', 'foyerAjax', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('foyer_nonce')

@@ -73,6 +73,11 @@ body {
     
     /* NOUVEAU : Active l'accélération GPU */
     will-change: transform;
+    /* Support temps réel sur mobile/tablette */
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .slider-wrapper.dragging {
