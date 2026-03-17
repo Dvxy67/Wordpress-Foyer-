@@ -293,25 +293,25 @@ body {
 /* Classes d'état pour JavaScript - HYBRIDE avec espacement constant */
 .slide.slide-active {
     left: 50%;
-    transform: translateX(-50%) translateZ(0);
+    transform: translateX(-50%) translateZ(0) !important;
     z-index: 10 !important;
 }
 
 .slide.slide-previous {
     left: 50%;
-    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0);
+    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-next {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0);
+    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0) !important;
     z-index: 5 !important;
 }
 
 .slide.slide-hidden {
     left: 50%;
-    transform: translateX(-300vw) translateZ(0);
+    transform: translateX(-300vw) translateZ(0) !important;
     z-index: 1 !important;
     opacity: 0;
 }
@@ -407,11 +407,11 @@ body {
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0);
+        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0);
+        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0) !important;
     }
 
     .card-title h2 {
@@ -460,11 +460,11 @@ body {
     }
     
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0);
+        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0) !important;
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0);
+        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0) !important;
     }
     
     .bottom-logo img {

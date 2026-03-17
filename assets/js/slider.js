@@ -20,7 +20,7 @@ class FoyerSlider {
 
         this.ticking = false;
 
-        this.minSwipeDistance = 50; // Seuil optimal pour éviter les faux swipes
+        this.minSwipeDistance = 18; // Réduit de 40px à 18px
         this.maxSwipeTime = 500;
         this.velocityThreshold = 0.18;
 
@@ -244,8 +244,8 @@ class FoyerSlider {
 
             const newOffset = baseOffset + dampedDiff;
 
-            // Application de la transformation en temps réel
-            slide.style.transform = `translateX(calc(-50% + ${newOffset}px)) translateZ(0)`;
+            //  ULTRA-FLUIDE : translateZ(0) + will-change pour GPU
+            slide.style.cssText += `transform: translateX(calc(-50% + ${newOffset}px)) translateZ(0) !important;`;
         });
     }
 
@@ -262,17 +262,17 @@ class FoyerSlider {
         // Retirer la classe de dragging
         this.wrapper.classList.remove('dragging');
 
-        // Nettoyer les styles inline sur TOUTES les slides
-        this.slides.forEach((slide) => {
-            // Réactiver la transition
-            slide.style.transition = 'transform 0.18s cubic-bezier(0.4, 0.0, 0.2, 1)';
-            
-            // CRUCIAL : Supprimer le style inline pour laisser le CSS reprendre le contrôle
-            slide.style.transform = '';
-            
+        //  OPTIMISÉ : Remettre la transition uniquement sur les slides visibles
+        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        const visibleIndices = [this.currentSlide, previousIndex, nextIndex];
+
+        visibleIndices.forEach(idx => {
+            //  Transition rapide et fluide
+            this.slides[idx].style.transition = 'transform 0.18s cubic-bezier(0.4, 0.0, 0.2, 1)';
             // Retirer le willChange après l'animation
             setTimeout(() => {
-                slide.style.willChange = 'auto';
+                this.slides[idx].style.willChange = 'auto';
             }, 200);
         });
 
@@ -293,15 +293,11 @@ class FoyerSlider {
                 this.nextSlide();
             } else {
                 // Revenir à la position actuelle
-                setTimeout(() => {
-                    this.updateSlider();
-                }, 10);
+                this.updateSlider();
             }
         } else {
-            // Pas assez de swipe - revenir à la position actuelle
-            setTimeout(() => {
-                this.updateSlider();
-            }, 10);
+            // Revenir à la position actuelle
+            this.updateSlider();
         }
     }
 
