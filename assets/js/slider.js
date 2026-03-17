@@ -7,114 +7,132 @@ class FoyerSlider {
 
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
-
-        // Tracker les positions précédentes des slides
         this.previousPositions = new Map();
 
-        // Variables pour le touch
+        // Variables drag
         this.startX = 0;
+        this.startY = 0;
         this.currentX = 0;
         this.isDragging = false;
+        this.hasMoved = false;
         this.startTime = 0;
-        this.initialTransform = null;
 
+        // FIX CENTRAGE : stocker l'ID du rAF pour pouvoir l'annuler
         this.ticking = false;
+        this.rafId = null;
 
-        this.minSwipeDistance = 18; // Réduit de 40px à 18px
+        this.clickPrevented = false;
+
+        this.minSwipeDistance = 18;
         this.maxSwipeTime = 500;
         this.velocityThreshold = 0.18;
+        this.dragThreshold = 8;
 
-        // Distance entre les slides
-        this.slideOffset = this.calculateSlideOffset();
+        this.isDesktop = window.innerWidth >= 1024;
 
+        // Fallback statique utilisé seulement si la mesure DOM échoue
+        this.slideOffset = this.calculateSlideOffsetFallback();
         this.cachedPositions = {
             active: 0,
             previous: -this.slideOffset,
             next: this.slideOffset
         };
 
-        // NOUVEAU : Détecter si on est sur desktop
-        this.isDesktop = window.innerWidth >= 1024;
-
         this.init();
+    }
+
+    // FIX GAP : mesure l'offset réel depuis la position CSS des slides.
+    // Appelé dans init() AVANT updateSlider() pour lire les positions nth-child pures.
+    // getBoundingClientRect() reflète le calc() CSS exact, y compris les unités vh.
+    // → Aucune conversion window.innerHeight/vh, aucun drift possible.
+    measureOffsetFromCSS() {
+        // slides[0] = carte 1 (centrée par CSS), slides[2] = carte 3 (à droite par CSS)
+        const activeRect  = this.slides[0].getBoundingClientRect();
+        const nextRect    = this.slides[2].getBoundingClientRect();
+
+        const activeCenter = activeRect.left  + activeRect.width  / 2;
+        const nextCenter   = nextRect.left    + nextRect.width    / 2;
+
+        const offset = Math.round(Math.abs(nextCenter - activeCenter));
+
+        // Si la mesure est cohérente (> 100px), on l'utilise ; sinon fallback
+        return offset > 100 ? offset : null;
+    }
+
+    // Fallback purement statique, utilisé seulement si mesure DOM échoue
+    calculateSlideOffsetFallback() {
+        const w = window.innerWidth;
+        if (w >= 768)             return Math.round(0.9 * w - 50);
+        if (w >= 360 && w < 375) return Math.round(0.14 * window.innerHeight + 0.53 * w);
+        return Math.round(0.16 * window.innerHeight + 0.56 * w);
     }
 
     init() {
         this.setupEventListeners();
 
-        // Sur desktop, ne pas initialiser le slider
         if (!this.isDesktop) {
+            // FIX GAP : mesurer l'offset depuis le CSS avant de toucher aux inline styles
+            const measured = this.measureOffsetFromCSS();
+            if (measured) {
+                this.slideOffset = measured;
+                this.cachedPositions = {
+                    active: 0,
+                    previous: -this.slideOffset,
+                    next: this.slideOffset
+                };
+            }
             this.updateSlider();
         }
     }
 
-    // Calcul dynamique de l'offset
-    calculateSlideOffset() {
-        const screenWidth = window.innerWidth;
-
-        if (screenWidth < 768) {
-            return 320; // Mobile : 300px carte + 20px espace
-        } else if (screenWidth < 1024) {
-            return 470; // Tablette : 440px carte + 30px espace
-        } else if (screenWidth < 1440) {
-            return 580; // Desktop : 540px carte + 40px espace
-        } else {
-            return 680; // Large desktop : 540px carte + 140px espace
-        }
-    }
-
     setupEventListeners() {
-        // IMPORTANT : Ne pas activer le slider sur desktop (>= 1024px)
-        if (this.isDesktop) {
-            return;
-        }
+        if (this.isDesktop) return;
 
-        // Touch events pour mobile/tablette - IMPORTANT : passive: false pour preventDefault
-        this.wrapper.addEventListener('touchstart', this.handleTouchStart.bind(this), {
-            passive: false  // Permet preventDefault pour bloquer le scroll
-        });
-        this.wrapper.addEventListener('touchmove', this.handleTouchMove.bind(this), {
-            passive: false  // CRITIQUE pour le suivi en temps réel
-        });
-        this.wrapper.addEventListener('touchend', this.handleTouchEnd.bind(this), {
-            passive: true
-        });
+        // passive: true sur touchstart → le click synthétique sur les <a> reste intact
+        this.wrapper.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+        this.wrapper.addEventListener('touchmove',  this.handleTouchMove.bind(this),  { passive: false });
+        this.wrapper.addEventListener('touchend',   this.handleTouchEnd.bind(this),   { passive: true });
 
-        // Mouse events pour desktop
-        this.wrapper.addEventListener('mousedown', this.handleMouseStart.bind(this));
-        this.wrapper.addEventListener('mousemove', this.handleMouseMove.bind(this));
-        this.wrapper.addEventListener('mouseup', this.handleMouseEnd.bind(this));
-        this.wrapper.addEventListener('mouseleave', this.handleMouseEnd.bind(this));
+        this.wrapper.addEventListener('mousedown',   this.handleMouseStart.bind(this));
+        this.wrapper.addEventListener('mousemove',   this.handleMouseMove.bind(this));
+        this.wrapper.addEventListener('mouseup',     this.handleMouseEnd.bind(this));
+        this.wrapper.addEventListener('mouseleave',  this.handleMouseEnd.bind(this));
 
-        // Empêcher la sélection de texte lors du drag
         this.wrapper.addEventListener('selectstart', (e) => e.preventDefault());
-
-        // Empêcher le contexte menu sur mobile (long press)
         this.wrapper.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        // Dots navigation
+        // Bloquer le click synthétique sur les cartes SEULEMENT après un vrai swipe
+        this.slides.forEach(slide => {
+            const card = slide.querySelector('.card');
+            if (card) {
+                card.addEventListener('click', (e) => {
+                    if (this.clickPrevented) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            }
+        });
+
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => this.goToSlide(index));
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
 
-        // Resize handler
         window.addEventListener('resize', this.debounce(() => {
-            // Vérifier si on passe de mobile à desktop ou vice-versa
             const wasDesktop = this.isDesktop;
             this.isDesktop = window.innerWidth >= 1024;
 
             if (wasDesktop !== this.isDesktop) {
-                // Rechargement nécessaire pour changer de mode
                 location.reload();
                 return;
             }
 
             if (!this.isDesktop) {
-                this.slideOffset = this.calculateSlideOffset();
-                //  NOUVEAU : Mettre à jour le cache
+                // Après resize, les slides ont leurs styles inline → recalculer depuis fallback
+                // (la mesure DOM ne serait pas fiable car les inline styles ont déjà été posés)
+                this.slideOffset = this.calculateSlideOffsetFallback();
                 this.cachedPositions = {
                     active: 0,
                     previous: -this.slideOffset,
@@ -125,24 +143,34 @@ class FoyerSlider {
         }, 250));
     }
 
-    // Touch Events
     handleTouchStart(e) {
-
-        // Empêcher le comportement par défaut pour un contrôle total
-        if (e.cancelable) {
-            e.preventDefault();
-        }
+        this.startY = e.touches[0].clientY;
         this.startTouch(e.touches[0].clientX);
     }
 
     handleTouchMove(e) {
-        if (!this.isDragging) return;
+        if (!this.hasMoved) {
+            const diffX = Math.abs(e.touches[0].clientX - this.startX);
+            const diffY = Math.abs(e.touches[0].clientY - this.startY);
 
-        // Empêcher le scroll natif pour un contrôle total
-        if (e.cancelable) {
-            e.preventDefault();
+            if (diffY > diffX && diffY > this.dragThreshold) {
+                // Mouvement vertical → laisser le scroll natif
+                this.hasMoved = true;
+                return;
+            }
+
+            if (diffX > this.dragThreshold) {
+                // Seuil horizontal dépassé → swipe confirmé
+                this.isDragging = true;
+                this.hasMoved = true;
+                this._disableTransitions();
+                this.wrapper.classList.add('dragging');
+            }
         }
 
+        if (!this.isDragging) return;
+
+        if (e.cancelable) e.preventDefault();
         this.moveTouch(e.touches[0].clientX);
     }
 
@@ -150,10 +178,14 @@ class FoyerSlider {
         this.endTouch();
     }
 
-    // Mouse Events
     handleMouseStart(e) {
         e.preventDefault();
+        this.startY = e.clientY;
         this.startTouch(e.clientX);
+        this.isDragging = true;
+        this.hasMoved = true;
+        this._disableTransitions();
+        this.wrapper.classList.add('dragging');
     }
 
     handleMouseMove(e) {
@@ -166,56 +198,52 @@ class FoyerSlider {
         this.endTouch();
     }
 
-    // Logique commune touch/mouse
+    // Désactiver les transitions sur les 3 slides visibles (DRY)
+    _disableTransitions() {
+        const prevIdx = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIdx = (this.currentSlide + 1) % this.totalSlides;
+        [this.currentSlide, prevIdx, nextIdx].forEach(idx => {
+            this.slides[idx].style.transition = 'none';
+            this.slides[idx].style.willChange = 'transform';
+        });
+    }
+
     startTouch(clientX) {
         this.startX = clientX;
         this.currentX = clientX;
-        this.isDragging = true;
+        this.isDragging = false;
+        this.hasMoved = false;
         this.startTime = Date.now();
-
-        // OPTIMISÉ : Désactiver la transition uniquement sur les slides visibles
-        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
-        const visibleIndices = [this.currentSlide, previousIndex, nextIndex];
-
-        visibleIndices.forEach(idx => {
-            this.slides[idx].style.transition = 'none';
-            // Forcer l'accélération GPU pour un rendu ultra-fluide
-            this.slides[idx].style.willChange = 'transform';
-        });
-
-        // Ajouter une classe pour le feedback visuel immédiat
-        this.wrapper.classList.add('dragging');
     }
 
-    //  OPTIMISÉ : Suivi instantané en temps réel (comme Instagram/TikTok)
-    //  OPTIMISÉ : Suivi instantané en temps réel (comme Instagram/TikTok)
     moveTouch(clientX) {
         if (!this.isDragging) return;
-
-        // Mettre à jour la position immédiatement
         this.currentX = clientX;
 
-        // Appliquer la transformation instantanément pour un suivi fluide
-        // requestAnimationFrame assure 60fps mais sans throttle excessif
         if (!this.ticking) {
             this.ticking = true;
-            requestAnimationFrame(() => {
+            // FIX CENTRAGE : stocker l'ID pour pouvoir annuler ce rAF dans endTouch()
+            this.rafId = requestAnimationFrame(() => {
                 this.updateDragPosition();
                 this.ticking = false;
+                this.rafId = null;
             });
         }
     }
 
     updateDragPosition() {
+        // FIX CENTRAGE : sortir immédiatement si le swipe est terminé
+        // (ce rAF peut s'exécuter APRÈS endTouch() — sans cette garde, il écrase le snap)
+        if (!this.isDragging) {
+            this.ticking = false;
+            return;
+        }
 
         const diffX = this.currentX - this.startX;
 
-        // Appliquer une résistance progressive aux bords (effet rubber band)
-        const resistance = 0.3; // 30% de résistance aux bords
+        // Résistance rubber band aux bords
+        const resistance = 0.3;
         let dampedDiff = diffX;
-
-        // Si on dépasse une certaine distance, appliquer la résistance
         const maxDrag = this.slideOffset * 1.2;
         if (Math.abs(diffX) > maxDrag) {
             const excess = Math.abs(diffX) - maxDrag;
@@ -223,204 +251,175 @@ class FoyerSlider {
             dampedDiff = sign * (maxDrag + excess * resistance);
         }
 
-        // Calcul circulaire : Position des cartes adjacentes pendant le drag
-        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        const prevIdx = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIdx = (this.currentSlide + 1) % this.totalSlides;
 
-        //  OPTIMISÉ : Utiliser le cache pour les positions de base
         this.slides.forEach((slide, index) => {
-            let baseOffset;
-
+            let base;
             if (index === this.currentSlide) {
-                baseOffset = this.cachedPositions.active; // 0
-            } else if (index === previousIndex) {
-                baseOffset = this.cachedPositions.previous; // -slideOffset
-            } else if (index === nextIndex) {
-                baseOffset = this.cachedPositions.next; // +slideOffset
+                base = 0;                              // carte active : centrée
+            } else if (index === prevIdx) {
+                base = -this.slideOffset;              // précédente : à gauche
+            } else if (index === nextIdx) {
+                base = this.slideOffset;               // suivante : à droite
             } else {
-                // Cartes cachées (ne devrait pas arriver avec 3 slides)
-                baseOffset = -300 * window.innerWidth / 100;
+                base = -300 * window.innerWidth / 100; // hors écran
             }
 
-            const newOffset = baseOffset + dampedDiff;
-
-            //  ULTRA-FLUIDE : translateZ(0) + will-change pour GPU
-            slide.style.cssText += `transform: translateX(calc(-50% + ${newOffset}px)) translateZ(0) !important;`;
+            // style.transform direct (pas cssText +=)
+            slide.style.transform = `translateX(calc(-50% + ${base + dampedDiff}px)) translateZ(0)`;
         });
     }
 
     endTouch() {
-        if (!this.isDragging) return;
+        if (!this.hasMoved) return; // tap pur → laisser le click se déclencher normalement
+
+        if (!this.isDragging) {
+            this.hasMoved = false;
+            return; // mouvement insuffisant, pas de swipe
+        }
+
+        // FIX CENTRAGE : annuler immédiatement tout rAF en attente
+        // pour qu'il ne réécrive pas la position après le snap
+        if (this.rafId !== null) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+        }
+        this.ticking = false;
 
         this.isDragging = false;
-        const diffX = this.currentX - this.startX;
-        const diffTime = Date.now() - this.startTime;
+        this.hasMoved = false;
 
-        // Calculer la vélocité
+        const diffX    = this.currentX - this.startX;
+        const diffTime = Date.now() - this.startTime;
         const velocity = Math.abs(diffX) / diffTime;
 
-        // Retirer la classe de dragging
         this.wrapper.classList.remove('dragging');
 
-        //  OPTIMISÉ : Remettre la transition uniquement sur les slides visibles
-        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
-        const visibleIndices = [this.currentSlide, previousIndex, nextIndex];
+        const prevIdx = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIdx = (this.currentSlide + 1) % this.totalSlides;
 
-        visibleIndices.forEach(idx => {
-            //  Transition rapide et fluide
-            this.slides[idx].style.transition = 'transform 0.18s cubic-bezier(0.4, 0.0, 0.2, 1)';
-            // Retirer le willChange après l'animation
-            setTimeout(() => {
-                this.slides[idx].style.willChange = 'auto';
-            }, 200);
+        // Réactiver la transition AVANT updateSlider() → snap animé immédiatement
+        [this.currentSlide, prevIdx, nextIdx].forEach(idx => {
+            this.slides[idx].style.transition = 'transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            setTimeout(() => { this.slides[idx].style.willChange = 'auto'; }, 300);
         });
 
-        // Déterminer s'il faut changer de slide
-        const shouldSwipeByDistance = Math.abs(diffX) > this.minSwipeDistance;
-        const shouldSwipeByVelocity = velocity > this.velocityThreshold;
-        const shouldSwipeByTime = diffTime < this.maxSwipeTime;
+        const shouldSwipe =
+            (Math.abs(diffX) > this.minSwipeDistance && diffTime < this.maxSwipeTime) ||
+            velocity > this.velocityThreshold;
 
-        const shouldSwipe = (shouldSwipeByDistance && shouldSwipeByTime) || shouldSwipeByVelocity;
-
-        // Swipe dans les deux sens TOUJOURS (loop infini)
         if (shouldSwipe) {
+            // Bloquer le click synthétique post-touchend pendant 400ms
+            this.clickPrevented = true;
+            setTimeout(() => { this.clickPrevented = false; }, 400);
+
             if (diffX > 0) {
-                // Swipe vers la droite - slide précédent
                 this.previousSlide();
-            } else if (diffX < 0) {
-                // Swipe vers la gauche - slide suivant
-                this.nextSlide();
             } else {
-                // Revenir à la position actuelle
-                this.updateSlider();
+                this.nextSlide();
             }
         } else {
-            // Revenir à la position actuelle
+            // Distance insuffisante → revenir à la carte actuelle
             this.updateSlider();
         }
     }
 
-    // Navigation avec LOOP INFINI
     nextSlide() {
-        this.currentSlide++;
-
-        // Si on dépasse la fin, on revient au début ♾️
-        if (this.currentSlide >= this.totalSlides) {
-            this.currentSlide = 0;
-        }
-
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
         this.updateSlider();
         this.announceSlideChange();
     }
 
     previousSlide() {
-        this.currentSlide--;
-
-        // Si on passe avant le début, on va à la fin ♾️
-        if (this.currentSlide < 0) {
-            this.currentSlide = this.totalSlides - 1;
-        }
-
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
         this.updateSlider();
         this.announceSlideChange();
     }
 
     goToSlide(index) {
         if (index < 0 || index >= this.totalSlides) return;
-
         this.currentSlide = index;
         this.updateSlider();
         this.announceSlideChange();
     }
 
     updateSlider() {
-        // Calculer les indices circulaires
-        const previousIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        const prevIdx = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        const nextIdx = (this.currentSlide + 1) % this.totalSlides;
 
-        // Créer une map des nouvelles positions
-        const newPositions = new Map();
-        newPositions.set(this.currentSlide, 'active');
-        newPositions.set(previousIndex, 'previous');
-        newPositions.set(nextIndex, 'next');
+        const newPositions = new Map([
+            [this.currentSlide, 'active'],
+            [prevIdx, 'previous'],
+            [nextIdx, 'next']
+        ]);
 
         this.slides.forEach((slide, index) => {
-            // Supprimer toutes les classes d'état
             slide.classList.remove('slide-active', 'slide-previous', 'slide-next', 'slide-hidden');
 
-            const oldPosition = this.previousPositions.get(index);
-            const newPosition = newPositions.get(index);
+            const oldPos = this.previousPositions.get(index);
+            const newPos = newPositions.get(index);
 
-            // DÉTECTION : Cette carte fait un grand saut ?
             const isTeleporting =
-                (oldPosition === 'previous' && newPosition === 'next') ||
-                (oldPosition === 'next' && newPosition === 'previous');
+                (oldPos === 'previous' && newPos === 'next') ||
+                (oldPos === 'next'     && newPos === 'previous');
 
             if (isTeleporting) {
-                // ✨ SOLUTION : Disparition instantanée + repositionnement + réapparition
-
-                // 1. Désactiver la transition et cacher la carte
+                // Repositionnement invisible : masquer → déplacer → réapparaître
                 slide.style.transition = 'none';
-                slide.style.opacity = '0';
+                slide.style.opacity    = '0';
 
-                // 2. Appliquer la nouvelle position immédiatement
                 if (index === this.currentSlide) {
                     slide.classList.add('slide-active');
                     slide.style.transform = 'translateX(-50%) translateZ(0)';
-                    slide.style.zIndex = '10';
-                } else if (index === previousIndex) {
+                    slide.style.zIndex    = '10';
+                } else if (index === prevIdx) {
                     slide.classList.add('slide-previous');
                     slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px)) translateZ(0)`;
-                    slide.style.zIndex = '5';
-                } else if (index === nextIndex) {
+                    slide.style.zIndex    = '5';
+                } else if (index === nextIdx) {
                     slide.classList.add('slide-next');
                     slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px)) translateZ(0)`;
-                    slide.style.zIndex = '5';
+                    slide.style.zIndex    = '5';
                 }
 
-                // 3. Réapparaître après un court délai
                 setTimeout(() => {
-                    //  Transition optimisée (0.35s)
-                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.18s cubic-bezier(0.4, 0.0, 0.2, 1)';
-                    slide.style.opacity = '1';
+                    slide.style.transition = 'opacity 0.2s ease-in-out, transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    slide.style.opacity    = '1';
                 }, 50);
 
             } else {
-                // Comportement normal pour les cartes qui ne se téléportent pas
-
                 if (index === this.currentSlide) {
                     slide.classList.add('slide-active');
                     slide.style.transform = 'translateX(-50%) translateZ(0)';
-                    slide.style.opacity = '1';
-                    slide.style.zIndex = '10';
-                } else if (index === previousIndex) {
+                    slide.style.opacity   = '1';
+                    slide.style.zIndex    = '10';
+                } else if (index === prevIdx) {
                     slide.classList.add('slide-previous');
                     slide.style.transform = `translateX(calc(-50% - ${this.slideOffset}px)) translateZ(0)`;
-                    slide.style.opacity = '1';
-                    slide.style.zIndex = '5';
-                } else if (index === nextIndex) {
+                    slide.style.opacity   = '1';
+                    slide.style.zIndex    = '5';
+                } else if (index === nextIdx) {
                     slide.classList.add('slide-next');
                     slide.style.transform = `translateX(calc(-50% + ${this.slideOffset}px)) translateZ(0)`;
-                    slide.style.opacity = '1';
-                    slide.style.zIndex = '5';
+                    slide.style.opacity   = '1';
+                    slide.style.zIndex    = '5';
                 } else {
-                    // Slides cachées
                     slide.classList.add('slide-hidden');
-                    slide.style.transform = `translateX(-300vw) translateZ(0)`;
-                    slide.style.opacity = '0';
-                    slide.style.zIndex = '1';
+                    slide.style.transform = 'translateX(-300vw) translateZ(0)';
+                    slide.style.opacity   = '0';
+                    slide.style.zIndex    = '1';
                 }
             }
         });
 
-        // ✨ Sauvegarder les positions actuelles pour la prochaine fois
         this.previousPositions = new Map(newPositions);
 
-        // Mettre à jour les dots
+        // Synchroniser les dots
         this.dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === this.currentSlide);
-            dot.setAttribute('aria-label', `Aller au slide ${index + 1}${index === this.currentSlide ? ' (actuel)' : ''}`);
+            dot.setAttribute('aria-label',
+                `Aller au slide ${index + 1}${index === this.currentSlide ? ' (actuel)' : ''}`);
         });
 
         // Accessibilité
@@ -428,58 +427,33 @@ class FoyerSlider {
             const isActive = index === this.currentSlide;
             slide.setAttribute('aria-hidden', !isActive);
             const card = slide.querySelector('.card');
-            if (card) {
-                card.setAttribute('tabindex', isActive ? '0' : '-1');
-            }
+            if (card) card.setAttribute('tabindex', isActive ? '0' : '-1');
         });
     }
 
-    // Annonce vocale du changement de slide pour l'accessibilité
     announceSlideChange() {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'sr-only';
-        announcement.textContent = `Slide ${this.currentSlide + 1} sur ${this.totalSlides}`;
-        document.body.appendChild(announcement);
-
-        setTimeout(() => {
-            document.body.removeChild(announcement);
-        }, 1000);
+        const el = document.createElement('div');
+        el.setAttribute('aria-live', 'polite');
+        el.setAttribute('aria-atomic', 'true');
+        el.className = 'sr-only';
+        el.textContent = `Slide ${this.currentSlide + 1} sur ${this.totalSlides}`;
+        document.body.appendChild(el);
+        setTimeout(() => document.body.removeChild(el), 1000);
     }
 
-    // Keyboard navigation
     handleKeyDown(e) {
-        // Vérifier si le focus est sur le slider
         if (!this.container.contains(document.activeElement)) return;
-
         switch (e.key) {
-            case 'ArrowLeft':
-                e.preventDefault();
-                this.previousSlide();
-                break;
-            case 'ArrowRight':
-                e.preventDefault();
-                this.nextSlide();
-                break;
-            case 'Home':
-                e.preventDefault();
-                this.goToSlide(0);
-                break;
-            case 'End':
-                e.preventDefault();
-                this.goToSlide(this.totalSlides - 1);
-                break;
+            case 'ArrowLeft':  e.preventDefault(); this.previousSlide(); break;
+            case 'ArrowRight': e.preventDefault(); this.nextSlide();     break;
+            case 'Home':       e.preventDefault(); this.goToSlide(0);    break;
+            case 'End':        e.preventDefault(); this.goToSlide(this.totalSlides - 1); break;
         }
     }
 
-    // Auto-play (optionnel)
     startAutoPlay(interval = 5000) {
         this.stopAutoPlay();
-
-        this.autoPlayInterval = setInterval(() => {
-            this.nextSlide(); // ✨ Avec le loop infini, ça boucle automatiquement !
-        }, interval);
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), interval);
     }
 
     stopAutoPlay() {
@@ -489,67 +463,46 @@ class FoyerSlider {
         }
     }
 
-    // Utility: Debounce
     debounce(func, wait) {
         let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
+        return function (...args) {
             clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
+            timeout = setTimeout(() => { clearTimeout(timeout); func(...args); }, wait);
         };
     }
 }
 
-// Initialisation au chargement du DOM
+// Initialisation
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.getElementById('cardSlider');
 
     if (sliderContainer) {
         const slider = new FoyerSlider(sliderContainer);
 
-
-        // Préchargement des images
-        const images = sliderContainer.querySelectorAll('img[src]');
-        images.forEach(img => {
+        sliderContainer.querySelectorAll('img[src]').forEach(img => {
             if (!img.complete) {
-                img.addEventListener('load', function () {
-                    this.style.opacity = '1';
-                });
+                img.addEventListener('load', function () { this.style.opacity = '1'; });
             }
         });
 
-        // Exposer l'instance globalement pour debugging
         window.foyerSlider = slider;
     }
 
-    // Gestion du focus pour l'accessibilité
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
+    document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('focus', function () {
-            this.style.outline = '3px solid rgba(255, 255, 255, 0.8)';
+            this.style.outline      = '3px solid rgba(255, 255, 255, 0.8)';
             this.style.outlineOffset = '2px';
         });
-
         card.addEventListener('blur', function () {
             this.style.outline = 'none';
         });
     });
 
-    // Performance: Intersection Observer pour les animations
     if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        cards.forEach(card => observer.observe(card));
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('animate-in')),
+            { threshold: 0.1 }
+        );
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
     }
 });

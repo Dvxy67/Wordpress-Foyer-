@@ -47,7 +47,7 @@ body {
     width: 100%;
 }
 
-/* SLIDER FULL WIDTH - HYBRIDE */
+/* SLIDER FULL WIDTH */
 .slider-container {
     position: relative;
     width: 100vw;
@@ -60,7 +60,6 @@ body {
     justify-content: center;
 }
 
-/* ⚡ OPTIMISATION : Prévenir le navigateur qu'on va animer ce wrapper */
 .slider-wrapper {
     position: relative;
     width: 100%;
@@ -70,10 +69,7 @@ body {
     justify-content: center;
     cursor: grab;
     cursor: -webkit-grab;
-    
-    /* NOUVEAU : Active l'accélération GPU */
     will-change: transform;
-    /* Support temps réel sur mobile/tablette */
     touch-action: pan-y;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -85,27 +81,23 @@ body {
     cursor: -webkit-grabbing;
 }
 
-/* Slides - Positionnement centré - HYBRIDE */
-/* ⚡ OPTIMISATION : Containment + will-change + hardware acceleration */
+/* Slides */
 .slide {
     position: absolute;
-    /* La largeur sera déterminée par la carte à l'intérieur */
     width: auto;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    
-    transition: transform 0.18s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
-    
     will-change: transform, opacity;
     contain: layout style paint;
-    transform: translateX(-50%) translateZ(0); /* Force GPU */
+    transform: translateX(-50%) translateZ(0);
     backface-visibility: hidden;
 }
 
-/* POSITIONS INITIALES - Mobile avec espacement constant de 35px */
+/* Positions initiales — correspondant aux formules calc() CSS */
 .slide:nth-child(1) {
     left: 50%;
     transform: translateX(-50%) translateZ(0);
@@ -114,7 +106,6 @@ body {
 
 .slide:nth-child(2) {
     left: 50%;
-    /* Valeurs augmentées pour éviter le chevauchement */
     transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0);
     z-index: 5;
 }
@@ -125,7 +116,7 @@ body {
     z-index: 5;
 }
 
-/* CARTES - HYBRIDE avec aspect-ratio */
+/* CARTES */
 .card {
     height: clamp(385px, 66vh, 622px);
     aspect-ratio: 320 / 460;
@@ -141,7 +132,6 @@ body {
     z-index: 20;
 }
 
-/* AUCUN EFFET - Toutes les cartes identiques */
 .slide .card {
     opacity: 1 !important;
     transform: none !important;
@@ -152,16 +142,16 @@ body {
     opacity: 1 !important;
 }
 
-/* Zone illustration - RÉDUITE pour laisser place au titre */
+/* Zone illustration */
 .card-illustration {
-    flex: 1; /* Prend l'espace restant après le titre */
+    flex: 1;
     position: relative;
     overflow: hidden;
-    min-height: 0; /* Important pour flex */
+    min-height: 0;
 }
 
 .card.habitant .card-illustration {
-    background: #eed05d
+    background: #eed05d;
 }
 
 .card.logement .card-illustration {
@@ -172,7 +162,6 @@ body {
     background: linear-gradient(135deg, #7DCEA0 0%, #73C6B6 100%);
 }
 
-/* Image d'illustration */
 .illustration-image {
     width: 100%;
     height: 100%;
@@ -183,12 +172,10 @@ body {
     left: 0;
 }
 
-/* Image spécifique pour la carte Logement */
 .card.logement .illustration-image {
     transform: scale(1.05) translateY(clamp(30px, 6vh, 50px));
 }
 
-/* Placeholder d'illustration */
 .illustration-placeholder {
     position: absolute;
     top: 50%;
@@ -198,13 +185,11 @@ body {
     z-index: 1;
 }
 
-/* Zone titre - Proportionnelle à la hauteur de la carte */
+/* Zone titre */
 .card-title {
     background: #fb0400;
-    /* Le padding s'adapte à la hauteur de la carte */
     padding: clamp(12px, 2.2vh, 20px) clamp(14px, 4.3vmin, 20px);
     text-align: center;
-    /* Min-height proportionnel à la hauteur totale */
     min-height: clamp(70px, 12vh, 110px);
     display: flex;
     align-items: center;
@@ -214,7 +199,6 @@ body {
 }
 
 .card-title h2 {
-    /* Font-size basé sur la hauteur disponible */
     font-size: clamp(26px, 4.8vh, 38px);
     font-weight: 500; 
     color: #000;
@@ -227,8 +211,7 @@ body {
     margin: 0;
 }
 
-
-/* Logo au bas - Proportionnel à la hauteur */
+/* Logo au bas */
 .bottom-logo {
     position: absolute !important;
     bottom: -3vh !important;
@@ -241,26 +224,22 @@ body {
 }
 
 .bottom-logo img {
-    max-width: clamp(140px, 25vh, 200px) !important; /* Basé sur hauteur */
+    max-width: clamp(140px, 25vh, 200px) !important;
     max-height: clamp(140px, 25vh, 200px) !important;
     height: auto !important;
     width: auto !important;
     display: block !important;
-
-    /* On neutralise toute décoration éventuelle */
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
     background: transparent !important;
 }
 
-/* Touch et interaction */
 .slider-container {
     touch-action: pan-y;
     user-select: none;
 }
 
-/* États de chargement */
 .illustration-image {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -290,37 +269,46 @@ body {
     margin: 0;
 }
 
-/* Classes d'état pour JavaScript - HYBRIDE avec espacement constant */
+/* ============================================
+   CLASSES D'ÉTAT JAVASCRIPT
+
+   PATCH : transform sans !important.
+   Le JS applique style.transform inline qui doit gagner
+   sur les classes CSS. Avec !important CSS, le snap était
+   écrasé et le drag utilisait une référence différente.
+   Les z-index gardent leur !important (le JS ne les réécrit
+   pas systématiquement sur tous les états).
+   ============================================ */
+
 .slide.slide-active {
     left: 50%;
-    transform: translateX(-50%) translateZ(0) !important;
+    transform: translateX(-50%) translateZ(0); /* pas de !important : JS inline prend le relais */
     z-index: 10 !important;
 }
 
 .slide.slide-previous {
     left: 50%;
-    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0) !important;
+    transform: translateX(calc(-50% - 16vh - 56vw)) translateZ(0); /* pas de !important */
     z-index: 5 !important;
 }
 
 .slide.slide-next {
     left: 50%;
-    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0) !important;
+    transform: translateX(calc(-50% + 16vh + 56vw)) translateZ(0); /* pas de !important */
     z-index: 5 !important;
 }
 
 .slide.slide-hidden {
     left: 50%;
-    transform: translateX(-300vw) translateZ(0) !important;
+    transform: translateX(-300vw) translateZ(0); /* pas de !important */
     z-index: 1 !important;
     opacity: 0;
 }
 
 /* ============================================
-   PAGINATION (DOTS) - Indicateurs du slider
+   PAGINATION (DOTS)
    ============================================ */
 
-/* Container des dots */
 .slider-dots {
     position: absolute;
     bottom: clamp(-19px, -3vh, -15px);
@@ -332,7 +320,6 @@ body {
     width: auto;
 }
 
-/* Style de chaque dot */
 .dot {
     width: clamp(6px, 2.1vmin, 10px);
     height: clamp(6px, 2.1vmin, 10px);
@@ -344,18 +331,15 @@ body {
     margin: 0;
 }
 
-/* Dot actif (celui qui correspond à la carte visible) */
 .dot.active {
     background: #fff;
     transform: scale(1.2);
 }
 
-/* Hover sur les dots */
 .dot:hover {
     background: rgba(255, 255, 255, 0.8);
 }
 
-/* Classe pour masquer visuellement mais garder accessible */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -385,19 +369,19 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE - iPhone 12/13/14 (390px)
+   RESPONSIVE — iPhone 12/13/14 (390px)
    ============================================ */
-   @media (min-width: 390px) and (max-width: 395px) {
+@media (min-width: 390px) and (max-width: 395px) {
     .card-title h2 {
-        font-size: clamp(23px, 4.2vh, 34px) !important; /* Réduit la taille */
-        letter-spacing: 0.3px !important; /* Réduit l'espacement */
+        font-size: clamp(23px, 4.2vh, 34px) !important;
+        letter-spacing: 0.3px !important;
     }
 }
 
 /* ============================================
-   RESPONSIVE - MOBILES > iPhone SE
+   RESPONSIVE — Petit mobile (360–374px)
    ============================================ */
-   @media (min-width: 360px) and (max-width: 374px) {
+@media (min-width: 360px) and (max-width: 374px) {
     .slide:nth-child(2) {
         transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0);
     }
@@ -406,12 +390,13 @@ body {
         transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0);
     }
     
+    /* PATCH : !important retiré — le JS utilise la même formule 14vh+53vw dans calculateSlideOffset() */
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0) !important;
+        transform: translateX(calc(-50% - 14vh - 53vw)) translateZ(0);
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0) !important;
+        transform: translateX(calc(-50% + 14vh + 53vw)) translateZ(0);
     }
 
     .card-title h2 {
@@ -425,7 +410,7 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE - TABLETTES (768px+)
+   RESPONSIVE — TABLETTES (768px+)
    ============================================ */
 @media (min-width: 768px) {
     .slider-container {
@@ -434,10 +419,9 @@ body {
     
     .card {
         height: clamp(600px, 72vh, 820px);
-        max-width: 80vw; /* Plus de place sur tablette */
+        max-width: 80vw;
     }
     
-    /* Espacement de 50px sur tablette */
     .slide:nth-child(2) {
         transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0);
     }
@@ -459,12 +443,13 @@ body {
         letter-spacing: 0.5px;
     }
     
+    /* PATCH : !important retiré — le JS utilise 0.9*vw-50 dans calculateSlideOffset() */
     .slide.slide-previous {
-        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0) !important;
+        transform: translateX(calc(-50% - 90vw + 50px)) translateZ(0);
     }
     
     .slide.slide-next {
-        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0) !important;
+        transform: translateX(calc(-50% + 90vw - 50px)) translateZ(0);
     }
     
     .bottom-logo img {
@@ -477,6 +462,10 @@ body {
     }
 }
 
+/* ============================================
+   DESKTOP (1024px+) — Layout flexbox statique,
+   slider JS désactivé, règles inchangées.
+   ============================================ */
 @media (min-width: 1024px) {
     .homepage-container {
         flex-direction: row;
@@ -511,7 +500,7 @@ body {
         width: 100%;
         height: auto;
         cursor: default;
-        will-change: auto; /* AJOUT - neutralise l'optimisation GPU */
+        will-change: auto;
     }
     
     .slide {
@@ -521,13 +510,14 @@ body {
         height: auto;
         opacity: 1 !important;
         transition: none;
-        left: auto !important; /* AJOUT - force la suppression du left */
-        will-change: auto; /* AJOUT - neutralise l'optimisation GPU */
-        contain: none; /* AJOUT - retire le containment problématique */
-        backface-visibility: visible; /* AJOUT - retire l'optimisation 3D */
-        flex: 0 0 auto; /* AJOUT - force Safari à traiter comme flex item */
+        left: auto !important;
+        will-change: auto;
+        contain: none;
+        backface-visibility: visible;
+        flex: 0 0 auto;
     }
     
+    /* Sur desktop, toutes les classes d'état sont neutralisées */
     .slide.slide-active,
     .slide.slide-previous,
     .slide.slide-next,
@@ -537,9 +527,9 @@ body {
         opacity: 1 !important;
         z-index: auto !important;
         left: auto !important;
-        will-change: auto; /* AJOUT */
-        contain: none; /* AJOUT */
-        backface-visibility: visible; /* AJOUT */
+        will-change: auto;
+        contain: none;
+        backface-visibility: visible;
     }
     
     .card {
@@ -581,7 +571,7 @@ body {
 }
 
 /* ============================================
-   EXTRA LARGE SCREENS (1440px+)
+   EXTRA LARGE (1440px+)
    ============================================ */
 @media (min-width: 1440px) {
     .slider-container {
@@ -589,7 +579,7 @@ body {
     }
     
     .card {
-        max-width: 420px; /* Plus de place sur grands écrans */
+        max-width: 420px;
         height: clamp(550px, 65vh, 720px);
     }
     
