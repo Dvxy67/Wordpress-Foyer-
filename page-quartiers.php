@@ -65,7 +65,7 @@ Template Name: Page Quartiers - Harmonisée
             height: calc(100dvh - 120px);
             max-height: 585px;
             min-height: 505px;
-            padding: 15px 15px 0 15px;
+            padding: 15px 15px 0px 15px;
             margin-top: 20px;
             margin-bottom: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -123,6 +123,8 @@ Template Name: Page Quartiers - Harmonisée
             overflow-x: hidden;
             scrollbar-width: thin;
             scrollbar-color: #CCCCCC #F0F0F0;
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
         }
 
         /* Scrollbar pour Chrome/Safari */
@@ -303,6 +305,12 @@ Template Name: Page Quartiers - Harmonisée
         @media (min-width: 481px) {
             .quartiers-container {
                 border: 6px solid #000000 !important;
+                padding-bottom: 0.2px;
+            }
+
+            .quartiers-scroll {
+                border-bottom-left-radius: 1px;
+                border-bottom-right-radius: 1px;
             }
         }
     </style>

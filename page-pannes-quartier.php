@@ -569,14 +569,14 @@ $quartier_display = ucfirst($quartier);
             }
 
             .panne-text {
-                font-size: 13px;
+                font-size: 15px;
             }
 
             .panne-text-1,
             .panne-text-2,
             .panne-text-3,
             .panne-text-4 {
-                font-size: 13px !important;
+                font-size: 15px !important;
             }
         }
 
@@ -603,7 +603,7 @@ $quartier_display = ucfirst($quartier);
             .panne-text-2,
             .panne-text-3,
             .panne-text-4 {
-                font-size: 13px !important;
+                font-size: 15px !important;
             }
         }
 
@@ -612,7 +612,7 @@ $quartier_display = ucfirst($quartier);
         .panne-text-2,
         .panne-text-3,
         .panne-text-4 {
-            font-size: 12px !important;
+            font-size: 15px !important;
         }
 
         /* RESET pour éviter les interférences CSS du thème */

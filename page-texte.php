@@ -116,7 +116,7 @@ get_header(); ?>
 
         /* Titre */
         .text-title {
-            font-size: 14px;
+            font-size: 22px;
             font-weight: 450;
             color: #000000;
             text-transform: uppercase;
@@ -134,7 +134,7 @@ get_header(); ?>
             overflow-x: hidden;
             padding-right: 5px;
             color: #000000;
-            font-size: 13px;
+            font-size: 15px;
             line-height: 1.45;
             text-align: justify;
             hyphens: auto;
@@ -217,13 +217,13 @@ get_header(); ?>
             }
 
             .text-title {
-                font-size: 22px;
+                font-size: 27px;
                 margin-bottom: 22px;
                 padding-left: 0;
             }
 
             .text-content {
-                font-size: 16px;
+                font-size: 20px;
                 line-height: 1.6;
                 padding-left: 0;
                 padding-right: 10px;
