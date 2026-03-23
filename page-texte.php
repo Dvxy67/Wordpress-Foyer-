@@ -27,7 +27,6 @@ get_header(); ?>
         html,
         body {
             height: 100%;
-            overflow: hidden;
         }
 
         body {
@@ -316,7 +315,4 @@ get_header(); ?>
         </div>
     </div>
 
-    <?php wp_footer(); ?>
-</body>
-
-</html>x
+<?php get_footer(); ?>

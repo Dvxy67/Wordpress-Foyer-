@@ -1989,3 +1989,34 @@ add_action('customize_register', 'customize_page_texte_settings');
     ));
 }
 add_action('customize_register', 'rapport_annuel_customizer');
+
+/**
+ * Customizer pour les liens légaux du footer
+ */
+function foyer_footer_customize_register( $wp_customize ) {
+    $wp_customize->add_section( 'foyer_footer', [
+        'title'    => __( 'Footer — Liens légaux', 'foyer-theme' ),
+        'priority' => 60,
+    ] );
+
+    $footer_links = [
+        'foyer_footer_mentions'  => 'Mentions légales',
+        'foyer_footer_politique' => 'Politique de confidentialité',
+        'foyer_footer_rgpd'      => 'RGPD',
+        'foyer_footer_cookies'   => 'Gestion des cookies',
+        'foyer_footer_accessib'  => 'Accessibilité du site',
+    ];
+
+    foreach ( $footer_links as $setting_id => $label ) {
+        $wp_customize->add_setting( $setting_id, [
+            'default'           => '#',
+            'sanitize_callback' => 'esc_url_raw',
+        ] );
+        $wp_customize->add_control( $setting_id, [
+            'label'   => $label,
+            'section' => 'foyer_footer',
+            'type'    => 'url',
+        ] );
+    }
+}
+add_action( 'customize_register', 'foyer_footer_customize_register' );

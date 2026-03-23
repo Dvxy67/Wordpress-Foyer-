@@ -40,7 +40,6 @@ $quartier_display = ucfirst($quartier);
         html,
         body {
             height: 100%;
-            overflow: hidden;
         }
 
 
@@ -772,7 +771,4 @@ $quartier_display = ucfirst($quartier);
         }
     </script>
 
-    <?php wp_footer(); ?>
-</body>
-
-</html>
+<?php get_footer(); ?>

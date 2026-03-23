@@ -24,7 +24,6 @@ Template Name: Page Quartiers - Harmonisée
         html,
         body {
             height: 100%;
-            overflow: hidden;
         }
 
         body {
@@ -428,7 +427,4 @@ Template Name: Page Quartiers - Harmonisée
         }
     </script>
 
-    <?php wp_footer(); ?>
-</body>
-
-</html>
+<?php get_footer(); ?>

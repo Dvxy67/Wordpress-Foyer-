@@ -14,7 +14,6 @@ html {
 
 html, body {
     height: 100%;
-    overflow: hidden;  
 }
 
 body {
@@ -27,12 +26,13 @@ body {
 /* Container principal */
 .homepage-container {
     height: 100vh;
+    height: 100dvh;
     background: #6b92ff;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    padding-top: 6vh;
+    padding-top: 6dvh;
     box-sizing: border-box;
 }
 
@@ -43,7 +43,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 0;
-    height: 65vh;
+    height: 65dvh;
     width: 100%;
 }
 
@@ -52,7 +52,7 @@ body {
     position: relative;
     width: 100vw;
     max-width: 100%;
-    height: clamp(420px, 72vh, 680px); 
+    height: clamp(420px, 72dvh, 680px);
     overflow: visible;
     margin: 0;
     display: flex;
@@ -118,7 +118,7 @@ body {
 
 /* CARTES */
 .card {
-    height: clamp(385px, 66vh, 622px);
+    height: clamp(385px, 66dvh, 622px);
     aspect-ratio: 320 / 460;
     max-width: 78vw;
     border-radius: clamp(16px, 5.3vmin, 24px);
@@ -188,9 +188,9 @@ body {
 /* Zone titre */
 .card-title {
     background: #fb0400;
-    padding: clamp(12px, 2.2vh, 20px) clamp(14px, 4.3vmin, 20px);
+    padding: clamp(12px, 2.2dvh, 20px) clamp(14px, 4.3vmin, 20px);
     text-align: center;
-    min-height: clamp(70px, 12vh, 110px);
+    min-height: clamp(70px, 12dvh, 110px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,7 +199,7 @@ body {
 }
 
 .card-title h2 {
-    font-size: clamp(26px, 4.8vh, 38px);
+    font-size: clamp(26px, 4.8dvh, 38px);
     font-weight: 500; 
     color: #000;
     text-transform: uppercase;
@@ -214,7 +214,7 @@ body {
 /* Logo au bas */
 .bottom-logo {
     position: absolute !important;
-    bottom: -3vh !important;
+    bottom: -3dvh !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     text-align: center !important;
@@ -224,8 +224,8 @@ body {
 }
 
 .bottom-logo img {
-    max-width: clamp(140px, 25vh, 200px) !important;
-    max-height: clamp(140px, 25vh, 200px) !important;
+    max-width: clamp(140px, 25dvh, 200px) !important;
+    max-height: clamp(140px, 25dvh, 200px) !important;
     height: auto !important;
     width: auto !important;
     display: block !important;
@@ -253,7 +253,7 @@ body {
     justify-content: center;
     width: 80%;
     max-width: clamp(180px, 53.3vmin, 220px);
-    height: clamp(130px, 22vh, 180px);
+    height: clamp(130px, 22dvh, 180px);
     padding: clamp(16px, 5.3vmin, 24px);
 }
 
@@ -311,7 +311,7 @@ body {
 
 .slider-dots {
     position: absolute;
-    bottom: clamp(-19px, -3vh, -15px);
+    bottom: clamp(-19px, -3dvh, -15px);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -373,7 +373,7 @@ body {
    ============================================ */
 @media (min-width: 390px) and (max-width: 395px) {
     .card-title h2 {
-        font-size: clamp(23px, 4.2vh, 34px) !important;
+        font-size: clamp(23px, 4.2dvh, 34px) !important;
         letter-spacing: 0.3px !important;
     }
 }
@@ -400,12 +400,12 @@ body {
     }
 
     .card-title h2 {
-        font-size: clamp(22px, 3.5vh, 28px) !important;
+        font-size: clamp(22px, 3.5dvh, 28px) !important;
         letter-spacing: 0.2px !important;
     }
 
     .card-title {
-        min-height: clamp(65px, 10vh, 95px) !important;
+        min-height: clamp(65px, 10dvh, 95px) !important;
     }
 }
 
@@ -414,11 +414,11 @@ body {
    ============================================ */
 @media (min-width: 768px) {
     .slider-container {
-        height: clamp(600px, 75vh, 850px);
+        height: clamp(600px, 75dvh, 850px);
     }
     
     .card {
-        height: clamp(600px, 72vh, 820px);
+        height: clamp(600px, 72dvh, 820px);
         max-width: 80vw;
     }
     
@@ -431,8 +431,8 @@ body {
     }
     
     .card-title {
-        padding: clamp(24px, 3vh, 36px) clamp(20px, 2.9vmin, 26px);
-        min-height: clamp(110px, 13vh, 160px);
+        padding: clamp(24px, 3dvh, 36px) clamp(20px, 2.9vmin, 26px);
+        min-height: clamp(110px, 13dvh, 160px);
     }
     
     .card-title h2 {
@@ -453,8 +453,8 @@ body {
     }
     
     .bottom-logo img {
-        max-width: clamp(130px, 18vh, 180px) !important;
-        max-height: clamp(130px, 18vh, 180px) !important;
+        max-width: clamp(130px, 18dvh, 180px) !important;
+        max-height: clamp(130px, 18dvh, 180px) !important;
     }
     
     .card.logement .illustration-image {
@@ -585,5 +585,78 @@ body {
     
     .slider-wrapper {
         gap: clamp(30px, 3vw, 50px);
+    }
+}
+
+/* =========================================================
+   FOOTER — Foyer Anderlechtois
+   À coller à la fin de style.css
+   ========================================================= */
+
+   .foyer-footer {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 20px 16px 24px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.6;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- Liens légaux --- */
+.foyer-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px 6px;
+    margin-bottom: 12px;
+}
+
+.foyer-footer__links a {
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.foyer-footer__links a:hover,
+.foyer-footer__links a:focus {
+    color: #6A5ACD; /* reprend la couleur principale du thème */
+    outline: none;
+}
+
+.foyer-footer__links span {
+    color: #999;
+    user-select: none;
+}
+
+/* --- Adresse --- */
+.foyer-footer__address {
+    font-style: normal;
+    color: #333;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.foyer-footer__address a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.foyer-footer__address a:hover {
+    color: #6A5ACD;
+}
+
+/* --- Mobile : réduire les gaps sur très petit écran --- */
+@media (max-width: 380px) {
+    .foyer-footer {
+        font-size: 12px;
+        padding: 16px 12px 20px;
     }
 }
