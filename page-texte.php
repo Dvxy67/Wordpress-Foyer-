@@ -65,7 +65,7 @@ get_header(); ?>
             border-radius: 15px;
             width: calc(100% - 16px);
             max-width: 100%;
-            height: calc(100vh - 80px);
+            height: calc(100dvh - 80px);
             min-height: 600px;
             max-height: 650px;
             padding: 20px;
@@ -191,7 +191,7 @@ get_header(); ?>
             }
 
             .main-container {
-                height: calc(100vh - 40px);
+                height: calc(100dvh - 40px);
             }
 
             .texte-container {
