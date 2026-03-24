@@ -51,7 +51,7 @@ $quartier_display = ucfirst($quartier);
         }
 
         .pannes-page {
-            min-height: 100vh;
+            min-height: 100dvh;
             background: #6b92ff;
             display: flex;
             flex-direction: column;

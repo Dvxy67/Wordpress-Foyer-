@@ -38,7 +38,7 @@ get_header(); ?>
 
         /* Container principal */
         .texte-page {
-            min-height: 100vh;
+            min-height: 100dvh;
             background: #6b92ff;
             display: flex;
             flex-direction: column;
