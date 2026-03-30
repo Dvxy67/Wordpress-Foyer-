@@ -257,49 +257,6 @@ function foyer_customize_register($wp_customize) {
         'settings' => 'quartiers_image_retour',
     )));
     
-    // Section pour la page Habitants
-    $wp_customize->add_section('habitants_services', array(
-        'title' => __('Page Habitants - Services', 'foyer-theme'),
-        'priority' => 33,
-    ));
-    
-    // Services - Liens et Icônes
-    $services = array(
-        'pannes' => 'Pannes',
-        'concierge' => 'Concierge', 
-        'pompiers' => 'Pompiers',
-        'proprete' => 'Bruxelles Propreté',
-        'assistant' => 'Assistant Social',
-        'reglement' => 'Règlement',
-        'psycho' => 'Aide Psychologique',
-        'entretien' => 'Entretien du Logement'
-    );
-    
-    foreach ($services as $key => $label) {
-        // Lien du service
-        $wp_customize->add_setting('lien_' . $key, array(
-            'default' => '#',
-            'sanitize_callback' => 'esc_url_raw',
-        ));
-        
-        $wp_customize->add_control('lien_' . $key, array(
-            'label' => __('Lien ' . $label, 'foyer-theme'),
-            'section' => 'habitants_services',
-            'type' => 'url',
-        ));
-        
-        // Icône du service
-        $wp_customize->add_setting('icon_' . $key, array(
-            'default' => '',
-            'sanitize_callback' => 'esc_url_raw',
-        ));
-        
-        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'icon_' . $key, array(
-            'label' => __('Icône ' . $label, 'foyer-theme'),
-            'section' => 'habitants_services',
-            'settings' => 'icon_' . $key,
-        )));
-    }
 }
 add_action('customize_register', 'foyer_customize_register');
 
