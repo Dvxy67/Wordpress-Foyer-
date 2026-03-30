@@ -26,8 +26,7 @@ $link_accessib    = get_theme_mod( 'foyer_footer_accessib',    '#' );
     </nav>
 
     <address class="foyer-footer__address">
-        Le Foyer Anderlechtois – 221 Rue de Birmingham, 1070 Anderlecht<br>
-        <a href="tel:+3225567730">Tel : 02 556 77 30</a>
+        Le Foyer Anderlechtois – 221 Rue de Birmingham, 1070 Anderlecht &nbsp;|&nbsp; <a href="tel:+3225567730">Tel : 02 556 77 30</a>
     </address>
 </footer>
 
