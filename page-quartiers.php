@@ -173,7 +173,7 @@ Template Name: Page Quartiers - Harmonisée
 
         /* Hover normal */
         .quartier-item:hover {
-            background-color: #F8F8F8;
+            background-color: #DFDFDF;
         }
 
         /* SÉLECTIONNÉ - Bleu au clic */
@@ -184,6 +184,11 @@ Template Name: Page Quartiers - Harmonisée
 
         .quartier-item.selected:hover {
             background-color: #5b7ae6 !important;
+        }
+
+        /* Premier quartier avec bordure en haut */
+        .quartiers-list li:first-child .quartier-item {
+            border-top: 2px solid #ebecf4;
         }
 
         /* Dernier quartier sans bordure */
