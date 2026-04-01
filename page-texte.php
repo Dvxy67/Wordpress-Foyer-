@@ -139,7 +139,7 @@ get_header(); ?>
             hyphens: auto;
             padding-top: 0px !important;
             margin-top: 0px !important;
-            font-weight: 100;
+            font-weight: 400;
             padding-left: 10px;
         }
 
@@ -163,6 +163,75 @@ get_header(); ?>
         /* Dernier paragraphe */
         .texte-page .texte-container .text-content p:last-child {
             margin-bottom: 0 !important;
+        }
+
+        /* Titres H2 */
+        .text-content h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 22px 0 10px 0;
+            line-height: 1.2;
+        }
+
+        /* Sous-titres H3 */
+        .text-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin: 18px 0 8px 0;
+            line-height: 1.2;
+        }
+
+        /* Listes à puces */
+        .text-content ul,
+        .text-content .wp-block-list {
+            list-style: disc !important;
+            padding-left: 20px !important;
+            margin: 0 0 10px 0 !important;
+        }
+
+        .text-content ul li,
+        .text-content .wp-block-list li {
+            margin-bottom: 3px !important;
+            line-height: 1.45;
+        }
+
+        /* Listes numérotées */
+        .text-content ol {
+            list-style: decimal !important;
+            padding-left: 20px !important;
+            margin: 0 0 10px 0 !important;
+        }
+
+        .text-content ol li {
+            margin-bottom: 3px !important;
+            line-height: 1.45;
+        }
+
+        /* Reset marges Gutenberg sur tous les blocs */
+        .text-content > * {
+            margin-block-start: 0 !important;
+            margin-block-end: 0 !important;
+        }
+
+        .text-content .wp-block-paragraph {
+            margin: 0 0 12px 0 !important;
+        }
+
+        /* Gras */
+        .text-content strong,
+        .text-content b {
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Italique */
+        .text-content em,
+        .text-content i {
+            font-style: italic;
         }
 
         /* Scrollbar custom */
@@ -222,7 +291,7 @@ get_header(); ?>
             }
 
             .text-content {
-                font-size: 20px;
+                font-size: 15px;
                 line-height: 1.6;
                 padding-left: 0;
                 padding-right: 10px;
