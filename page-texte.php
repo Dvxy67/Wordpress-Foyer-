@@ -131,7 +131,7 @@ get_header(); ?>
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            padding-right: 5px;
+            padding-right: 14px;
             color: #000000;
             font-size: 15px;
             line-height: 1.45;
@@ -190,12 +190,12 @@ get_header(); ?>
         .text-content .wp-block-list {
             list-style: disc !important;
             padding-left: 20px !important;
-            margin: 0 0 10px 0 !important;
+            margin: 0 0 4px 0 !important;
         }
 
         .text-content ul li,
         .text-content .wp-block-list li {
-            margin-bottom: 3px !important;
+            margin-bottom: 2px !important;
             line-height: 1.45;
         }
 
@@ -294,7 +294,8 @@ get_header(); ?>
                 font-size: 15px;
                 line-height: 1.6;
                 padding-left: 0;
-                padding-right: 10px;
+                padding-right: 30px;
+                overflow-y: scroll;
             }
 
             .text-content::-webkit-scrollbar {

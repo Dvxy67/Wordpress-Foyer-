@@ -480,8 +480,8 @@ $quartier_display = ucfirst($quartier);
 
             /* Panne 2 - Ascenseur */
             .panne-icon-2 {
-                width: 70px !important;
-                height: 70px !important;
+                width: 80px !important;
+                height: 80px !important;
             }
 
             /* Panne 3 - Télévision */
