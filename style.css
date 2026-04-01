@@ -644,13 +644,9 @@ body {
 }
 
 .foyer-footer__address a {
-    color: inherit;
+    color: #6A5ACD;
     text-decoration: underline;
     text-underline-offset: 2px;
-}
-
-.foyer-footer__address a:hover {
-    color: #6A5ACD;
 }
 
 /* --- Mobile : réduire les gaps sur très petit écran --- */

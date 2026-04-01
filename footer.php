@@ -21,8 +21,6 @@ $link_accessib    = get_theme_mod( 'foyer_footer_accessib',    '#' );
         <a href="<?php echo esc_url( $link_rgpd ); ?>">RGPD</a>
         <span aria-hidden="true">/</span>
         <a href="<?php echo esc_url( $link_cookies ); ?>">Gestion des cookies</a>
-        <span aria-hidden="true">/</span>
-        <a href="<?php echo esc_url( $link_accessib ); ?>">Accessibilité du site</a>
     </nav>
 
     <address class="foyer-footer__address">
