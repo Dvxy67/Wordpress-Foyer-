@@ -88,7 +88,7 @@ get_header(); ?>
 
         /* === STYLES MOBILE PAR DÉFAUT === */
         .habitants-page {
-            min-height: 100dvh;
+            min-height: 100svh;
             background: #6b92ff;
             display: flex;
             flex-direction: column;
@@ -104,7 +104,7 @@ get_header(); ?>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: calc(100dvh - 16px);
+            height: calc(100svh - 16px);
             width: 100%;
             max-width: 100%;
         }
@@ -120,7 +120,7 @@ get_header(); ?>
             gap: 0;
             width: calc(100% - 16px);
             max-width: 370px;
-            height: calc(100dvh - 150px);
+            height: calc(100svh - 150px);
             /* ← MODIF : 120px → 150px (30px plus petit) */
             min-height: 505px;
             max-height: 585px;

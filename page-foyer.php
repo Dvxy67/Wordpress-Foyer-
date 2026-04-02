@@ -39,7 +39,7 @@ get_header(); ?>
 
         /* Container principal */
         .foyer-page {
-            min-height: 100dvh;
+            min-height: 100svh;
             background: #6b92ff;
             display: flex;
             flex-direction: column;
@@ -54,7 +54,7 @@ get_header(); ?>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: calc(100dvh - 16px);
+            height: calc(100svh - 16px);
             width: 100%;
             max-width: 100%;
         }
