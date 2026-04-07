@@ -214,7 +214,7 @@ body {
 /* Logo au bas */
 .bottom-logo {
     position: absolute !important;
-    bottom: -3svh !important;
+    bottom: 0 !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     text-align: center !important;

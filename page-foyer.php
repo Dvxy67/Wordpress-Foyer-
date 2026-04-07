@@ -66,7 +66,7 @@ get_header(); ?>
             border-radius: 25px;
             width: calc(100% - 16px);
             max-width: 370px;
-            height: calc(100vh - 120px);
+            height: calc(100svh - 120px);
             min-height: 505px;
             max-height: 585px;
             padding: 15px;
