@@ -614,6 +614,26 @@ $quartier_display = ucfirst($quartier);
             font-size: 15px !important;
         }
 
+        /* Animation d'entrée */
+        @keyframes slideInMobile {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .pannes-container {
+            animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .retour-section {
+            animation: slideInMobile 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+        }
+
         /* RESET pour éviter les interférences CSS du thème */
         .pannes-page * {
             border: none !important;

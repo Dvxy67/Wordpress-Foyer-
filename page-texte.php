@@ -332,6 +332,22 @@ get_header(); ?>
             }
         }
 
+        /* Animation d'entrée */
+        @keyframes slideInMobile {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .texte-container {
+            animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         /* RESET pour éviter les interférences CSS du thème */
         .texte-page * {
             border: none !important;
