@@ -330,6 +330,9 @@ Template Name: Page Quartiers - Harmonisée
             .quartiers-container {
                 border: 6px solid #000000 !important;
                 padding-bottom: 0.2px;
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
             }
 
             .quartiers-scroll {

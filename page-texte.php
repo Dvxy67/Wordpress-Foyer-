@@ -151,11 +151,10 @@ get_header(); ?>
             display: block !important;
         }
 
-        /* PUIS la règle spécifique pour le premier paragraphe APRÈS */
+        /* Premier paragraphe */
         .texte-page .texte-container .text-content p:first-child,
         .texte-page .texte-container .text-content p:first-of-type {
-            margin-top: -16px !important;
-            /* ← GAGNE car écrit en dernier */
+            margin-top: 0 !important;
             margin-bottom: 18px !important;
             padding: 0 !important;
         }
@@ -190,25 +189,12 @@ get_header(); ?>
         .text-content .wp-block-list {
             list-style: disc !important;
             padding-left: 20px !important;
-            margin: 0 0 4px 0 !important;
-        }
-
-        .text-content ul li,
-        .text-content .wp-block-list li {
-            margin-bottom: 2px !important;
-            line-height: 1.45;
         }
 
         /* Listes numérotées */
         .text-content ol {
             list-style: decimal !important;
             padding-left: 20px !important;
-            margin: 0 0 10px 0 !important;
-        }
-
-        .text-content ol li {
-            margin-bottom: 3px !important;
-            line-height: 1.45;
         }
 
         /* Reset marges Gutenberg sur tous les blocs */
@@ -348,20 +334,127 @@ get_header(); ?>
             animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* RESET pour éviter les interférences CSS du thème */
-        .texte-page * {
-            border: none !important;
+        /* RESET ciblé — uniquement les éléments structurels, pas le contenu Gutenberg */
+        .texte-page .texte-container,
+        .texte-page .main-container,
+        .texte-page .texte-page {
             outline: none !important;
-            box-shadow: none !important;
         }
 
-        /* Exceptions pour nos styles */
         .texte-container {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
         .close-button {
             border: 2.5px solid #000000 !important;
+        }
+
+        /* ── Blocs Gutenberg ── */
+
+        /* Citation (blockquote) */
+        .text-content .wp-block-quote,
+        .text-content blockquote {
+            border-left: 4px solid #6b92ff;
+            padding: 10px 16px;
+            margin: 16px 0 !important;
+            color: #444;
+            font-style: italic;
+            background: #f8f8f8;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .text-content .wp-block-quote p,
+        .text-content blockquote p {
+            margin: 0 !important;
+        }
+
+        /* Séparateur */
+        .text-content .wp-block-separator,
+        .text-content hr {
+            border: none !important;
+            border-top: 2px solid #e0e0e0 !important;
+            margin: 20px 0 !important;
+        }
+
+        /* Image */
+        .text-content .wp-block-image img,
+        .text-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .text-content .wp-block-image {
+            margin: 16px 0 !important;
+        }
+
+        /* Tableau */
+        .text-content .wp-block-table table,
+        .text-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 !important;
+            font-size: 14px;
+        }
+
+        .text-content .wp-block-table td,
+        .text-content .wp-block-table th,
+        .text-content table td,
+        .text-content table th {
+            border: 1px solid #ddd !important;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .text-content .wp-block-table th,
+        .text-content table th {
+            background: #f0f0f0;
+            font-weight: 700;
+        }
+
+        /* Boutons */
+        .text-content .wp-block-buttons {
+            margin: 16px 0 !important;
+        }
+
+        .text-content .wp-block-button__link {
+            background: #6b92ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .text-content .wp-block-button__link:hover {
+            background: #5b7ae6;
+        }
+
+        /* Colonnes */
+        .text-content .wp-block-columns {
+            display: flex;
+            gap: 16px;
+            margin: 16px 0 !important;
+            flex-wrap: wrap;
+        }
+
+        .text-content .wp-block-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Mise en avant (callout) */
+        .text-content .wp-block-pullquote {
+            border-top: 4px solid #6b92ff;
+            border-bottom: 4px solid #6b92ff;
+            padding: 16px;
+            margin: 20px 0 !important;
+            text-align: center;
+            font-size: 17px;
+            font-style: italic;
         }
     </style>
 
@@ -390,8 +483,7 @@ get_header(); ?>
                     <?php
                     if (have_posts()) :
                         while (have_posts()) : the_post();
-                            // Force wpautop pour respecter les paragraphes
-                            echo wpautop(get_the_content());
+                            echo apply_filters('the_content', get_the_content());
                         endwhile;
                     endif;
                     ?>
