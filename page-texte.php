@@ -16,16 +16,13 @@ get_header(); ?>
         /* Import Google Fonts - Rubik */
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100..900&display=swap');
 
-        /* CSS HARMONISÉ - Page Texte Mobile-First */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html, body {
             height: 100%;
         }
 
@@ -36,7 +33,7 @@ get_header(); ?>
             min-height: 100vh;
         }
 
-        /* Container principal */
+        /* Page wrapper */
         .texte-page {
             min-height: 100svh;
             background: #6b92ff;
@@ -47,7 +44,6 @@ get_header(); ?>
             padding: 8px;
         }
 
-        /* Container principal pour équilibrer l'espace */
         .main-container {
             display: flex;
             flex-direction: column;
@@ -58,10 +54,9 @@ get_header(); ?>
             max-width: 100%;
         }
 
-        /* Container principal blanc */
+        /* Carte blanche */
         .texte-container {
             background: #FFFFFF;
-            border: none;
             border-radius: 15px;
             width: calc(100% - 16px);
             max-width: 100%;
@@ -78,9 +73,10 @@ get_header(); ?>
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Bouton de fermeture X */
+        /* Bouton fermeture */
         .close-button {
             position: absolute;
             top: 22px;
@@ -88,7 +84,7 @@ get_header(); ?>
             width: 32px;
             height: 32px;
             background: #FFFFFF;
-            border: 0.5px solid #000000;
+            border: 2.5px solid #000000;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -119,135 +115,41 @@ get_header(); ?>
             font-weight: 450;
             color: #000000;
             text-transform: uppercase;
-            margin-bottom: 20px !important;
+            margin-bottom: 20px;
             line-height: 1.2;
             letter-spacing: 0.5px;
             margin-top: 15px;
             padding-left: 10px;
         }
 
-        /* Zone de contenu scrollable */
+        /* Zone contenu scrollable — Gutenberg gère ses propres marges */
         .text-content {
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            padding-right: 14px;
+            padding: 0 14px 0 10px;
             color: #000000;
             font-size: 15px;
-            line-height: 1.45;
-            text-align: justify;
-            hyphens: auto;
-            padding-top: 0px !important;
-            margin-top: 0px !important;
+            line-height: 1.5;
             font-weight: 400;
-            padding-left: 10px;
         }
 
-        /* Style des paragraphes - RÈGLE GÉNÉRALE D'ABORD */
-        .texte-page .texte-container .text-content p {
-            margin: 0 0 18px 0 !important;
-            margin-block: 0 18px !important;
-            padding: 0 !important;
-            display: block !important;
+        /* Scrollbar */
+        .text-content::-webkit-scrollbar { width: 6px; }
+        .text-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .text-content::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        .text-content::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* Animation */
+        @keyframes slideInMobile {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Premier paragraphe */
-        .texte-page .texte-container .text-content p:first-child,
-        .texte-page .texte-container .text-content p:first-of-type {
-            margin-top: 0 !important;
-            margin-bottom: 18px !important;
-            padding: 0 !important;
-        }
-
-        /* Dernier paragraphe */
-        .texte-page .texte-container .text-content p:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        /* Titres H2 */
-        .text-content h2 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #000000;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 22px 0 10px 0;
-            line-height: 1.2;
-        }
-
-        /* Sous-titres H3 */
-        .text-content h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #000000;
-            margin: 18px 0 8px 0;
-            line-height: 1.2;
-        }
-
-        /* Listes à puces */
-        .text-content ul,
-        .text-content .wp-block-list {
-            list-style: disc !important;
-            padding-left: 20px !important;
-        }
-
-        /* Listes numérotées */
-        .text-content ol {
-            list-style: decimal !important;
-            padding-left: 20px !important;
-        }
-
-        /* Reset marges Gutenberg sur tous les blocs */
-        .text-content > * {
-            margin-block-start: 0 !important;
-            margin-block-end: 0 !important;
-        }
-
-        .text-content .wp-block-paragraph {
-            margin: 0 0 12px 0 !important;
-        }
-
-        /* Gras */
-        .text-content strong,
-        .text-content b {
-            font-weight: 700;
-            color: #000000;
-        }
-
-        /* Italique */
-        .text-content em,
-        .text-content i {
-            font-style: italic;
-        }
-
-        /* Scrollbar custom */
-        .text-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .text-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .text-content::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-
-        .text-content::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* DESKTOP RESPONSIVE */
+        /* Desktop */
         @media (min-width: 481px) {
-            .texte-page {
-                padding: 20px;
-            }
-
-            .main-container {
-                height: calc(100svh - 40px);
-            }
+            .texte-page { padding: 20px; }
+            .main-container { height: calc(100svh - 40px); }
 
             .texte-container {
                 max-width: 680px;
@@ -255,7 +157,6 @@ get_header(); ?>
                 max-height: 750px;
                 padding: 45px 50px;
                 padding-top: 60px;
-                border: none;
             }
 
             .close-button {
@@ -266,9 +167,7 @@ get_header(); ?>
                 border: 3px solid #000000;
             }
 
-            .close-icon {
-                font-size: 22px;
-            }
+            .close-icon { font-size: 22px; }
 
             .text-title {
                 font-size: 27px;
@@ -277,19 +176,16 @@ get_header(); ?>
             }
 
             .text-content {
-                font-size: 15px;
                 line-height: 1.6;
                 padding-left: 0;
                 padding-right: 30px;
                 overflow-y: scroll;
             }
 
-            .text-content::-webkit-scrollbar {
-                width: 8px;
-            }
+            .text-content::-webkit-scrollbar { width: 8px; }
         }
 
-        /* TRÈS PETIT MOBILE - OPTIMISÉ */
+        /* Très petit mobile */
         @media (max-width: 360px) {
             .texte-container {
                 max-width: 320px;
@@ -305,156 +201,9 @@ get_header(); ?>
                 border: 2px solid #000000;
             }
 
-            .close-icon {
-                font-size: 18px;
-            }
-
-            .text-title {
-                font-size: 18px;
-            }
-
-            .text-content {
-                font-size: 13px;
-            }
-        }
-
-        /* Animation d'entrée */
-        @keyframes slideInMobile {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .texte-container {
-            animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* RESET ciblé — uniquement les éléments structurels, pas le contenu Gutenberg */
-        .texte-page .texte-container,
-        .texte-page .main-container,
-        .texte-page .texte-page {
-            outline: none !important;
-        }
-
-        .texte-container {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        .close-button {
-            border: 2.5px solid #000000 !important;
-        }
-
-        /* ── Blocs Gutenberg ── */
-
-        /* Citation (blockquote) */
-        .text-content .wp-block-quote,
-        .text-content blockquote {
-            border-left: 4px solid #6b92ff;
-            padding: 10px 16px;
-            margin: 16px 0 !important;
-            color: #444;
-            font-style: italic;
-            background: #f8f8f8;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .text-content .wp-block-quote p,
-        .text-content blockquote p {
-            margin: 0 !important;
-        }
-
-        /* Séparateur */
-        .text-content .wp-block-separator,
-        .text-content hr {
-            border: none !important;
-            border-top: 2px solid #e0e0e0 !important;
-            margin: 20px 0 !important;
-        }
-
-        /* Image */
-        .text-content .wp-block-image img,
-        .text-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .text-content .wp-block-image {
-            margin: 16px 0 !important;
-        }
-
-        /* Tableau */
-        .text-content .wp-block-table table,
-        .text-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0 !important;
-            font-size: 14px;
-        }
-
-        .text-content .wp-block-table td,
-        .text-content .wp-block-table th,
-        .text-content table td,
-        .text-content table th {
-            border: 1px solid #ddd !important;
-            padding: 8px 10px;
-            text-align: left;
-        }
-
-        .text-content .wp-block-table th,
-        .text-content table th {
-            background: #f0f0f0;
-            font-weight: 700;
-        }
-
-        /* Boutons */
-        .text-content .wp-block-buttons {
-            margin: 16px 0 !important;
-        }
-
-        .text-content .wp-block-button__link {
-            background: #6b92ff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 500;
-        }
-
-        .text-content .wp-block-button__link:hover {
-            background: #5b7ae6;
-        }
-
-        /* Colonnes */
-        .text-content .wp-block-columns {
-            display: flex;
-            gap: 16px;
-            margin: 16px 0 !important;
-            flex-wrap: wrap;
-        }
-
-        .text-content .wp-block-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        /* Mise en avant (callout) */
-        .text-content .wp-block-pullquote {
-            border-top: 4px solid #6b92ff;
-            border-bottom: 4px solid #6b92ff;
-            padding: 16px;
-            margin: 20px 0 !important;
-            text-align: center;
-            font-size: 17px;
-            font-style: italic;
+            .close-icon { font-size: 18px; }
+            .text-title { font-size: 18px; }
+            .text-content { font-size: 13px; }
         }
     </style>
 
