@@ -467,32 +467,19 @@ body {
    slider JS désactivé, règles inchangées.
    ============================================ */
 @media (min-width: 1024px) {
-    body.home,
-    body.front-page {
-        display: flex;
-        flex-direction: column;
-        height: 100svh;
-        overflow: hidden;
-    }
-
     .homepage-container {
-        flex: 1;
-        height: auto;
-        min-height: 0;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        justify-content: flex-end;
-        gap: clamp(5px, 1vh, 5px);
-        padding-top: 0;
-        padding-bottom: 15px;
+        justify-content: center; 
+        padding-top: 0vh; 
     }
-
+    
     .slider-section {
-        flex: none;
         width: 100%;
         height: auto;
-        padding: 0;
-        margin-top: 0;
+        min-height: auto;
+        padding: 0; 
+        margin-top: -10vh;
     }
     
     .slider-container {
@@ -546,7 +533,7 @@ body {
     }
     
     .card {
-        height: clamp(460px, 55vh, 630px);
+        height: clamp(500px, 60vh, 680px);
         width: 100%;
         max-width: 380px;
         flex-shrink: 0;
@@ -570,20 +557,12 @@ body {
     }
     
     .bottom-logo {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;
-        padding: 0 !important;
-        flex-shrink: 0;
+        bottom: 2vh !important; 
     }
-
+    
     .bottom-logo img {
-        max-width: clamp(150px, 17vh, 210px) !important;
-        max-height: clamp(150px, 17vh, 210px) !important;
+        max-width: clamp(180px, 20vh, 250px) !important;
+        max-height: clamp(180px, 20vh, 250px) !important;
     }
     
     .card.logement .illustration-image {
@@ -601,7 +580,7 @@ body {
     
     .card {
         max-width: 420px;
-        height: clamp(510px, 60vh, 670px);
+        height: clamp(550px, 65vh, 720px);
     }
     
     .slider-wrapper {

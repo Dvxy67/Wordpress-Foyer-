@@ -1,0 +1,113 @@
+08/04/2026 | page légale texte c'est propre
+08/04/2026 | gutember parfait (remis a 0)
+08/04/2026 | page gutember mieux + footer visible home desktop
+07/04/2026 | annimation mis en place sur toute les pages
+07/04/2026 | logo et fleche couper sur Iphone 13 résolut
+02/04/2026 | svh mis en place partout stop tremblement :)
+01/04/2026 | accessibilité remove et hover tell toujour là
+01/04/2026 | 10% plus foncer hover + bordure top 1er enfant
+01/04/2026 | espace entre bar de scroll et de text + alignement des icones
+01/04/2026 | mise en page mieux mais pas parfait
+30/03/2026 | Custumizer un peu nettoyer
+30/03/2026 | footer et animation mis a jour
+24/03/2026 | dvh fait pour page texte
+24/03/2026 | le vdh est correctement mis sur toute les pages
+23/03/2026 | footer creer et rajouter dans chaque page + css du footer
+18/03/2026 | moitier des bug corriger 2eme round
+17/03/2026 | slider qui fonctionne enfin en temps reel
+17/03/2026 |  retour a une bonne base
+16/03/2026 | css plus propre et derniere modif du slider
+16/03/2026 | le slider fonctionne enfin en temps reel
+16/03/2026 | quartier manquant
+13/03/2026 | supreesion du scroll (page fixe)
+13/03/2026 |  texte-tittle mieux mis
+13/03/2026 | présentation du texte ameliorer
+13/03/2026 | 10 % plus grand Iphone 12/13/14
+13/03/2026 | container a la meme taille que sur les autres page pour la version desktop
+13/03/2026 | texte plus grand
+11/03/2026 | supression border radius
+11/03/2026 | btn retour a la page habitant fait
+11/03/2026 | homepage desktop parfait + logo agrandi
+11/03/2026 | annimation plus rapude style tiktoke
+11/03/2026 | animation du slider modifier
+11/03/2026 | slider optimiser (plus rapide)
+18/02/2026 | pdf embed mieux fait
+18/02/2026 | test embed pdf (plus jolie)
+18/02/2026 | test car pb cdn charchement
+18/02/2026 | teste new pdf
+17/02/2026 | titlle sur deux ligne
+17/02/2026 | break point mini ecran
+17/02/2026 | panne-item + garnd pour 360px
+17/02/2026 | panne-item décaller coriger
+17/02/2026 | croix du pfd 2.0
+17/02/2026 | test fermetrure pdf sur mobil
+16/02/2026 | finition du function php
+16/02/2026 | autorisation svg
+16/02/2026 | upload pdf rapport annuel
+16/02/2026 | css résolut sur grand ecran mobil
+10/02/2026 | petit souci croix retour sur Iphone 12 et 14
+10/02/2026 | bug visuel corriger
+09/02/2026 | media query réussi
+09/02/2026 |  iphone SE perfect pixel
+09/02/2026 | slider ok sur tout les ecrant mobil
+26/01/2026 | fluid design
+26/01/2026 | bonne couleurs dernier modif
+23/01/2026 | function page foyer réussi
+23/01/2026 | mise a jour automatique page foyer
+23/01/2026 | btn modif
+23/01/2026 | mise en place lecture pdf pour le rapport annuel
+21/01/2026 | carré bleu supprimer + justif text left
+21/01/2026 | suppression des carré bleu pour les services icones
+21/01/2026 | suppression des carré bleu pour service icone
+21/01/2026 | carrer bleu btn supp
+21/01/2026 | carrer bleu supprimer
+21/01/2026 | supression carer bleu btn retour
+21/01/2026 | couleurs ajuster
+21/01/2026 | rectification couleurs
+20/01/2026 | pixel perfect presque atteint
+20/01/2026 | modif final pour les pages textes
+16/01/2026 | mise en place configuration text
+16/01/2026 | croix fini
+13/01/2026 | pagraphe css enfin debug
+12/01/2026 | ajout page text
+19/12/2025 | taille logo et dot reajuster
+19/12/2025 | wordpress mis a jours
+17/12/2025 | icone au millieu + blanc etandu
+17/12/2025 | suppression du ?
+17/12/2025 | page quartier fini
+17/12/2025 | blanc jusq en bas
+16/12/2025 | bordur item regler
+16/12/2025 | harmonisation des container
+16/12/2025 | meme taille des div
+15/12/2025 | icone exact taille et rotation
+15/12/2025 | changement dot visuel
+15/12/2025 | petit changement
+10/12/2025 | page quartier fonctionne
+09/12/2025 | taile respecter
+09/12/2025 | taille image + text plus grand
+09/12/2025 | dot fil ariane
+09/12/2025 | animation slider
+08/12/2025 | caroussel mis en place
+08/12/2025 | version final vendredi
+05/12/2025 | habitant fini
+05/12/2025 | habitant card fini
+04/12/2025 | fin page acceuil
+04/12/2025 | ouiiii
+04/12/2025 | logo presque parfait
+03/12/2025 | on s'en rapproche
+03/12/2025 | presque parfait
+03/12/2025 | slider bonne direction
+01/12/2025 | footer image page acceuil
+28/11/2025 | amelioration design
+28/11/2025 | lien quartier mis a jours
+28/11/2025 | lien + nom menu habitant
+28/11/2025 | toute les pages pannes par quartier creer
+21/11/2025 | ajoute de la page pannes
+21/11/2025 | amelioration rendu smartphone
+21/11/2025 | function a jours
+21/11/2025 | page foyer
+19/11/2025 | fix designe logement
+19/11/2025 | debog function php
+19/11/2025 | ajout menu logement +modif de founction php
+19/11/2025 | page acceuil, habitant, quartier fait
+19/11/2025 | page acceuil habitant et quartier fait
