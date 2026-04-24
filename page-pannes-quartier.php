@@ -16,6 +16,30 @@ if (strpos($page_slug, 'pannes-') === 0) {
 
 // Convertir en format lisible (ex: "prins" -> "Prins")
 $quartier_display = ucfirst($quartier);
+
+// Données multi-concierges : quartiers avec plusieurs concierges selon le bâtiment
+$multi_concierge = [
+    'peterbos' => [
+        ['label' => 'Blocs 1-4-5',    'tel' => '0489 10 93 52'],
+        ['label' => 'Blocs 7-9-12',   'tel' => '0479 38 94 17'],
+        ['label' => 'Blocs 13-14-15', 'tel' => '0476 86 76 81'],
+    ],
+    'la-roue' => [
+        ['label' => 'Maisons',   'tel' => '0476 86 76 82'],
+        ['label' => 'Immeubles', 'tel' => '0474 74 29 86'],
+    ],
+    'goujons' => [
+        ['label' => 'Général',                   'tel' => '0484 65 73 67'],
+        ['label' => 'Blocs 59-61 (jusqu\'au 9e)', 'tel' => '0486 41 38 01'],
+        ['label' => 'Blocs 63-61 (10e au 18e)',  'tel' => '0486 98 19 46'],
+    ],
+    'square-albert' => [
+        ['label' => 'Blocs 1-14',  'tel' => '0488 08 87 10'],
+        ['label' => 'Blocs 15-28', 'tel' => '0473 84 48 45'],
+    ],
+];
+
+$is_multi = isset($multi_concierge[$quartier]);
 ?>
 
 <!DOCTYPE html>
@@ -139,6 +163,8 @@ $quartier_display = ucfirst($quartier);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .pannes-grid {
@@ -153,6 +179,15 @@ $quartier_display = ucfirst($quartier);
             max-width: 280px;
             height: 100%;
             max-height: 280px;
+        }
+
+        .panne-item,
+        a.panne-item:link,
+        a.panne-item:visited,
+        a.panne-item:hover,
+        a.panne-item:active {
+            color: #000;
+            text-decoration: none;
         }
 
         .panne-item {
@@ -332,8 +367,64 @@ $quartier_display = ucfirst($quartier);
 
         /* État clicked */
         .panne-item.clicked {
-            background-color: #f0f0f0;
             transform: scale(0.98);
+        }
+
+        /* Zone sélection bâtiment (multi-concierges) */
+        .batiment-selector {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: #E8E8E8;
+            padding: 20px 15px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: slideIn 0.3s ease;
+            text-align: center;
+        }
+
+        .batiment-selector.visible {
+            display: flex;
+        }
+
+        .batiment-selector-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .batiment-btn {
+            display: block;
+            width: 100%;
+            padding: 9px 12px;
+            margin-bottom: 6px;
+            background: #f0f0f0;
+            border: none !important;
+            border-radius: 8px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .batiment-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .batiment-btn:hover,
+        .batiment-btn:active {
+            background: #e0e0e0;
         }
 
         /* Section bouton retour - HARMONISÉE */
@@ -733,7 +824,10 @@ $quartier_display = ucfirst($quartier);
 
                             // Si pas de téléphone, utiliser l'URL
                             $onclick = '';
-                            if (!empty($telephone)) {
+                            if ($is_multi && ($i == 1 || $i == 2)) {
+                                $options_json = esc_attr(json_encode($multi_concierge[$quartier], JSON_UNESCAPED_UNICODE));
+                                $onclick = "event.preventDefault(); showBatimentSelector(this, " . $options_json . ");";
+                            } elseif (!empty($telephone)) {
                                 $onclick = "event.preventDefault(); showPhoneNumber(this, '" . esc_js($telephone) . "');";
                             }
                         ?>
@@ -754,6 +848,9 @@ $quartier_display = ucfirst($quartier);
                             </a>
                         <?php endfor; ?>
                     </div>
+
+                    <!-- Sélection bâtiment (multi-concierges) -->
+                    <div id="batiment-selector" class="batiment-selector"></div>
                 </div>
             </div>
 
@@ -786,6 +883,9 @@ $quartier_display = ucfirst($quartier);
 
     <script>
         function showPhoneNumber(element, phoneNumber) {
+            // Cacher la zone bâtiment si ouverte
+            document.getElementById('batiment-selector').classList.remove('visible');
+
             // Réinitialiser tous les autres items déjà ouverts
             document.querySelectorAll('.panne-item.clicked').forEach(function(other) {
                 if (other !== element) {
@@ -822,6 +922,40 @@ $quartier_display = ucfirst($quartier);
                 setTimeout(() => {
                     window.location.href = 'tel:' + phoneNumber;
                 }, 500);
+            }
+        }
+
+        function showBatimentSelector(element, options) {
+            // Réinitialiser les autres items déjà ouverts
+            document.querySelectorAll('.panne-item.clicked').forEach(function(other) {
+                if (other !== element) {
+                    other.classList.remove('clicked');
+                    const otherText = other.querySelector('.panne-text');
+                    const originalText = other.dataset.originalText;
+                    if (originalText) {
+                        otherText.innerHTML = originalText;
+                    }
+                }
+            });
+
+            element.classList.add('clicked');
+
+            const selector = document.getElementById('batiment-selector');
+
+            let html = '<div class="batiment-selector-title">Quel est votre bâtiment ?</div>';
+            options.forEach(function(opt) {
+                const tel = opt.tel.replace(/'/g, "\\'");
+                html += `<button class="batiment-btn" onclick="selectBatiment('${tel}')">${opt.label}</button>`;
+            });
+
+            selector.innerHTML = html;
+            selector.classList.add('visible');
+        }
+
+        function selectBatiment(phoneNumber) {
+            const clickedItem = document.querySelector('.panne-item.clicked');
+            if (clickedItem) {
+                showPhoneNumber(clickedItem, phoneNumber);
             }
         }
     </script>
