@@ -96,9 +96,9 @@ $concierges_data = [
     'trefles' => [
         'multi'   => true,
         'options' => [
-            ['label' => 'Blocs 276-278-280A',       'nom' => 'Ferdaoui Touria',          'tel' => '0476/88.36.53'],
-            ['label' => 'Blocs 280B/C-282A/B-284A', 'nom' => 'El Fakiri Soufian',        'tel' => '0497/59.03.82'],
-            ['label' => 'Blocs 284B-286-288',        'nom' => 'Menlaikhaf Nour Eddine',  'tel' => '0476/86.52.19'],
+            ['label' => 'Blocs 276-278-280A',       'nom' => 'Ferdaoui Touria',         'tel' => '0476/88.36.53'],
+            ['label' => 'Blocs 280B/C-282A/B-284A', 'nom' => 'El Fakiri Soufian',       'tel' => '0497/59.03.82'],
+            ['label' => 'Blocs 284B-286-288',        'nom' => 'Menlaikhaf Nour Eddine', 'tel' => '0476/86.52.19'],
         ],
     ],
     'lennik' => [
@@ -138,7 +138,7 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             min-height: 100vh;
         }
 
-        .as-page {
+        .pannes-page {
             min-height: 100svh;
             background: #6b92ff;
             display: flex;
@@ -155,141 +155,198 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             justify-content: center;
             height: calc(100svh - 16px);
             width: 100%;
+            max-width: 100%;
         }
 
-        .as-container {
+        .pannes-container {
             background: #eed05d;
             border: 3px solid #000000;
             border-radius: 25px;
             width: calc(100% - 16px);
             max-width: 370px;
-            min-height: 300px;
-            max-height: 560px;
-            padding: 20px;
+            height: calc(100vh - 120px);
+            min-height: 505px;
+            max-height: 585px;
+            padding: 15px 15px 0 15px;
             margin-top: 20px;
             margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideInMobile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .as-header {
+        .pannes-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
             flex-shrink: 0;
+            min-height: 60px;
         }
 
-        .as-icon { font-size: 40px; line-height: 1; flex-shrink: 0; }
+        .tools-icon {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .as-title {
-            font-size: 22px;
-            font-weight: 600;
+        .tools-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .tools-icon .emoji-fallback {
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        .pannes-title {
+            font-size: 25px;
+            font-weight: 500;
             color: #000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-align: left;
             line-height: 1.2;
         }
 
-        .as-content {
+        /* Zone de contenu — identique au pannes-grid-container */
+        .pannes-grid-container {
             background: #E8E8E8;
-            border-radius: 10px;
+            border-radius: 0px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            padding: 25px 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 25px 20px;
-            gap: 18px;
+            overflow-y: auto;
         }
 
-        /* Carte concierge unique */
-        .as-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .as-nom {
+        /* Concierge unique */
+        .concierge-nom {
             font-size: 20px;
             font-weight: 600;
             color: #000;
             text-align: center;
             text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
-        .as-tel-btn {
-            background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 30px;
-            font-family: 'Rubik', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+        .concierge-tel-btn {
+            display: block;
             text-decoration: none;
-            display: inline-block;
-            transition: transform 0.2s ease, background 0.2s ease;
+            text-align: center;
             -webkit-tap-highlight-color: transparent;
+            animation: slideIn 0.3s ease;
         }
 
-        .as-tel-btn:hover { transform: scale(1.05); background: #222; color: #fff; text-decoration: none; }
+        .concierge-tel-btn .phone-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
 
-        /* Choix de bâtiment (multi) */
-        .as-bloc-title {
+        .concierge-tel-btn .phone-instruction {
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Sélection bâtiment (multi) */
+        .batiment-title {
             font-family: 'Rubik', sans-serif;
             font-size: 15px;
-            font-weight: 600;
-            color: #000;
+            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #555;
+            margin-bottom: 12px;
             text-align: center;
-            margin-bottom: 5px;
         }
 
-        .as-blocs {
+        .batiment-liste {
+            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 0;
+        }
+
+        .batiment-btn {
+            display: block;
             width: 100%;
-        }
-
-        .as-bloc-item {
-            background: #fff;
-            border: 2px solid #000;
-            border-radius: 12px;
-            padding: 12px 16px;
+            padding: 9px 12px;
+            margin-bottom: 6px;
+            background: #f0f0f0;
+            border: none !important;
+            border-radius: 8px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s ease, background 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
             text-align: center;
+            transition: background 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+            outline: none !important;
+            box-shadow: none !important;
         }
 
-        .as-bloc-item:hover { transform: scale(1.02); background: #f5f5f5; }
+        .batiment-btn:last-child { margin-bottom: 0; }
+        .batiment-btn:hover, .batiment-btn:active { background: #e0e0e0; }
 
-        .as-bloc-label {
+        /* Affichage numéro après sélection */
+        .panne-phone {
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        .panne-phone .phone-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .panne-phone .phone-instruction {
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .phone-nom {
             font-size: 13px;
-            font-weight: 500;
             color: #555;
             text-transform: uppercase;
-            margin-bottom: 3px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
-        .as-bloc-nom {
-            font-family: 'Rubik', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #000;
-            text-transform: uppercase;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .as-bloc-item.selected { background: #000; }
-        .as-bloc-item.selected .as-bloc-label,
-        .as-bloc-item.selected .as-bloc-nom { color: #fff; }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50%       { opacity: 1; }
+        }
 
         /* Bouton retour */
         .retour-section {
@@ -297,7 +354,7 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100px;
+            height: 118px;
             animation: slideInMobile 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
         }
 
@@ -305,12 +362,13 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
             padding: 10px 15px;
             border-radius: 10px;
+            outline: none;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -324,16 +382,32 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @media (min-width: 481px) {
-            .as-page { padding: 20px; }
-            .main-container { height: calc(100vh - 40px); }
-            .as-container { max-width: 400px; border: 6px solid #000; padding: 25px; }
-            .as-title { font-size: 24px; }
+        /* Reset interférences thème */
+        .pannes-page * {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
         }
 
-        .as-page * { outline: none; }
-        .as-container { box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important; border: 3px solid #000 !important; }
-        @media (min-width: 481px) { .as-container { border: 6px solid #000 !important; } }
+        .pannes-container {
+            border: 3px solid #000000 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Desktop */
+        @media (min-width: 481px) {
+            .pannes-page { padding: 20px; }
+            .main-container { height: calc(100vh - 40px); }
+            .pannes-container {
+                max-width: 400px;
+                min-height: 560px;
+                max-height: 660px;
+                padding: 20px;
+                border: 6px solid #000000 !important;
+            }
+            .pannes-header { margin-bottom: 25px; min-height: 80px; gap: 20px; }
+            .pannes-title { font-size: 20px; }
+        }
     </style>
 
     <?php wp_head(); ?>
@@ -341,42 +415,53 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
 
 <body <?php body_class(); ?>>
 
-<div class="as-page">
+<div class="pannes-page">
     <div class="main-container">
-        <div class="as-container">
+        <div class="pannes-container">
 
-            <div class="as-header">
-                <div class="as-icon">🔑</div>
-                <h1 class="as-title">Concierge<br><?php echo esc_html(strtoupper($quartier_display)); ?></h1>
+            <div class="pannes-header">
+                <div class="tools-icon">
+                    <?php
+                    $concierge_icone = get_theme_mod('concierge_image_icone');
+                    if ($concierge_icone) : ?>
+                        <img src="<?php echo esc_url($concierge_icone); ?>" alt="Concierge">
+                    <?php else : ?>
+                        <span class="emoji-fallback" role="img">🔑</span>
+                    <?php endif; ?>
+                </div>
+                <h1 class="pannes-title">Concierge<br><?php echo esc_html(strtoupper($quartier_display)); ?></h1>
             </div>
 
-            <div class="as-content">
+            <div class="pannes-grid-container">
                 <?php if (!$data) : ?>
-                    <p style="text-align:center; color:#555;">Aucune information disponible pour ce quartier.</p>
+                    <p style="text-align:center;color:#555;">Aucune information disponible.</p>
 
                 <?php elseif ($data['multi']) : ?>
-                    <div class="as-bloc-title">Quel est votre bâtiment ?</div>
-                    <div class="as-blocs">
-                        <?php foreach ($data['options'] as $option) : ?>
-                            <div class="as-bloc-item"
-                                 onclick="selectBloc(this, '<?php echo esc_js($option['nom']); ?>', '<?php echo esc_js($option['tel']); ?>')">
-                                <div class="as-bloc-label"><?php echo esc_html($option['label']); ?></div>
-                                <div class="as-bloc-nom"><?php echo esc_html($option['nom']); ?></div>
-                            </div>
+                    <div class="batiment-title">Quel est votre bâtiment ?</div>
+                    <div class="batiment-liste">
+                        <?php foreach ($data['options'] as $option) :
+                            $tel_js  = esc_js($option['tel']);
+                            $nom_js  = esc_js($option['nom']);
+                        ?>
+                            <button class="batiment-btn"
+                                    onclick="selectBatiment(this, '<?php echo $nom_js; ?>', '<?php echo $tel_js; ?>')">
+                                <?php echo esc_html($option['label']); ?>
+                            </button>
                         <?php endforeach; ?>
                     </div>
 
                 <?php else : ?>
-                    <div class="as-card">
-                        <div class="as-nom"><?php echo esc_html($data['nom']); ?></div>
-                        <?php if (!empty($data['tel'])) : ?>
-                            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $data['tel'])); ?>"
-                               class="as-tel-btn"
-                               onclick="handleCall(event)">
-                                <?php echo esc_html($data['tel']); ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
+                    <?php if (!empty($data['tel'])) : ?>
+                        <div class="concierge-nom"><?php echo esc_html($data['nom']); ?></div>
+                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $data['tel'])); ?>"
+                           class="concierge-tel-btn"
+                           onclick="handleCall(event)">
+                            <div class="phone-number"><?php echo esc_html($data['tel']); ?></div>
+                            <div class="phone-instruction">Appuyez pour appeler</div>
+                        </a>
+                    <?php else : ?>
+                        <div class="concierge-nom"><?php echo esc_html($data['nom']); ?></div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
 
@@ -399,23 +484,25 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
 <script>
     function handleCall(event) {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (!isMobile) {
-            event.preventDefault();
-        }
+        if (!isMobile) event.preventDefault();
     }
 
-    function selectBloc(el, nom, tel) {
-        document.querySelectorAll('.as-bloc-item.selected').forEach(function(item) {
-            item.classList.remove('selected');
-        });
+    function selectBatiment(btn, nom, tel) {
+        const container = btn.closest('.pannes-grid-container');
 
-        el.classList.add('selected');
+        container.innerHTML = `
+            <div class="panne-phone">
+                <div class="phone-nom">${nom}</div>
+                <div class="phone-number">${tel}</div>
+                <div class="phone-instruction">Appuyez pour appeler</div>
+            </div>
+        `;
 
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         if (isMobile) {
-            setTimeout(function() {
+            setTimeout(() => {
                 window.location.href = 'tel:' + tel.replace(/[^0-9+]/g, '');
-            }, 400);
+            }, 500);
         }
     }
 </script>
