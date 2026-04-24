@@ -705,14 +705,30 @@ $quartier_display = ucfirst($quartier);
                                 );
                             }
 
+                            // Numéros par défaut : chauffage et ascenseur
+                            $default_telephones = [
+                                1 => '0800 11 111',
+                                2 => '0800 22 222',
+                                3 => '',
+                                4 => '',
+                            ];
+
+                            // URLs par défaut : TV et Internet pointent vers les fiches explicatives
+                            $default_urls = [
+                                1 => '#',
+                                2 => '#',
+                                3 => '/panne-television',
+                                4 => '/panne-internet',
+                            ];
+
                             $telephone = get_theme_mod("pannes_{$quartier}_telephone_panne{$i}");
                             if (empty($telephone)) {
-                                $telephone = get_theme_mod("pannes_telephone_panne{$i}");
+                                $telephone = get_theme_mod("pannes_telephone_panne{$i}", $default_telephones[$i]);
                             }
 
                             $url = get_theme_mod("pannes_{$quartier}_url_panne{$i}");
                             if (empty($url)) {
-                                $url = "#";
+                                $url = get_theme_mod("pannes_url_panne{$i}", $default_urls[$i]);
                             }
 
                             // Si pas de téléphone, utiliser l'URL
@@ -770,11 +786,26 @@ $quartier_display = ucfirst($quartier);
 
     <script>
         function showPhoneNumber(element, phoneNumber) {
+            // Réinitialiser tous les autres items déjà ouverts
+            document.querySelectorAll('.panne-item.clicked').forEach(function(other) {
+                if (other !== element) {
+                    other.classList.remove('clicked');
+                    const otherText = other.querySelector('.panne-text');
+                    const originalText = other.dataset.originalText;
+                    if (originalText) {
+                        otherText.innerHTML = originalText;
+                    }
+                }
+            });
+
+            // Sauvegarder le texte original si pas encore fait
+            const textContainer = element.querySelector('.panne-text');
+            if (!element.dataset.originalText) {
+                element.dataset.originalText = textContainer.innerHTML;
+            }
+
             // Ajouter la classe clicked
             element.classList.add('clicked');
-
-            // Trouver le conteneur du texte
-            const textContainer = element.querySelector('.panne-text');
 
             // Remplacer le texte par le numéro de téléphone
             textContainer.innerHTML = `
@@ -784,10 +815,14 @@ $quartier_display = ucfirst($quartier);
         </div>
     `;
 
-            // Créer un lien tel: et simuler un clic après un court délai
-            setTimeout(() => {
-                window.location.href = 'tel:' + phoneNumber;
-            }, 500);
+            // Sur mobile : lancer l'appel automatiquement
+            // Sur desktop : afficher uniquement le numéro
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                setTimeout(() => {
+                    window.location.href = 'tel:' + phoneNumber;
+                }, 500);
+            }
         }
     </script>
 
