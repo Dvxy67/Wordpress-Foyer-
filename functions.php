@@ -257,6 +257,24 @@ function foyer_customize_register($wp_customize) {
         'settings' => 'quartiers_image_retour',
     )));
     
+    // Section Page Concierge
+    $wp_customize->add_section('concierge_page', array(
+        'title'    => __('Page Concierge', 'foyer-theme'),
+        'priority' => 33,
+    ));
+
+    $wp_customize->add_setting('concierge_image_icone', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'concierge_image_icone', array(
+        'label'       => __('Icône Concierge', 'foyer-theme'),
+        'description' => __('Image affichée à côté du titre "Mon Concierge" (remplace la clé 🔑)', 'foyer-theme'),
+        'section'     => 'concierge_page',
+        'settings'    => 'concierge_image_icone',
+    )));
+
 }
 add_action('customize_register', 'foyer_customize_register');
 
