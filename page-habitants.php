@@ -315,6 +315,11 @@ get_header(); ?>
                 border: 6px solid #000000;
             }
         }
+
+        @media (hover: hover) {
+            .service-item:hover { transform: scale(1.03); }
+            .retour-button:hover { transform: scale(1.05); }
+        }
     </style>
 
     <?php wp_head(); ?>

@@ -304,7 +304,7 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
         }
 
         .batiment-btn:last-child { margin-bottom: 0; }
-        .batiment-btn:hover, .batiment-btn:active { background: #e0e0e0; }
+        .batiment-btn:active { background: #e0e0e0; }
 
         /* Affichage numéro après sélection */
         .panne-phone {
@@ -371,7 +371,6 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             -webkit-tap-highlight-color: transparent;
         }
 
-        .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
 
         .arrow { font-size: 45px; font-weight: 500; color: #000; line-height: 1; }
         .arrow-image { width: 90px; height: 90px; object-fit: contain; }
@@ -406,6 +405,11 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             }
             .pannes-header { margin-bottom: 25px; min-height: 80px; gap: 20px; }
             .pannes-title { font-size: 20px; }
+        }
+
+        @media (hover: hover) {
+            .batiment-btn:hover { background: #e0e0e0; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
         }
     </style>
 

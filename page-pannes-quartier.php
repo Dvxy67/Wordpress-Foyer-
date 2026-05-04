@@ -183,7 +183,6 @@ $is_multi = isset($multi_concierge[$quartier]);
         .panne-item,
         a.panne-item:link,
         a.panne-item:visited,
-        a.panne-item:hover,
         a.panne-item:active {
             color: #000;
             text-decoration: none;
@@ -228,11 +227,6 @@ $is_multi = isset($multi_concierge[$quartier]);
             outline: none !important;
         }
 
-        .panne-item:hover {
-            transform: scale(1.05);
-            text-decoration: none;
-            color: #000;
-        }
 
         .panne-icon {
             width: 80px;
@@ -421,7 +415,6 @@ $is_multi = isset($multi_concierge[$quartier]);
             margin-bottom: 0;
         }
 
-        .batiment-btn:hover,
         .batiment-btn:active {
             background: #e0e0e0;
         }
@@ -445,12 +438,6 @@ $is_multi = isset($multi_concierge[$quartier]);
             transition: transform 0.2s ease;
             padding: 10px 15px;
             border-radius: 10px;
-        }
-
-        .retour-button:hover {
-            transform: scale(1.05);
-            text-decoration: none;
-            color: #000;
         }
 
         /* Flèche de retour - HARMONISÉE */
@@ -741,6 +728,12 @@ $is_multi = isset($multi_concierge[$quartier]);
             .pannes-container {
                 border: 6px solid #000000 !important;
             }
+        }
+
+        @media (hover: hover) {
+            .panne-item:hover { transform: scale(1.03); text-decoration: none; color: #000; }
+            .batiment-btn:hover { background: #e0e0e0; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
         }
     </style>
 

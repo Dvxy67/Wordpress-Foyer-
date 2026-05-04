@@ -98,12 +98,6 @@ get_header(); ?>
             cursor: pointer;
         }
 
-        .foyer-option:hover {
-            transform: scale(1.02);
-            text-decoration: none;
-            color: #000;
-        }
-
         /* Texte de l'option - HARMONISÉ */
         .option-text {
             font-size: 20px;
@@ -137,12 +131,6 @@ get_header(); ?>
             transition: transform 0.2s ease;
             padding: 10px 15px;
             border-radius: 10px;
-        }
-
-        .retour-button:hover {
-            transform: scale(1.05);
-            text-decoration: none;
-            color: #000;
         }
 
         /* Flèche de retour - HARMONISÉE (90x90px pour image) */
@@ -288,6 +276,11 @@ get_header(); ?>
             .foyer-container {
                 border: 6px solid #000000 !important;
             }
+        }
+
+        @media (hover: hover) {
+            .foyer-option:hover { transform: scale(1.03); text-decoration: none; color: #000; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
         }
     </style>
 

@@ -171,19 +171,10 @@ Template Name: Page Quartiers - Harmonisée
             min-height: 45px;
         }
 
-        /* Hover normal */
-        .quartier-item:hover {
-            background-color: #DFDFDF;
-        }
-
         /* SÉLECTIONNÉ - Bleu au clic */
         .quartier-item.selected {
             background-color: #7391ff !important;
             color: #FFFFFF !important;
-        }
-
-        .quartier-item.selected:hover {
-            background-color: #5b7ae6 !important;
         }
 
         /* Premier quartier avec bordure en haut */
@@ -216,10 +207,6 @@ Template Name: Page Quartiers - Harmonisée
             text-decoration: none;
             color: #000;
             transition: transform 0.2s ease;
-        }
-
-        .retour-button:hover {
-            transform: scale(1.05);
         }
 
         /* Flèche/Image de retour - IDENTIQUE À LOGEMENT */
@@ -339,6 +326,12 @@ Template Name: Page Quartiers - Harmonisée
                 border-bottom-left-radius: 1px;
                 border-bottom-right-radius: 1px;
             }
+        }
+
+        @media (hover: hover) {
+            .quartier-item:hover { background-color: #DFDFDF; }
+            .quartier-item.selected:hover { background-color: #5b7ae6 !important; }
+            .retour-button:hover { transform: scale(1.05); }
         }
     </style>
 

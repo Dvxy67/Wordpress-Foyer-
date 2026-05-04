@@ -120,11 +120,6 @@ get_header(); ?>
             min-height: 90px;
         }
 
-        .logement-option:hover {
-            transform: scale(1.02);
-            text-decoration: none;
-            color: #000;
-        }
 
         .logement-option:active {
             transform: scale(0.98);
@@ -188,12 +183,6 @@ get_header(); ?>
             padding: 10px 15px;
             border-radius: 10px;
             touch-action: manipulation;
-        }
-
-        .retour-button:hover {
-            transform: scale(1.05);
-            text-decoration: none;
-            color: #000;
         }
 
         .retour-button:active {
@@ -405,6 +394,11 @@ get_header(); ?>
             .logement-container {
                 border: 6px solid #000000 !important;
             }
+        }
+
+        @media (hover: hover) {
+            .logement-option:hover { transform: scale(1.03); text-decoration: none; color: #000; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
         }
     </style>
 

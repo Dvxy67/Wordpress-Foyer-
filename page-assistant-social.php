@@ -134,13 +134,6 @@ $quartiers = [
 
         .as-quartier-item:last-child { margin-bottom: 0; }
 
-        .as-quartier-item:hover {
-            transform: scale(1.02);
-            background: #f0f0f0;
-            text-decoration: none;
-            color: #000;
-        }
-
         .as-quartier-item:active {
             background: #000;
             color: #fff;
@@ -169,8 +162,6 @@ $quartiers = [
             -webkit-tap-highlight-color: transparent;
         }
 
-        .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
-
         .arrow { font-size: 45px; font-weight: 500; color: #000; line-height: 1; }
         .arrow-image { width: 90px; height: 90px; object-fit: contain; }
 
@@ -196,6 +187,11 @@ $quartiers = [
         .as-page * { outline: none; }
         .as-container { box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important; border: 3px solid #000 !important; }
         @media (min-width: 481px) { .as-container { border: 6px solid #000 !important; } }
+
+        @media (hover: hover) {
+            .as-quartier-item:hover { transform: scale(1.03); background: #f0f0f0; text-decoration: none; color: #000; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
+        }
     </style>
 
     <?php wp_head(); ?>

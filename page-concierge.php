@@ -157,7 +157,6 @@ $quartiers = [
             -webkit-tap-highlight-color: transparent;
         }
 
-        .quartier-item:hover { background-color: #DFDFDF; color: #000; text-decoration: none; }
         .quartier-item:active { background-color: #7391ff; color: #fff; }
 
         .quartiers-list li:first-child .quartier-item { border-top: 2px solid #ebecf4; }
@@ -184,7 +183,6 @@ $quartiers = [
             -webkit-tap-highlight-color: transparent;
         }
 
-        .retour-button:hover { transform: scale(1.05); }
 
         .arrow {
             width: 90px;
@@ -221,6 +219,11 @@ $quartiers = [
                 min-height: 560px;
                 max-height: 660px;
             }
+        }
+
+        @media (hover: hover) {
+            .quartier-item:hover { background-color: #DFDFDF; color: #000; text-decoration: none; }
+            .retour-button:hover { transform: scale(1.05); }
         }
     </style>
 

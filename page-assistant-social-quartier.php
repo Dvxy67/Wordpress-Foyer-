@@ -263,7 +263,6 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             -webkit-tap-highlight-color: transparent;
         }
 
-        .as-tel-btn:hover { transform: scale(1.05); background: #222; color: #fff; text-decoration: none; }
 
         /* Choix de blocs (multi) */
         .as-bloc-title {
@@ -293,7 +292,6 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             text-align: center;
         }
 
-        .as-bloc-item:hover { transform: scale(1.02); background: #f5f5f5; }
 
         .as-bloc-label {
             font-size: 13px;
@@ -341,8 +339,6 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
             -webkit-tap-highlight-color: transparent;
         }
 
-        .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
-
         .arrow { font-size: 45px; font-weight: 500; color: #000; line-height: 1; }
 
         .arrow-image { width: 90px; height: 90px; object-fit: contain; }
@@ -371,6 +367,12 @@ $quartier_display = ucfirst(str_replace('-', ' ', $quartier));
         .as-page * { outline: none; }
         .as-container { box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important; border: 3px solid #000 !important; }
         @media (min-width: 481px) { .as-container { border: 6px solid #000 !important; } }
+
+        @media (hover: hover) {
+            .as-tel-btn:hover { transform: scale(1.05); background: #222; color: #fff; text-decoration: none; }
+            .as-bloc-item:hover { transform: scale(1.03); background: #f5f5f5; }
+            .retour-button:hover { transform: scale(1.05); text-decoration: none; color: #000; }
+        }
     </style>
 
     <?php wp_head(); ?>

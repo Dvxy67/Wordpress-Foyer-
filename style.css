@@ -335,9 +335,6 @@ body {
     transform: scale(1.2);
 }
 
-.dot:hover {
-    background: rgba(255, 255, 255, 0.8);
-}
 
 .sr-only {
     position: absolute;
@@ -623,9 +620,8 @@ body {
     transition: color 0.2s ease;
 }
 
-.foyer-footer__links a:hover,
 .foyer-footer__links a:focus {
-    color: #6A5ACD; /* reprend la couleur principale du thème */
+    color: #6A5ACD;
     outline: none;
 }
 
@@ -646,6 +642,11 @@ body {
     color: #6A5ACD;
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .dot:hover { background: rgba(255, 255, 255, 0.8); }
+    .foyer-footer__links a:hover { color: #6A5ACD; }
 }
 
 /* --- Mobile : réduire les gaps sur très petit écran --- */
