@@ -121,7 +121,7 @@ get_header(); ?>
             padding-left: 10px;
         }
 
-        /* Zone contenu scrollable — Gutenberg gère ses propres marges */
+        /* Zone contenu scrollable */
         .text-content {
             flex: 1;
             overflow-y: auto;
@@ -131,6 +131,49 @@ get_header(); ?>
             font-size: 15px;
             line-height: 1.5;
             font-weight: 400;
+        }
+
+        /* Restaurer la mise en page Gutenberg (le reset * écrase les marges par défaut) */
+        .text-content p,
+        .text-content .wp-block-paragraph {
+            margin-top: 0;
+            margin-bottom: 0.7em;
+        }
+        .text-content p:last-child,
+        .text-content .wp-block-paragraph:last-child {
+            margin-bottom: 0;
+        }
+        .text-content h1,
+        .text-content h2,
+        .text-content h3,
+        .text-content h4,
+        .text-content h5,
+        .text-content h6 {
+            font-weight: 600;
+            margin-top: 1.4em;
+            margin-bottom: 0.5em;
+            line-height: 1.3;
+        }
+        .text-content h1 { font-size: 1.5em; }
+        .text-content h2 { font-size: 1.3em; }
+        .text-content h3 { font-size: 1.1em; }
+        .text-content ul,
+        .text-content ol,
+        .text-content .wp-block-list {
+            margin: 0.7em 0;
+            padding-left: 1.2em;
+        }
+        .text-content li {
+            margin-bottom: 0.3em;
+        }
+        .text-content strong { font-weight: 700; }
+        .text-content em { font-style: italic; }
+        .text-content a { color: #000; text-decoration: underline; }
+        .text-content blockquote {
+            border-left: 3px solid #ccc;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #555;
         }
 
         /* Scrollbar */
