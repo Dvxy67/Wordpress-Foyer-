@@ -13,7 +13,6 @@ get_header(); ?>
     <title><?php the_title(); ?> — <?php bloginfo('name'); ?></title>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap');
 
         * {
             margin: 0;

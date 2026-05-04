@@ -14,7 +14,6 @@ get_header(); ?>
 
     <style>
         /* Import Google Fonts - Rubik */
-        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100..900&display=swap');
 
         * {
             margin: 0;
