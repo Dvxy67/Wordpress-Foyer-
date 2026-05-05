@@ -151,7 +151,8 @@ Pour toute question sur ce thème, contactez le développeur ou consultez la doc
 
 **Version**: 2.0 (Corrigée)  
 **Auteur**: Thème personnalisé  
-**Licence**: Usage privé
+**Licence**: Usage privé  
+**Reprise du projet**: Mai 2026 — nouveau PC
 
 ## 🔄 Version 2.0 - Corrections
 - ✅ Les images couvrent maintenant **toute** la zone colorée
