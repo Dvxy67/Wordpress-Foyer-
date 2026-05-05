@@ -656,3 +656,39 @@ body {
         padding: 16px 12px 20px;
     }
 }
+
+/* ============================================
+   DESKTOP 1080p — Correction écrans Windows 1920×1080
+   Le site a été conçu sur Mac (~800px de haut).
+   Sur 1080p, les valeurs vh sont ~35% plus grandes.
+   Ce bloc ramène les tailles à l'équivalent visuel
+   de 90% de zoom, qui était le rendu correct.
+   ============================================ */
+@media (min-width: 1024px) and (min-height: 960px) {
+    .card {
+        height: clamp(480px, 54vh, 630px);
+        max-width: 340px;
+    }
+
+    .card-title {
+        padding: clamp(22px, 2.9vh, 34px) clamp(18px, 2.3vmin, 24px);
+        min-height: clamp(108px, 12.5vh, 148px);
+    }
+
+    .card-title h2 {
+        font-size: clamp(22px, 3vh, 32px);
+    }
+
+    .slider-section {
+        margin-top: -9vh;
+    }
+
+    .slider-wrapper {
+        gap: clamp(16px, 2vw, 34px);
+    }
+
+    .bottom-logo img {
+        max-width: clamp(160px, 18vh, 215px) !important;
+        max-height: clamp(160px, 18vh, 215px) !important;
+    }
+}
