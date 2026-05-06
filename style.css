@@ -464,18 +464,17 @@ body {
    ============================================ */
 @media (min-width: 1024px) {
     .homepage-container {
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: center; 
-        padding-top: 0vh; 
+        justify-content: center;
+        padding-top: clamp(55px, 9vh, 100px);
     }
-    
+
     .slider-section {
         width: 100%;
         height: auto;
         min-height: auto;
-        padding: 0; 
-        margin-top: -10vh;
+        padding: 0;
     }
     
     .slider-container {
@@ -529,40 +528,48 @@ body {
     }
     
     .card {
-        height: clamp(500px, 60vh, 680px);
+        height: clamp(450px, 54vh, 612px);
         width: 100%;
-        max-width: 380px;
+        max-width: 340px;
         flex-shrink: 0;
     }
-    
+
     .card-title {
-        padding: clamp(28px, 3.2vh, 40px) clamp(20px, 2.5vmin, 28px);
-        min-height: clamp(120px, 14vh, 170px);
+        padding: clamp(22px, 2.9vh, 34px) clamp(18px, 2.3vmin, 24px);
+        min-height: clamp(108px, 12.5vh, 148px);
     }
-    
+
     .card-title h2 {
-        font-size: clamp(26px, 3.4vh, 36px);
+        font-size: clamp(23px, 3vh, 32px);
         font-weight: 500;
         text-decoration-thickness: clamp(2px, 0.4vmin, 4px);
         text-underline-offset: clamp(2px, 0.4vmin, 4px);
         letter-spacing: 0.5px;
     }
-    
+
+    .slider-wrapper {
+        gap: clamp(16px, 2vw, 34px);
+    }
+
     .slider-dots {
         display: none !important;
     }
-    
+
     .bottom-logo {
-        bottom: 2vh !important; 
+        position: static !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        margin-top: clamp(12px, 1.5vh, 22px);
     }
-    
+
     .bottom-logo img {
-        max-width: clamp(180px, 20vh, 250px) !important;
-        max-height: clamp(180px, 20vh, 250px) !important;
+        max-width: clamp(162px, 18vh, 215px) !important;
+        max-height: clamp(162px, 18vh, 215px) !important;
     }
-    
+
     .card.logement .illustration-image {
-        transform: scale(1.05) translateY(clamp(35px, 4.5vh, 50px));
+        transform: scale(1.05) translateY(clamp(30px, 4vh, 45px));
     }
 }
 
@@ -571,16 +578,16 @@ body {
    ============================================ */
 @media (min-width: 1440px) {
     .slider-container {
-        max-width: 1600px;
+        max-width: 1440px;
     }
-    
+
     .card {
-        max-width: 420px;
-        height: clamp(550px, 65vh, 720px);
+        max-width: 375px;
+        height: clamp(495px, 58vh, 648px);
     }
-    
+
     .slider-wrapper {
-        gap: clamp(30px, 3vw, 50px);
+        gap: clamp(27px, 3vw, 45px);
     }
 }
 
@@ -657,38 +664,3 @@ body {
     }
 }
 
-/* ============================================
-   DESKTOP 1080p — Correction écrans Windows 1920×1080
-   Le site a été conçu sur Mac (~800px de haut).
-   Sur 1080p, les valeurs vh sont ~35% plus grandes.
-   Ce bloc ramène les tailles à l'équivalent visuel
-   de 90% de zoom, qui était le rendu correct.
-   ============================================ */
-@media (min-width: 1024px) and (min-height: 960px) {
-    .card {
-        height: clamp(480px, 54vh, 630px);
-        max-width: 340px;
-    }
-
-    .card-title {
-        padding: clamp(22px, 2.9vh, 34px) clamp(18px, 2.3vmin, 24px);
-        min-height: clamp(108px, 12.5vh, 148px);
-    }
-
-    .card-title h2 {
-        font-size: clamp(22px, 3vh, 32px);
-    }
-
-    .slider-section {
-        margin-top: -9vh;
-    }
-
-    .slider-wrapper {
-        gap: clamp(16px, 2vw, 34px);
-    }
-
-    .bottom-logo img {
-        max-width: clamp(160px, 18vh, 215px) !important;
-        max-height: clamp(160px, 18vh, 215px) !important;
-    }
-}
