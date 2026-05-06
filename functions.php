@@ -1966,6 +1966,42 @@ add_action('customize_register', 'customize_page_texte_settings');
 add_action('customize_register', 'rapport_annuel_customizer');
 
 /**
+ * Customizer pour la page Règlement
+ */
+function reglement_customizer($wp_customize) {
+
+    $wp_customize->add_section('reglement_section', array(
+        'title'       => 'Page Règlement',
+        'description' => 'Configuration de la page de visualisation du règlement',
+        'priority'    => 136,
+    ));
+
+    $wp_customize->add_setting('reglement_pdf_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'reglement_pdf_url', array(
+        'label'       => 'PDF du Règlement',
+        'section'     => 'reglement_section',
+        'settings'    => 'reglement_pdf_url',
+        'mime_type'   => 'application/pdf',
+        'description' => 'Cliquez sur "Téléverser" pour ajouter le PDF du règlement',
+    )));
+
+    $wp_customize->add_setting('reglement_retour_url', array(
+        'default'           => home_url('/foyer'),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('reglement_retour_url', array(
+        'label'       => 'URL du bouton Retour',
+        'section'     => 'reglement_section',
+        'type'        => 'url',
+        'description' => 'Page vers laquelle retourner quand on ferme le règlement',
+    ));
+}
+add_action('customize_register', 'reglement_customizer');
+
+/**
  * Customizer pour les liens légaux du footer
  */
 function foyer_footer_customize_register( $wp_customize ) {
