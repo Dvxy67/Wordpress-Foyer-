@@ -332,6 +332,111 @@ Template Name: Page Quartiers - Harmonisée
             .quartier-item:hover { background-color: #DFDFDF; }
             .quartier-item.selected:hover { background-color: #5b7ae6 !important; }
             .retour-button:hover { transform: scale(1.05); }
+            .search-result-item:hover { background-color: #DFDFDF; }
+        }
+
+        /* RECHERCHE PAR RUE */
+        .search-icon-btn {
+            background: none;
+            border: none !important;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            color: #000;
+            line-height: 1;
+            flex-shrink: 0;
+            box-shadow: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .search-input-wrapper {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .search-input {
+            flex: 1;
+            border: 2px solid #000 !important;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 15px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            outline: none !important;
+            background: #fff;
+            box-shadow: none !important;
+            color: #000;
+            min-width: 0;
+        }
+
+        .search-close-btn {
+            background: none;
+            border: none !important;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            padding: 4px;
+            line-height: 1;
+            flex-shrink: 0;
+            box-shadow: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .titre-section.search-mode .titre-text,
+        .titre-section.search-mode .search-icon-btn {
+            display: none;
+        }
+
+        .titre-section.search-mode {
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .titre-section.search-mode .search-input-wrapper {
+            display: flex;
+        }
+
+        .search-result-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 15px;
+            border-bottom: 2px solid #ebecf4 !important;
+            background: #fff;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-result-rue {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .search-result-quartier {
+            font-size: 19px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            letter-spacing: 0.5px;
+        }
+
+        .search-no-result {
+            padding: 30px 15px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: 0;
         }
     </style>
 
@@ -356,6 +461,15 @@ Template Name: Page Quartiers - Harmonisée
                         <?php endif; ?>
                     </div>
                     <h1 class="titre-text">J'HABITE À</h1>
+                    <button class="search-icon-btn" onclick="activateSearch()" aria-label="Rechercher par rue">🔍</button>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="rue-search" class="search-input"
+                               placeholder="Votre rue..."
+                               oninput="handleSearch(this.value)"
+                               autocomplete="off"
+                               aria-label="Rechercher une rue">
+                        <button class="search-close-btn" onclick="deactivateSearch()" aria-label="Fermer">✕</button>
+                    </div>
                 </div>
 
                 <!-- Zone scrollable des quartiers -->
@@ -430,21 +544,132 @@ Template Name: Page Quartiers - Harmonisée
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7/dist/fuse.min.js"></script>
+
+    <?php
+    // URLs des quartiers pour la recherche JS
+    $quartiers_for_js = get_quartiers_list();
+    $liens_for_js = function_exists('get_quartiers_links') ? get_quartiers_links() : array();
+    $quartiers_url_map = array();
+    foreach ($quartiers_for_js as $i => $q) {
+        $quartiers_url_map[strtolower(trim($q))] = isset($liens_for_js[$i]) ? $liens_for_js[$i] : '#';
+    }
+    ?>
     <script>
-        // JavaScript pour la sélection des quartiers
+        // Correspondances rues → quartiers
+        const ruesData = [
+            { rue: '8 Heures',            quartier: 'La Roue' },
+            { rue: 'Aurore',              quartier: 'Bon Air' },
+            { rue: 'Bonheur',             quartier: 'Bon Air' },
+            { rue: 'Bourgeois',           quartier: 'Bon Air' },
+            { rue: 'Citoyen',             quartier: 'La Roue' },
+            { rue: 'Colombophiles',       quartier: 'La Roue' },
+            { rue: 'Coudyser',            quartier: 'Bon Air' },
+            { rue: 'Craps',               quartier: 'Bon Air' },
+            { rue: 'Croix-Rouge',         quartier: 'Bon Air' },
+            { rue: 'Dignité',             quartier: 'Bon Air' },
+            { rue: "Droits de l'Homme",   quartier: 'La Roue' },
+            { rue: 'Energie',             quartier: 'La Roue' },
+            { rue: 'Enthousiasme',        quartier: 'Bon Air' },
+            { rue: 'Fécondité',           quartier: 'Bon Air' },
+            { rue: 'Fraternelle',         quartier: 'Bon Air' },
+            { rue: 'Grives',              quartier: 'La Roue' },
+            { rue: 'Guillaume Melckmans', quartier: 'La Roue' },
+            { rue: 'Hoorickx',            quartier: 'La Roue' },
+            { rue: 'Hygiène',             quartier: 'Bon Air' },
+            { rue: 'Itterbeek',           quartier: 'Bon Air' },
+            { rue: 'J. Lagey',            quartier: 'Bon Air' },
+            { rue: 'Loisirs',             quartier: 'La Roue' },
+            { rue: 'Loups',               quartier: 'La Roue' },
+            { rue: 'Modestie',            quartier: 'Bon Air' },
+            { rue: 'Mons',                quartier: 'La Roue' },
+            { rue: 'Muylders',            quartier: 'Bon Air' },
+            { rue: 'Nicodème',            quartier: 'Bon Air' },
+            { rue: 'Persévérance',        quartier: 'La Roue' },
+            { rue: 'Plébéiens',           quartier: 'La Roue' },
+            { rue: 'Salubrité',           quartier: 'Bon Air' },
+            { rue: 'Santé',               quartier: 'Bon Air' },
+            { rue: 'Séverine',            quartier: 'Bon Air' },
+            { rue: 'Société Nationale',   quartier: 'La Roue' },
+            { rue: 'Solidarité',          quartier: 'La Roue' },
+            { rue: 'Symbole',             quartier: 'La Roue' },
+            { rue: 'Tempérance',          quartier: 'Bon Air' },
+            { rue: 'Tranquilité',         quartier: 'La Roue' },
+            { rue: 'Volonté',             quartier: 'La Roue' },
+            { rue: 'Wauters',             quartier: 'La Roue' },
+        ];
+
+        const quartiersUrls = <?php echo json_encode($quartiers_url_map); ?>;
+
+        // Normalise accents et casse pour la recherche
+        function normalise(str) {
+            return str.toLowerCase()
+                      .normalize('NFD')
+                      .replace(/[̀-ͯ]/g, '')
+                      .replace(/['\-]/g, ' ');
+        }
+
+        // Ajoute une version normalisée à chaque rue pour Fuse
+        const ruesDataNorm = ruesData.map(item => ({
+            ...item,
+            rueNorm: normalise(item.rue)
+        }));
+
+        const fuse = new Fuse(ruesDataNorm, {
+            keys: ['rueNorm'],
+            threshold: 0.4,
+            minMatchCharLength: 2,
+        });
+
+        let originalListHTML = '';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            originalListHTML = document.querySelector('.quartiers-list').innerHTML;
+        });
+
+        function activateSearch() {
+            document.querySelector('.titre-section').classList.add('search-mode');
+            document.getElementById('rue-search').focus();
+        }
+
+        function deactivateSearch() {
+            document.querySelector('.titre-section').classList.remove('search-mode');
+            document.getElementById('rue-search').value = '';
+            document.querySelector('.quartiers-list').innerHTML = originalListHTML;
+        }
+
+        function handleSearch(query) {
+            const list = document.querySelector('.quartiers-list');
+
+            if (!query.trim()) {
+                list.innerHTML = originalListHTML;
+                return;
+            }
+
+            const results = fuse.search(normalise(query));
+
+            if (results.length === 0) {
+                list.innerHTML = '<li class="search-no-result">Aucune rue trouvée</li>';
+                return;
+            }
+
+            list.innerHTML = results.map(({ item }) => {
+                const url = quartiersUrls[item.quartier.toLowerCase()] || '#';
+                return `<li>
+                    <a href="${url}" class="search-result-item">
+                        <span class="search-result-rue">Rue ${item.rue}</span>
+                        <span class="search-result-quartier">→ ${item.quartier.toUpperCase()}</span>
+                    </a>
+                </li>`;
+            }).join('');
+        }
+
+        // Sélection des quartiers (comportement existant)
         function selectQuartier(element) {
-            // Enlever la sélection de tous les autres quartiers
-            var quartiers = document.querySelectorAll('.quartier-item');
-            quartiers.forEach(function(item) {
+            document.querySelectorAll('.quartier-item').forEach(function(item) {
                 item.classList.remove('selected');
             });
-
-            // Ajouter la sélection à l'élément cliqué
             element.classList.add('selected');
-
-            // Optionnel : faire quelque chose avec le quartier sélectionné
-            var quartierNom = element.dataset.quartier;
-            console.log('Quartier sélectionné:', quartierNom);
         }
     </script>
 
