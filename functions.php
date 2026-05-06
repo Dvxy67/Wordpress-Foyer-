@@ -2002,6 +2002,42 @@ function reglement_customizer($wp_customize) {
 add_action('customize_register', 'reglement_customizer');
 
 /**
+ * Customizer pour la page Entretien du Logement
+ */
+function entretien_logement_customizer($wp_customize) {
+
+    $wp_customize->add_section('entretien_section', array(
+        'title'       => 'Page Entretien du Logement',
+        'description' => 'Configuration de la page de visualisation du guide d\'entretien',
+        'priority'    => 137,
+    ));
+
+    $wp_customize->add_setting('entretien_pdf_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'entretien_pdf_url', array(
+        'label'       => 'PDF Entretien du Logement',
+        'section'     => 'entretien_section',
+        'settings'    => 'entretien_pdf_url',
+        'mime_type'   => 'application/pdf',
+        'description' => 'Cliquez sur "Téléverser" pour ajouter le PDF',
+    )));
+
+    $wp_customize->add_setting('entretien_retour_url', array(
+        'default'           => home_url('/foyer'),
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('entretien_retour_url', array(
+        'label'       => 'URL du bouton Retour',
+        'section'     => 'entretien_section',
+        'type'        => 'url',
+        'description' => 'Page vers laquelle retourner quand on ferme le document',
+    ));
+}
+add_action('customize_register', 'entretien_logement_customizer');
+
+/**
  * Customizer pour les liens légaux du footer
  */
 function foyer_footer_customize_register( $wp_customize ) {
