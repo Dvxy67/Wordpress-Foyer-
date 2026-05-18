@@ -456,6 +456,28 @@ $quartiers = [
         { rue: 'Tranquilité',         quartier: 'La Roue' },
         { rue: 'Volonté',             quartier: 'La Roue' },
         { rue: 'Wauters',             quartier: 'La Roue' },
+        // Nouvelles rues La Roue
+        { rue: 'Sympathie',           quartier: 'La Roue' },
+        { rue: 'Walcourt',            quartier: 'La Roue' },
+        { rue: 'Waxweiller',          quartier: 'La Roue' },
+        // Shakespeare
+        { rue: 'Aubergines',          quartier: 'Shakespeare' },
+        { rue: 'Caravelle',           quartier: 'Shakespeare' },
+        { rue: 'Corail',              quartier: 'Shakespeare' },
+        { rue: 'Rabelais',            quartier: 'Shakespeare' },
+        { rue: 'Pippenzijpe',         quartier: 'Shakespeare' },
+        { rue: 'Jean Josée',          quartier: 'Shakespeare' },
+        // Nouvelles rues Bon Air
+        { rue: 'Hof Ter Biest',       quartier: 'Bon Air' },
+        { rue: 'La Digue',            quartier: 'Bon Air' },
+        { rue: 'Manufacture',         quartier: 'Bon Air' },
+        { rue: 'Nieuwmolen',          quartier: 'Bon Air' },
+        // Gryzon
+        { rue: 'Béthanie',            quartier: 'Gryzon' },
+        { rue: 'Emile Gryzon',        quartier: 'Gryzon' },
+        { rue: 'Fraises',             quartier: 'Gryzon' },
+        // Orphelinat
+        { rue: 'Van Soust',           quartier: 'Orphelinat' },
     ];
 
     function normalise(str) {
