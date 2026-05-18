@@ -155,7 +155,9 @@ Template Name: Entretien du Logement - EmbedPDF Version
 
     <div class="pdf-fullscreen">
         <?php
-        $pdf_url = get_theme_mod('entretien_pdf_url', '');
+        $pdf_url_fr = get_theme_mod('entretien_pdf_url', '');
+        $pdf_url_nl = 'https://ardjea.dreamhosters.com/wp-content/uploads/2026/05/260224_FA_Guide_Essentiel_2026_NL_digital.pdf';
+        $pdf_url = (strpos(get_locale(), 'nl') === 0) ? $pdf_url_nl : $pdf_url_fr;
         if ($pdf_url) : ?>
 
             <div class="loading-message" id="loading">
