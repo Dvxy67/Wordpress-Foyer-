@@ -356,10 +356,12 @@ Template Name: Page Quartiers - Harmonisée
             align-items: center;
             gap: 6px;
             flex: 1;
+            min-width: 0;
         }
 
         .search-input {
             flex: 1;
+            width: 100%;
             border: 2px solid #000 !important;
             border-radius: 8px;
             padding: 6px 10px;

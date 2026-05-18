@@ -254,10 +254,12 @@ $quartiers = [
             align-items: center;
             gap: 6px;
             flex: 1;
+            min-width: 0;
         }
 
         .search-input {
             flex: 1;
+            width: 100%;
             border: 2px solid #000 !important;
             border-radius: 8px;
             padding: 6px 10px;
@@ -387,7 +389,7 @@ $quartiers = [
         </div>
 
         <div class="retour-section">
-            <a href="<?php echo esc_url(get_theme_mod('habitants_url_back', '/')); ?>" class="retour-button">
+            <a href="<?php echo esc_url(home_url('/habitants')); ?>" class="retour-button">
                 <span class="arrow">
                     <?php
                     $image_retour = get_theme_mod('quartiers_image_retour');
