@@ -83,11 +83,17 @@ $quartiers = [
         .titre-section {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             margin-bottom: 0px;
-            gap: 40px;
+            gap: 0;
             min-height: 60px;
             flex-shrink: 0;
+        }
+
+        .titre-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .immeuble-icon {
@@ -288,11 +294,11 @@ $quartiers = [
 
         .titre-section.search-mode {
             gap: 8px;
-            justify-content: flex-start;
         }
 
         .titre-section.search-mode .search-input-wrapper {
             display: flex;
+            flex: 1;
         }
 
         .search-result-item {
@@ -342,16 +348,18 @@ $quartiers = [
         <div class="quartiers-container">
 
             <div class="titre-section">
-                <div class="immeuble-icon">
-                    <?php
-                    $concierge_icone = get_theme_mod('concierge_image_icone');
-                    if ($concierge_icone) : ?>
-                        <img src="<?php echo esc_url($concierge_icone); ?>" alt="Concierge">
-                    <?php else : ?>
-                        <span class="emoji-fallback">🔑</span>
-                    <?php endif; ?>
+                <div class="titre-content">
+                    <div class="immeuble-icon">
+                        <?php
+                        $concierge_icone = get_theme_mod('concierge_image_icone');
+                        if ($concierge_icone) : ?>
+                            <img src="<?php echo esc_url($concierge_icone); ?>" alt="Concierge">
+                        <?php else : ?>
+                            <span class="emoji-fallback">🔑</span>
+                        <?php endif; ?>
+                    </div>
+                    <h1 class="titre-text">Mon<br>Concierge</h1>
                 </div>
-                <h1 class="titre-text">Mon<br>Concierge</h1>
                 <button class="search-icon-btn" onclick="activateSearch()" aria-label="Rechercher par rue">🔍</button>
                 <div class="search-input-wrapper">
                     <input type="text" id="rue-search" class="search-input"
