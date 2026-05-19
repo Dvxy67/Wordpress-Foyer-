@@ -164,7 +164,9 @@ Template Name: Règlement - EmbedPDF Version
     <!-- Container PDF -->
     <div class="pdf-fullscreen">
         <?php
-        $pdf_url = get_theme_mod('reglement_pdf_url', '');
+        $pdf_url_fr = get_theme_mod('reglement_pdf_url', '');
+        $pdf_url_nl = 'https://ardjea.dreamhosters.com/wp-content/uploads/2026/05/260128-FA_ROI-simplifie_NL.pdf';
+        $pdf_url = (strpos(get_locale(), 'nl') === 0) ? $pdf_url_nl : $pdf_url_fr;
         if ($pdf_url) : ?>
 
             <!-- Message de chargement -->
