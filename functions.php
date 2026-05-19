@@ -2073,44 +2073,69 @@ add_action( 'customize_register', 'foyer_footer_customize_register' );
  */
 function foyer_language_switcher() {
     ?>
-    <a href="#" id="foyer-lang-btn" class="foyer-lang-btn"></a>
+    <nav class="foyer-lang-wrap" aria-label="Sélecteur de langue">
+        <a href="#" id="foyer-lang-btn" class="foyer-lang-btn">
+            <span class="foyer-lang-current" aria-current="true"></span>
+            <span class="foyer-lang-sep" aria-hidden="true">|</span>
+            <span class="foyer-lang-target"></span>
+        </a>
+    </nav>
     <style>
-    .foyer-lang-btn {
+    .foyer-lang-wrap {
         position: fixed;
-        bottom: 22px;
+        top: 10px;
         right: 22px;
         z-index: 9999;
-        background: rgba(255, 255, 255, 0.88);
-        color: #000;
+    }
+    .foyer-lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
         font-family: 'Arial', sans-serif;
         font-size: 12px;
         font-weight: bold;
-        letter-spacing: 1px;
-        padding: 7px 14px;
+        letter-spacing: 1.5px;
+        padding: 7px 16px;
         border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
         text-decoration: none;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transition: background 0.2s ease, transform 0.2s ease;
         -webkit-tap-highlight-color: transparent;
     }
-    .foyer-lang-btn:hover {
-        opacity: 0.85;
-        transform: scale(1.05);
+    .foyer-lang-btn:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.05); }
+    .foyer-lang-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.8); outline-offset: 3px; }
+    /* Mobile : on cache la langue courante et le séparateur */
+    .foyer-lang-current, .foyer-lang-sep { display: none; }
+    /* Desktop : on affiche tout, langue courante en plus discret */
+    @media (min-width: 481px) {
+        .foyer-lang-current, .foyer-lang-sep { display: inline; }
+        .foyer-lang-current { opacity: 0.4; font-weight: normal; }
     }
     </style>
     <script>
     (function() {
         var btn = document.getElementById('foyer-lang-btn');
-        var path = window.location.pathname;
+        var currentSpan = btn.querySelector('.foyer-lang-current');
+        var targetSpan  = btn.querySelector('.foyer-lang-target');
+        var path   = window.location.pathname;
         var search = window.location.search;
-        var isNL = path === '/nl' || path.indexOf('/nl/') === 0;
+        var isNL   = path === '/nl' || path.indexOf('/nl/') === 0;
 
         if (isNL) {
             btn.href = path.replace(/^\/nl(\/|$)/, '/') + search;
-            btn.textContent = 'FR';
+            btn.setAttribute('aria-label', 'Passer en français');
+            currentSpan.textContent = 'NL';
+            targetSpan.textContent  = 'FR';
         } else {
             btn.href = '/nl' + path + search;
-            btn.textContent = 'NL';
+            btn.setAttribute('aria-label', 'Schakelen naar het Nederlands');
+            currentSpan.textContent = 'FR';
+            targetSpan.textContent  = 'NL';
         }
     })();
     </script>
