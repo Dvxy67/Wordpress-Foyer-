@@ -2067,3 +2067,53 @@ function foyer_footer_customize_register( $wp_customize ) {
     }
 }
 add_action( 'customize_register', 'foyer_footer_customize_register' );
+
+/**
+ * Bouton de changement de langue (FR ↔ NL)
+ */
+function foyer_language_switcher() {
+    ?>
+    <a href="#" id="foyer-lang-btn" class="foyer-lang-btn"></a>
+    <style>
+    .foyer-lang-btn {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.88);
+        color: #000;
+        font-family: 'Arial', sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        padding: 7px 14px;
+        border-radius: 20px;
+        text-decoration: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .foyer-lang-btn:hover {
+        opacity: 0.85;
+        transform: scale(1.05);
+    }
+    </style>
+    <script>
+    (function() {
+        var btn = document.getElementById('foyer-lang-btn');
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var isNL = path === '/nl' || path.indexOf('/nl/') === 0;
+
+        if (isNL) {
+            btn.href = path.replace(/^\/nl(\/|$)/, '/') + search;
+            btn.textContent = 'FR';
+        } else {
+            btn.href = '/nl' + path + search;
+            btn.textContent = 'NL';
+        }
+    })();
+    </script>
+    <?php
+}
+add_action('wp_footer', 'foyer_language_switcher');
